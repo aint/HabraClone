@@ -10,15 +10,14 @@ public class Hub implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, length = 11)
     private long id;
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
-    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
+    @Column(nullable = false)
     private String description;
-    @Column(name = "rating", nullable = false)
+    @Column
     private int rating;
-    @Column(name = "creation_date", columnDefinition = "DATETIME", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime creationDate;
     @OneToMany(mappedBy = "hub", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();

@@ -4,17 +4,20 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "Comment")
+@NamedQueries({
+        @NamedQuery(name = "getAllCommentsOfUser", query = "FROM Comment c WHERE c.author = :author"),
+        @NamedQuery(name = "getLatestCommentOfUser", query = "FROM Comment com WHERE com.creationDate = (SELECT MAX(c.creationDate) FROM Comment c WHERE c.author = :author)"),
+})
 public class Comment implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, length = 11)
     private long id;
-    @Column(name = "body", columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String body;
-    @Column(name = "rating", nullable = false)
+    @Column
     private int rating;
-    @Column(name = "creation_date", columnDefinition = "DATETIME", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime creationDate;
     @ManyToOne
     private User author;

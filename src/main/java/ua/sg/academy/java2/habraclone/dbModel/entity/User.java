@@ -12,31 +12,30 @@ public class User implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, length = 11)
     private long id;
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String userName;
-    @Column(name = "full_name")
+    @Column
     private String fullName;
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
-    @Column(name = "rating", nullable = false)
+    @Column
     private int rating;
-    @Column(name = "admin", nullable = false)
+    @Column
     private boolean admin;
-    @Column(name = "activated", nullable = false)
+    @Column
     private boolean activated;
-    @Column(name = "birthday", columnDefinition = "DATETIME")
+    @Column
     private LocalDate birthday;
-    @Column(name = "last_login_time", columnDefinition = "DATETIME", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime lastLoginTime;
-    @Column(name = "registration_date", columnDefinition = "DATETIME", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime registrationDate;
-    @Column(name = "ban_expiration_date", columnDefinition = "DATETIME")
+    @Column
     private LocalDateTime banExpirationDate;
-    @Column(name = "language", nullable = false)
+    @Column
     private Language language = DEFAULT_LANGUAGE;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();

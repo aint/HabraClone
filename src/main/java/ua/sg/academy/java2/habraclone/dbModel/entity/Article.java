@@ -6,25 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Article")
+@NamedQueries({
+        @NamedQuery(name = "getAllArticlesOfUser", query = "FROM Article a WHERE a.author = :author"),
+        @NamedQuery(name = "getLatestArticleOfUser", query = "FROM Article art WHERE art.creationDate = (SELECT MAX(a.creationDate) FROM Article a WHERE a.author = :author)"),
+})
 public class Article implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, length = 11)
     private long id;
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
     private String title;
-    @Column(name = "preview", columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String preview;
-    @Column(name = "body", columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String body;
-    @Column(name = "rating", nullable = false)
+    @Column
     private int rating;
-    @Column(name = "keywords")
+    @Column
     private String keywords;
-    @Column(name = "views", nullable = false)
+    @Column
     private int views;
-    @Column(name = "creation_date", columnDefinition = "DATETIME", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime creationDate;
     @ManyToOne
     private User author;
