@@ -37,7 +37,7 @@ public class User implements IEntity {
     private LocalDateTime banExpirationDate;
     @Column
     private Language language = DEFAULT_LANGUAGE;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();

@@ -8,8 +8,6 @@ public interface GeneralDao {
 
     IEntity getById(long id);
 
-    List<IEntity> getAll();
-
     void save(IEntity entity);
 
     void update(IEntity entity);
@@ -17,5 +15,7 @@ public interface GeneralDao {
     void delete(IEntity entity);
 
     void deleteById(long id);
+
+    List<? extends IEntity> getAll();
 
 }

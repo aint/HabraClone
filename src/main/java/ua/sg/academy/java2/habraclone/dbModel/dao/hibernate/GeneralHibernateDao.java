@@ -23,13 +23,6 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     }
 
     @Override
-    public List<IEntity> getAll() {
-        return getSession()
-                .createCriteria(persistentClass)
-                .list();
-    }
-
-    @Override
     public void save(IEntity entity) {
         getSession().save(entity);
     }
@@ -50,6 +43,13 @@ public abstract class GeneralHibernateDao implements GeneralDao {
                 .createQuery("DELETE " + persistentClass.getName() + " e WHERE e.id = ?")
                 .setLong(0, id)
                 .executeUpdate();
+    }
+
+    @Override
+    public List<? extends IEntity> getAll() {
+        return getSession()
+                .createCriteria(persistentClass)
+                .list();
     }
 
     public void flush() {
