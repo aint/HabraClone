@@ -8,8 +8,8 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><fmt:message key="users.title" /></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/users.css" />
 </head>

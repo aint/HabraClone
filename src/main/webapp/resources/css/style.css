@@ -1,0 +1,137 @@
+h1 {
+    margin:150px auto 40px auto;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+    margin:60px auto 30px auto;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+#modal_trigger {
+    margin:40px auto 0px auto;
+    width:100px;
+    display:block;
+}
+#modal_trigger_r {
+    margin:20px auto 0px auto;
+    width:100px;
+    display:block;
+}
+
+body {
+    background-image:
+            url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');
+}
+
+.command_btns {
+    width:15%;
+    margin-left: auto;
+    margin-right: auto;
+    clear:both;
+    overflow: hidden;
+}
+
+.action_btns {
+    width:45%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    clear:both;
+    overflow: hidden;
+}
+
+.deleteButton {
+    padding:10px 20px;
+    background: #FAFAD2;
+    text-align: center;
+    width: 80px;
+    clear:both;
+    overflow: hidden;
+}
+
+.btn {
+    padding:10px 20px;
+    background: #FAFAD2;
+}
+.btn_red {
+    background: #ED6347;
+    color: #FFF;
+}
+
+.btn:hover {background: #F0E68C;}
+.btn_red:hover {background: #C12B05;}
+
+a.btn {color:#666; text-align: center; text-decoration: none;}
+
+
+/* User Login Form */
+.user_login  {
+    display:  none;
+}
+
+.user_login label  {
+    display:  block;
+    margin-bottom: 5px;
+}
+
+.user_login input[type="text"],  .user_login input[type="email"],  .user_login input[type="password"]  {
+    display:  block;
+    width: 90%;
+    padding:  10px;
+    border: 1px solid #DDD;
+    color: #666;
+}
+
+
+/* User Register Form */
+.user_register  {
+    display:  none;
+}
+
+.user_register label  {
+    display:  block;
+    margin-bottom: 5px;
+}
+
+.user_register input[type="text"],  .user_register input[type="email"],  .user_register input[type="password"]  {
+    display:  block;
+    width: 90%;
+    padding:  10px;
+    border: 1px solid #DDD;
+    color: #666;
+}
+
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+.popupContainer{
+    position:absolute;
+    width:330px;
+    height: auto;
+    left:45%;
+    top:80px;
+    background: #FFF;
+}
+
+.popupHeader {font-size:16px; text-transform: uppercase;}
+.popupHeader {background:#F4F4F2; position:relative; padding:10px 20px; border-bottom:1px solid #DDD; font-weight:bold;}
+.popupHeader .modal_close {position: absolute; right: 0; top:0; padding:10px 15px; background:#E4E4E2; cursor: pointer; color:#aaa; font-size:16px;}
+
+.popupBody {padding:20px;}
+
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
+

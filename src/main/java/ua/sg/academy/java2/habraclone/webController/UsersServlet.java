@@ -27,8 +27,7 @@ public class UsersServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HibernateConnectionFactory.getSessionFactory().getCurrentSession().beginTransaction();
-        UserDao userDao = HibernateDaoFactory.getUserDao();
-        List<User> users = (List<User>) userDao.getAll();
+        List<User> users = (List<User>) HibernateDaoFactory.getUserDao().getAll();
         HibernateConnectionFactory.getSessionFactory().getCurrentSession().getTransaction().commit();
 
         users.sort((u1, u2) -> u2.getRating() - u1.getRating());
@@ -39,7 +38,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
 }

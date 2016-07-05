@@ -45,10 +45,18 @@ public class User implements IEntity {
     public User() {
     }
 
-    public User(String email, String password, String userName) {
+    public User(String email, String userName, String password) {
         this.email = email;
-        this.password = password;
         this.userName = userName;
+        this.password = password;
+    }
+
+    public User(String email, String userName, String password, LocalDateTime lastLoginTime, LocalDateTime registrationDate) {
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.lastLoginTime = lastLoginTime;
+        this.registrationDate = registrationDate;
     }
 
     @Override
