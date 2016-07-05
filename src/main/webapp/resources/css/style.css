@@ -1,32 +1,32 @@
-h1 {
-    margin:150px auto 40px auto;
-    display: block;
-    text-align: center;
-    font-weight: bold;
-}
+/*h1 {*/
+    /*margin:150px auto 40px auto;*/
+    /*display: block;*/
+    /*text-align: center;*/
+    /*font-weight: bold;*/
+/*}*/
 
-h2 {
-    margin:60px auto 30px auto;
-    display: block;
-    text-align: center;
-    font-weight: bold;
-}
+/*h2 {*/
+    /*margin:60px auto 30px auto;*/
+    /*display: block;*/
+    /*text-align: center;*/
+    /*font-weight: bold;*/
+/*}*/
 
 #modal_trigger {
-    margin:40px auto 0px auto;
+    margin:auto;
     width:100px;
-    display:block;
+    display:inline-block;
 }
 #modal_trigger_r {
-    margin:20px auto 0px auto;
+    margin:auto;
     width:100px;
-    display:block;
+    display:inline-block;
 }
 
-body {
-    background-image:
-            url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');
-}
+/*body {*/
+    /*background-image:*/
+            /*url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');*/
+/*}*/
 
 .command_btns {
     width:15%;

@@ -1,0 +1,397 @@
+.container {
+    width: 70%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 120px;
+    max-width: 1260px;
+    min-width: 780px;
+    background: #FFF;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.fonts-loaded .page-header__title {
+    font-family: 'Fira Sans',sans-serif;
+    font-weight: 500;
+}
+.page-header__form-selector, .page-header__title_inline {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+}
+.page-header_inline {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.page-header__title {
+    line-height: 70px;
+    font-size: 34px;
+    font-weight: 700;
+    font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
+    color: #535353;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+element {
+}
+
+h1 {
+    font-size: 20px;
+}
+h1, h2, h3, h4 {
+    color: #999;
+    font-family: Verdana,sans-serif;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-style: normal;
+    vertical-align: baseline;
+    outline: 0;
+}
+.page-header {
+    height: 70px;
+    white-space: nowrap;
+}
+#layout {
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+    border: 0;
+    background-color: #fff;
+    padding: 0;
+    min-width: 1024px;
+    max-width: 1440px;
+    min-height: 100%;
+    text-align: left;
+}
+
+#layout, body, html {
+    height: 100%;
+}
+
+body {
+    text-align: center;
+    color: #000;
+    font-family: Verdana,sans-serif;
+    background-image: url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');
+}
+
+body, pre code {
+    font-size: 12px;
+}
+
+.tabs {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+
+.tabs-menu_habrahabr {
+    background-color: #f2f2f2;
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+    max-width: 100%;
+}
+.tabs-menu {
+    position: relative;
+}
+.tabs-menu__item_inline {
+    width: 17%;
+    display: table-cell;
+    vertical-align: top;
+}
+.tabs-menu * {
+    box-sizing: border-box;
+}
+
+.tab-item {
+    overflow: hidden;
+    padding: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    color: #555;
+    border-right: 1px solid #e5e5e5;
+    font-size: 13px;
+}
+
+a {
+    text-decoration: none;
+    color: #6da3bd;
+}
+
+.tabs-menu__item:last-child .tab-item {
+    border-right: 0;
+}
+a.tab-item_current {
+    border-right: 0;
+    background-color: #cee0e6;
+}
+
+.counter_new {
+    color: #629729;
+}
+
+.abuse-form, .abuse-form__button, .abuse-form__text-field, .author-info, .menu, .post-type, .profile-header__stats, .tabs-menu, .user-popover, .user-summary__counters {
+    font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
+}
+
+
+
+
+.page-nav {
+    font-family: Tahoma,sans-serif;
+}
+.page-nav #nav-pages {
+    clear: left;
+    padding-top: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+.page-nav ul.next-prev {
+    overflow: hidden;
+    font-size: 24px;
+}
+
+.page-nav ul.next-prev li {
+    float: left;
+    margin-right: 15px;
+}
+
+.page-nav #nav-pages li {
+    float: left;
+    margin-right: 5px;
+}
+
+.page-nav #nav-pages li em {
+    background: #7a9bac;
+    color: #fff;
+}
+.page-nav #nav-pages li a, .page-nav #nav-pages li em {
+    display: block;
+    padding: 2px 5px;
+}
+
+
+
+
+
+
+.postinfo-panel {
+    font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
+    margin: 0;
+    display: inline-block;
+    border: 1px solid #ebeaea;
+    height: 40px;
+    width: auto;
+    position: relative;
+    background: #fff;
+}
+.postinfo-panel, .yadir-footer {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navigation-links, .post-share, .postinfo-panel, .sidebar-block__list, .user-contacts, ol, ul {
+    list-style: none;
+}
+
+.postinfo-panel__item {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+}
+.postinfo-panel * {
+    box-sizing: border-box;
+}
+
+.voting-wjt.voting-wjt_infopanel {
+    padding: 0 5px;
+    border-right: 1px solid #ebeaea;
+}
+.voting-wjt {
+    padding: 0;
+    text-align: left;
+    height: 100%;
+}
+.abuse-form__button, .abuse__button, .favorite-wjt__button, .voting-wjt__button {
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+.voting-wjt__button_minus, .voting-wjt__button_plus {
+    height: 100%;
+    width: auto;
+    padding: 0 7px;
+    margin: 0;
+    overflow: hidden;
+    font-size: 16px;
+    color: #c7d4d8;
+}
+.voting-wjt__button_minus, .voting-wjt__button_plus, .voting-wjt__counter {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.views-count_post {
+    white-space: nowrap;
+    padding: 0 5px 0 15px;
+    font-size: 13px;
+    color: #545454;
+}
+.favorite-wjt__counter, .post-comments, .views-count_post {
+    height: 100%;
+    line-height: 38px;
+}
+
+.postinfo-panel__item + .postinfo-panel__item {
+    margin-left: -4px;
+}
+.postinfo-panel__item {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+}
+
+.favorite-wjt {
+    padding: 0 5px 0 0;
+    height: 100%;
+}
+
+.favorite-wjt__button {
+    height: 100%;
+    padding: 0 8px 0 10px;
+    color: #bac8cc;
+    font-size: 13px;
+}
+
+.favorite-wjt__counter {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -4px;
+    text-align: left;
+    font-size: 13px;
+    color: #545454;
+    min-width: .65em;
+}
+
+.postinfo-panel__item + .postinfo-panel__item {
+    margin-left: -4px;
+}
+.post-author, .post-author_original {
+    padding-left: 10px;
+    line-height: 38px;
+}
+.postinfo-panel__item {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+}
+.post-author__link, .post-author__name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #66a3be;
+}
+
+.post-author__pic_default {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+
+.postinfo-panel__item_comments .post-comments {
+    border-left: 1px solid #ebeaea;
+    margin-left: 20px;
+    padding: 0 15px;
+}
+.post-comments {
+    text-align: center;
+    padding: 0 10px;
+}
+.favorite-wjt__counter, .post-comments, .views-count_post {
+    height: 100%;
+    line-height: 38px;
+}
+
+.postinfo-panel__item_comments .post-comments__link {
+    font-weight: 700;
+    color: #6da3bd;
+}
+.post-comments__link {
+    font-size: 13px;
+    font-weight: 400;
+    color: #545454;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+
+
+
+.post__time_published {
+    display: inline-block;
+    vertical-align: baseline;
+    color: #7e7e7e;
+    font-size: 11px;
+    margin-bottom: 2px;
+}
+.fonts-loaded .post__flow, .fonts-loaded .post__title, .fonts-loaded .post__title_link {
+    font-family: 'Fira Sans',sans-serif;
+    font-weight: 500;
+}
+.post__title {
+    margin-bottom: 5px;
+}
+.post__title, .post__title_link {
+    color: #555;
+}
+.post__flow, .post__title, .post__title_link {
+    line-height: 34px;
+    font-size: 28px;
+    font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+h2 {
+    font-size: 18px;
+}
+h1, h2, h3, h4 {
+    color: #999;
+    font-family: Verdana,sans-serif;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+}
+
+.post .hubs {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 15px;
+    position: relative;
+    padding: 0 0 0 20px;
+}
+
+
