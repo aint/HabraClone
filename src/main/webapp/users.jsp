@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="/WEB-INF/tld/habraclone.tld" prefix="habraclone" %>
 
 <fmt:setLocale value="${pageContext.response.locale}" scope="session" />
 
@@ -62,8 +63,7 @@
                                 <c:if test="${fn:length(user.articles) ne 0}">
                                     <div class="last_post">
                                         <fmt:message key="users.label.latest_article" />
-                                        <%--<jblog:linkToLatestArticle user="${user}" />--%>
-                                        <a href="/articles/1" class="grey">Стаття 1. Як написати хабр на жабі</a>
+                                        <habraclone:linkToLatestArticle user="${user}" />
                                     </div>
                                 </c:if>
                             </div>
