@@ -49,6 +49,7 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     public List<? extends IEntity> getAll() {
         return getSession()
                 .createCriteria(persistentClass)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 

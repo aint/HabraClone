@@ -10,6 +10,10 @@
     text-align: left;
 }
 
+.html_format {
+    white-space: pre-wrap;
+}
+
 .fonts-loaded .page-header__title {
     font-family: 'Fira Sans',sans-serif;
     font-weight: 500;
@@ -39,8 +43,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-element {
-}
 
 h1 {
     font-size: 20px;

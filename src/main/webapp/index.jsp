@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <fmt:setLocale value="${pageContext.response.locale}" scope="session" />
 
@@ -23,70 +25,7 @@
         <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
     </div>
 
-    <div style="text-align: center;">
-        <span style="color: red;">
-            ${error_msg}
-        </span>
-        <a id="modal_trigger" href="#modal_log" class="btn">Login</a>
-
-        <a id="modal_trigger_r" href="#modal_reg" class="btn">Register</a>
-    </div>
-
-    <div id="modal_log" class="popupContainer" style="display:none;">
-        <header class="popupHeader">
-            <span class="header_title">Login</span>
-            <span class="modal_close"><i class="fa fa-times"></i></span>
-        </header>
-
-        <section class="popupBody">
-            <div class="user_login">
-                <form name="loginForm" method="post" onsubmit="return validateLoginForm()">
-                    <label>Email</label>
-                    <input type="text" name="email" />
-                    <br />
-
-                    <label>Password</label>
-                    <input type="password" name="password" />
-                    <br />
-
-                    <input class="action_btns btn btn_red" name="log_button" type="submit" value="Login" />
-                </form>
-            </div>
-        </section>
-    </div>
-
-
-    <div id="modal_reg" class="popupContainer" style="display:none;">
-        <header class="popupHeader">
-            <span class="header_title">Register</span>
-            <span class="modal_close"><i class="fa fa-times"></i></span>
-        </header>
-
-        <section class="popupBody">
-            <div class="user_register">
-                <form name="regForm" method="post" onsubmit="return validateRegForm()">
-                    <label>Full Name</label>
-                    <input type="text" name="username" />
-                    <br />
-
-                    <label>Email Address</label>
-                    <input type="email" name="email" />
-                    <br />
-
-                    <label>Password</label>
-                    <input type="password" name="password" />
-                    <br />
-
-                    <input class="action_btns btn btn_red" name="log_button" type="submit" value="Register" />
-                </form>
-            </div>
-        </section>
-    </div>
-
-
-
-
-
+    <jsp:include page="header.jsp"/>
 
 
     <div class="page-header page-header_inline">
@@ -100,7 +39,7 @@
               <span class="tab-item__value">
                 Все підряд&nbsp;
                 <strong class="counter"></strong>
-                <strong class="counter_new">+34</strong>
+                <strong class="counter_new">+3</strong>
               </span>
                 </a>
             </li>
@@ -131,68 +70,35 @@
 
     <div class="posts_list">
         <div class="posts shortcuts_items">
-            <div class="post post_teaser shortcuts_item" id="post_304546">
+            <c:forEach items="${requestScope.ARTICLES}" var="article" varStatus="var">
+                <div class="post post_teaser shortcuts_item">
 
-                <div class="post__header">
-                    <span class="post__time_published">сегодня в 14:35</span>
+                    <div class="post__header">
+                        <span class="post__time_published"><c:out value="${fn:replace(article.creationDate, 'T', ' ')}" /></span>
 
-                    <h2 class="post__title">
-                        <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Разработка</a><span class="post__title-arrow">&nbsp;&rarr;</span>
-                        <a href="https://habrahabr.ru/company/intel/blog/304546/" class="post__title_link">ZigBee и Intel Edison: практика автоматизации переговорных комнат</a>
-                    </h2>
+                        <h2 class="post__title">
+                            <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
+                            <a href="/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
+                        </h2>
 
-                    <div class="hubs">
-                        <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Разработка для интернета вещей</a>,
-                        <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Программирование микроконтроллеров</a>,
-                        <a href="https://habrahabr.ru/company/intel/" class="hub ">Блог компании Intel</a>
+                        <div class="hubs">
+                            <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Test Hub 1</a>,
+                            <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Test Hub 2</a>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="post__body post__body_crop ">
-                    <div class="content html_format">Во многих организациях комнаты для переговоров используют неэффективно. У такого положения дел есть две основных причины. Первая заключается в том, что некто, забронировав переговорную, может ей и не воспользоваться в назначенное время. Вторая причина – встреча закончилась раньше, чем было запланировано, все разошлись, но об этом не знают те, кому комната пригодилась бы.<br/>
-                        <br/>
-                        <a href="https://habrahabr.ru/company/intel/blog/304546/"><div style="text-align:center;"><img src="https://habrastorage.org/files/54c/ea4/f72/54cea4f727c147d8bdd2f8073d56290f.jpg" /></div></a><br/>
-                        Мы создали интеллектуальную систему бронирования переговорных комнат (Smart Conference Room System, SCR) для того, чтобы помочь всем желающим с этими проблемами справиться.<br/>
+                    <div class="post__body post__body_crop ">
+                        <div class="content html_format"><c:out value="${article.preview}" /></div>
                     </div>
+
                 </div>
-
-            </div>
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <div class="post post_teaser shortcuts_item" id="post_304546">
-
-                <div class="post__header">
-                    <span class="post__time_published">сегодня в 14:35</span>
-
-                    <h2 class="post__title">
-                        <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Разработка</a><span class="post__title-arrow">&nbsp;&rarr;</span>
-                        <a href="https://habrahabr.ru/company/intel/blog/304546/" class="post__title_link">ZigBee и Intel Edison: практика автоматизации переговорных комнат</a>
-                    </h2>
-
-                    <div class="hubs">
-                        <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Разработка для интернета вещей</a>,
-                        <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Программирование микроконтроллеров</a>,
-                        <a href="https://habrahabr.ru/company/intel/" class="hub ">Блог компании Intel</a>
-                    </div>
-                </div>
-
-
-                <div class="post__body post__body_crop ">
-                    <div class="content html_format">Во многих организациях комнаты для переговоров используют неэффективно. У такого положения дел есть две основных причины. Первая заключается в том, что некто, забронировав переговорную, может ей и не воспользоваться в назначенное время. Вторая причина – встреча закончилась раньше, чем было запланировано, все разошлись, но об этом не знают те, кому комната пригодилась бы.<br/>
-                        <br/>
-                        <a href="https://habrahabr.ru/company/intel/blog/304546/"><div style="text-align:center;"><img src="https://habrastorage.org/files/54c/ea4/f72/54cea4f727c147d8bdd2f8073d56290f.jpg" /></div></a><br/>
-                        Мы создали интеллектуальную систему бронирования переговорных комнат (Smart Conference Room System, SCR) для того, чтобы помочь всем желающим с этими проблемами справиться.<br/>
-                    </div>
-                </div>
-
-            </div>
-
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </c:forEach>
         </div>
     </div>
 
