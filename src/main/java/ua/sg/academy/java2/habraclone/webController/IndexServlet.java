@@ -1,16 +1,17 @@
 package ua.sg.academy.java2.habraclone.webController;
 
-import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.dao.factory.HibernateDaoFactory;
 import ua.sg.academy.java2.habraclone.service.LoginService;
 import ua.sg.academy.java2.habraclone.service.util.HibernateConnectionFactory;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"", "/index"})
+//@WebServlet(urlPatterns = {"", "/index"})
 public class IndexServlet extends HttpServlet {
 
     private static final String ARTICLES_ATTRIBUTE = "ARTICLES";

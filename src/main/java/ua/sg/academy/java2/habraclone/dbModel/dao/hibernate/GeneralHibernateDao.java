@@ -2,19 +2,20 @@ package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Example;
-import org.hibernate.sql.Delete;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.GeneralDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.IEntity;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+@Repository
 @SuppressWarnings("unchecked")
 public abstract class GeneralHibernateDao implements GeneralDao {
 
     private Session session;
+    private SessionFactory sessionFactory;
     protected Class persistentClass;
 
     @Override
@@ -40,8 +41,8 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     @Override
     public void deleteById(long id) {
         getSession()
-                .createQuery("DELETE " + persistentClass.getName() + " e WHERE e.id = ?")
-                .setLong(0, id)
+                .createQuery("DELETE " + persistentClass.getName() + " e WHERE e.id = :id")
+                .setEntity("id", id)
                 .executeUpdate();
     }
 
@@ -66,10 +67,15 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     }
 
     protected Session getSession() {
+        session = sessionFactory.openSession();// getCurrentSession();
         if (session == null) {
             throw new IllegalStateException("Session has not been set on DAO before usage");
         }
         return session;
     }
 
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

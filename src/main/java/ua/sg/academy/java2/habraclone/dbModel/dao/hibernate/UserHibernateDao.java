@@ -1,11 +1,13 @@
 package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 
 import java.util.List;
 
+@Repository
 @SuppressWarnings("unchecked")
 public class UserHibernateDao extends GeneralHibernateDao implements UserDao {
 

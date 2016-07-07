@@ -2,11 +2,13 @@ package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.HubDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Hub;
 
 import java.util.List;
 
+@Repository
 @SuppressWarnings("unchecked")
 public class HubHibernateDao extends GeneralHibernateDao implements HubDao {
 

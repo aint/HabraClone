@@ -1,12 +1,14 @@
 package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 
 import org.hibernate.criterion.Order;
+import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 
 import java.util.List;
 
+@Repository
 @SuppressWarnings("unchecked")
 public class ArticleHibernateDao extends GeneralHibernateDao implements ArticleDao {
 

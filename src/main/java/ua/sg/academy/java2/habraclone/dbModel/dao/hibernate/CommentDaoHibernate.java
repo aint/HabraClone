@@ -1,5 +1,6 @@
 package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 
+import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.CommentDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
@@ -7,6 +8,7 @@ import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 
 import java.util.List;
 
+@Repository
 @SuppressWarnings("unchecked")
 public class CommentDaoHibernate extends GeneralHibernateDao implements CommentDao {
 
