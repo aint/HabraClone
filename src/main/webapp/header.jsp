@@ -19,7 +19,7 @@
 
         <c:otherwise>
             <div style="text-align: right; margin-right: 30px">
-                <form action="/index" method="post">
+                <form action="/logout" method="post">
                     <h3><fmt:message key="header.label.welcome_message" /> ${sessionScope.user_session}</h3>
                     <input class="command_btns btn" type="submit" name="log_button" value="Logout">
                 </form>
@@ -39,7 +39,7 @@
 
         <section class="popupBody">
             <div class="user_login">
-                <form action="/index" name="loginForm" method="post" onsubmit="return validateLoginForm()">
+                <form action="/login" name="loginForm" method="post" onsubmit="return validateLoginForm()">
                     <label>Email</label>
                     <input type="text" name="email" />
                     <br />
