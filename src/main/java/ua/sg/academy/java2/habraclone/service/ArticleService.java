@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
+import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class ArticleService {
             throw new IllegalArgumentException("Article id can't be negative or null");
         }
         return (Article) articleDao.getById(id);
+    }
+
+    public List<Comment> getCommentsOfArticle(Article article) {
+        return article.getComments();
     }
 
     @SuppressWarnings("unchecked")

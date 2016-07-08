@@ -14,6 +14,7 @@ public class ArticleController {
     private static final String ARTICLES_VIEW = "articles";
     private static final String ERROR_404 = "404";
     private static final String ARTICLE_ATTRIBUTE = "article";
+    private static final String COMMENTS_ATTRIBUTE = "comments";
 
     private final ArticleService articleService;
 
@@ -23,11 +24,12 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/{id}")
-    public String login(@PathVariable("id") Long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         Article article = articleService.getArticleById(id);
         if (article == null) {
             return ERROR_404;
         }
+        model.addAttribute(COMMENTS_ATTRIBUTE, articleService.getCommentsOfArticle(article));
         model.addAttribute(ARTICLE_ATTRIBUTE, article);
         return ARTICLES_VIEW;
     }

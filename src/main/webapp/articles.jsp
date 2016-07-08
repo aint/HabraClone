@@ -54,6 +54,47 @@
         </div>
     </div>
 
+    <h2 class="comment_title">
+        <fmt:message key="display_article.label.comments" /> (${fn:length(comments)})
+    </h2>
+    <c:choose>
+        <c:when test="${not empty comments}">
+            <c:forEach items="${comments}" var="comment">
+
+
+                <div class="info comments-list__item comment-item ">
+
+                    <span class="comment-item__user-info">
+                        <a href="/users/${comment.author.id}" class="comment-item__avatar">
+                            <img src="${pageContext.request.contextPath}/resources/images/user-icon.png">
+                        </a>
+                        <a href="/users/${comment.author.id}" class="comment-item__username">${comment.author.userName}</a>
+                    </span>
+
+                    <time class="comment-item__time_published">
+                        ${fn:replace(comment.creationDate, 'T', ' ')}
+                    </time>
+
+                    <div class="voting-wjt voting-wjt_comments">
+
+                        <div class="voting-wjt__counter ">
+                            <span class="voting-wjt__counter-score">${comment.rating}</span>
+                        </div>
+
+                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_plus" title="Голосовать могут только зарегистрированные пользователи"><span>↑</span></button>
+
+                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_minus" title="Голосовать могут только зарегистрированные пользователи"><span>↓</span></button>
+                    </div>
+                </div>
+
+                <div class="message html_format"><c:out value="${comment.body}" /></div>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <p><fmt:message key="display_article.label.have_no_comments" /></p>
+        </c:otherwise>
+    </c:choose>
+
 </div>
 
 </body>
