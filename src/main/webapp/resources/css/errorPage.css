@@ -1,0 +1,102 @@
+BODY{
+	background: white url("../images/errorPageBg.png");
+	padding-top: 0;
+	margin-top: 0;
+}
+PRE{
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+A{
+	color: #0055ee;
+	font-family: monospace;
+	text-decoration: none;
+}
+A:HOVER{
+	text-decoration: underline;
+}
+.toRight {
+	margin-left: 10px;
+	float: right;
+}
+
+.toLeft {
+	margin-right: 10px;
+	float: left;
+}
+
+DIV.menu {
+	border: 1px gray;
+	border-bottom-style: solid;
+	margin-bottom: 5px;
+	height: 25px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+DIV.message {
+	padding: 10px;
+	background-color: #e6ffe6;
+	border: 1px solid #80ff80;
+	margin-bottom: 5px; 
+}
+
+DIV.error {
+	padding: 10px;
+	background-color: #ffe6e6;
+	border: 1px solid #ff8080;
+	margin-bottom: 5px;
+}
+
+DIV.warning {
+	padding: 10px;
+	background-color: #fffee6;
+	border: 1px solid #ffc59e;
+	margin-bottom: 5px;
+}
+
+DIV.block {
+	border: 1px solid gray;
+	margin-bottom: 10px;
+}
+DIV.block DIV.head {
+	border-bottom: 1px solid gray;
+	background-color: #ededed;
+	padding-left: 5px; 
+	padding-right: 10px; 
+	height: 22px;
+}
+
+DIV.block DIV.body {   
+	padding: 5px;   
+	background-color: white;  
+}
+DIV.centerBlock{
+	text-align: center;
+	border: 1px solid gray;
+	width: 600px;
+	margin: 20% auto;
+}
+DIV.centerBlock DIV.head {
+	border-bottom: 1px solid gray;
+	background-color: #ededed;
+	padding: 5px 10px 5px 5px;
+}
+
+DIV.centerBlock DIV.body {   
+	padding: 20px;	
+	background-color: white;  
+}
+
+.total{
+	width: 100%;
+	height: 100%;
+}
+.pre{
+	white-space: pre;
+}
+.border{
+	padding-left: 5px;
+	border: 1px solid gray;
+}

@@ -5,6 +5,10 @@
 
 <fmt:setLocale value="${pageContext.response.locale}" scope="session" />
 
+    <div style="text-align: center">
+        <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
+    </div>
+
     <c:choose>
         <c:when test="${empty sessionScope.user_session}">
             <div style="text-align: center;">

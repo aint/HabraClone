@@ -21,9 +21,6 @@
 <body>
 
 <div class="container">
-    <div style="text-align: center">
-        <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
-    </div>
 
     <jsp:include page="header.jsp"/>
 

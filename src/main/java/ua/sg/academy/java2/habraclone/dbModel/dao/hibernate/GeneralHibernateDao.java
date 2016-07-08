@@ -20,7 +20,7 @@ public abstract class GeneralHibernateDao implements GeneralDao {
 
     @Override
     public IEntity getById(long id) {
-        return (IEntity) getSession().load(persistentClass, id);
+        return (IEntity) getSession().get(persistentClass, id);
     }
 
     @Override

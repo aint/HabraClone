@@ -1,4 +1,4 @@
-package ua.sg.academy.java2.habraclone.webController;
+package ua.sg.academy.java2.habraclone.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +25,13 @@ public class ArticleService {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:application-context.xml");
         ArticleService articleService = ctx.getBean(ArticleService.class);
         System.out.println(articleService.getAllArticles().size());
+    }
+
+    public Article getArticleById(Long id) {
+        if (id == null || id < 1) {
+            throw new IllegalArgumentException("Article id can't be negative or null");
+        }
+        return (Article) articleDao.getById(id);
     }
 
     @SuppressWarnings("unchecked")
