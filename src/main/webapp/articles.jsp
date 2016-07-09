@@ -14,6 +14,11 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.leanModal.min.js"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index_main.css" />
+
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/github.css" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
 </head>
 
 <body>
@@ -42,7 +47,7 @@
 
 
                 <div class="post__body post__body_crop ">
-                    <div class="content html_format"><c:out value="${article.body}" /></div>
+                    <div id="post_content" class="content html_format">${article.body}</div>
                 </div>
 
             </div>
@@ -96,6 +101,13 @@
     </c:choose>
 
 </div>
+
+<script type="text/javascript">
+    $("body").children().each(function () {
+        $(this).html( $(this).html().replace(/@pre-code@/g,"<pre><code>") );
+        $(this).html( $(this).html().replace(/@code-pre@/g,"</code></pre>") );
+    });
+</script>
 
 </body>
 </html>
