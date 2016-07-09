@@ -1,3 +1,18 @@
+body {
+    text-align: center;
+    color: #000;
+    font-family: Verdana,sans-serif;
+    background-image: url('../images/background.png');
+}
+
+body, pre code {
+    font-size: 12px;
+}
+
+.div_centred {
+    text-align: center;
+}
+
 .container {
     width: 70%;
     padding-left: 20px;
@@ -148,10 +163,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     vertical-align: baseline;
     outline: 0;
 }
-.page-header {
-    height: 70px;
-    white-space: nowrap;
-}
+
 #layout {
     height: auto;
     position: relative;
@@ -167,17 +179,6 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
 #layout, body, html {
     height: 100%;
-}
-
-body {
-    text-align: center;
-    color: #000;
-    font-family: Verdana,sans-serif;
-    background-image: url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');
-}
-
-body, pre code {
-    font-size: 12px;
 }
 
 .tabs {

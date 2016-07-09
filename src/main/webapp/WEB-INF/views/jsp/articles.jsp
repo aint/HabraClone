@@ -9,7 +9,7 @@
     <title><fmt:message key="articles.title" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
-    <script type="text/javascript"src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.leanModal.min.js"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -32,11 +32,11 @@
             <div class="post post_teaser shortcuts_item">
 
                 <div class="post__header">
-                    <span class="post__time_published"><c:out value="${fn:replace(article.creationDate, 'T', ' ')}" /></span>
+                    <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}"</span>
 
                     <h2 class="post__title">
                         <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
-                        <a href="/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
+                        <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
                     </h2>
 
                     <div class="hubs">
@@ -47,7 +47,7 @@
 
 
                 <div class="post__body post__body_crop ">
-                    <div id="post_content" class="content html_format">${article.body}</div>
+                    <div id="post_content" class="content html_format"><c:out value="${article.body}" /></div>
                 </div>
 
             </div>
@@ -70,10 +70,10 @@
                 <div class="info comments-list__item comment-item ">
 
                     <span class="comment-item__user-info">
-                        <a href="/users/${comment.author.id}" class="comment-item__avatar">
+                        <a href="${pageContext.request.contextPath}/users/${comment.author.userName}" class="comment-item__avatar">
                             <img src="${pageContext.request.contextPath}/resources/images/user-icon.png">
                         </a>
-                        <a href="/users/${comment.author.id}" class="comment-item__username">${comment.author.userName}</a>
+                        <a href="${pageContext.request.contextPath}/users/${comment.author.userName}" class="comment-item__username">${comment.author.userName}</a>
                     </span>
 
                     <time class="comment-item__time_published">
@@ -96,7 +96,9 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p><fmt:message key="display_article.label.have_no_comments" /></p>
+            <div class="message">
+                <fmt:message key="display_article.label.have_no_comments" />
+            </div>
         </c:otherwise>
     </c:choose>
 

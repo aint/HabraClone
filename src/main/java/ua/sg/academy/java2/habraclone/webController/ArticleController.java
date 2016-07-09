@@ -24,8 +24,8 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        Article article = articleService.getArticleById(id);
+    public String showArticleWithComments(@PathVariable("id") Long id, Model model) {
+        Article article = (Article) articleService.getById(id);
         if (article == null) {
             return ERROR_404;
         }

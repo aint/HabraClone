@@ -23,11 +23,6 @@
     display:inline-block;
 }
 
-/*body {*/
-    /*background-image:*/
-            /*url('http://cdn.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');*/
-/*}*/
-
 .command_btns {
     width:15%;
     margin-left: auto;
@@ -57,6 +52,7 @@
 .btn {
     padding:10px 20px;
     background: #FAFAD2;
+    font-size: 12px;
 }
 .btn_red {
     background: #ED6347;
@@ -66,7 +62,11 @@
 .btn:hover {background: #F0E68C;}
 .btn_red:hover {background: #C12B05;}
 
-a.btn {color:#666; text-align: center; text-decoration: none;}
+a.btn {
+    color:#666;
+    text-align: center;
+    text-decoration: none;
+}
 
 
 /* User Login Form */

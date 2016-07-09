@@ -5,13 +5,13 @@
 
 <fmt:setLocale value="${pageContext.response.locale}" scope="session" />
 
-    <div style="text-align: center">
+    <div class="div_centred">
         <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
     </div>
 
     <c:choose>
         <c:when test="${empty sessionScope.user_session}">
-            <div style="text-align: center;">
+            <div class="div_centred">
                 <span style="color: red;">
                     ${error_msg}<br>
                 </span>
@@ -23,7 +23,7 @@
 
         <c:otherwise>
             <div style="text-align: right; margin-right: 30px">
-                <form action="/logout" method="post">
+                <form action="${pageContext.request.contextPath}/logout" method="post">
                     <h3><fmt:message key="header.label.welcome_message" /> ${sessionScope.user_session}</h3>
                     <input class="command_btns btn" type="submit" name="log_button" value="Logout">
                 </form>
@@ -43,7 +43,7 @@
 
         <section class="popupBody">
             <div class="user_login">
-                <form action="/login" name="loginForm" method="post" onsubmit="return validateLoginForm()">
+                <form action="${pageContext.request.contextPath}/login" name="loginForm" method="post" onsubmit="return validateLoginForm()">
                     <label>Email</label>
                     <input type="text" name="email" />
                     <br />
@@ -67,7 +67,7 @@
 
         <section class="popupBody">
             <div class="user_register">
-                <form action="/index" name="regForm" method="post" onsubmit="return validateRegForm()">
+                <form action="${pageContext.request.contextPath}/" name="regForm" method="post" onsubmit="return validateRegForm()">
                     <label>Full Name</label>
                     <input type="text" name="username" />
                     <br />

@@ -3,8 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<fmt:setLocale value="${pageContext.response.locale}" scope="session" />
-
 <html>
 
 <head>
@@ -71,11 +69,11 @@
                 <div class="post post_teaser shortcuts_item">
 
                     <div class="post__header">
-                        <span class="post__time_published"><c:out value="${fn:replace(article.creationDate, 'T', ' ')}" /></span>
+                        <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}</span>
 
                         <h2 class="post__title">
                             <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
-                            <a href="/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
+                            <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
                         </h2>
 
                         <div class="hubs">

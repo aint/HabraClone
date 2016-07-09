@@ -1,7 +1,7 @@
 package ua.sg.academy.java2.habraclone.webController;
 
 import ua.sg.academy.java2.habraclone.dbModel.dao.factory.HibernateDaoFactory;
-import ua.sg.academy.java2.habraclone.service.LoginService;
+import ua.sg.academy.java2.habraclone.service.transactional.LoginService;
 import ua.sg.academy.java2.habraclone.service.util.HibernateConnectionFactory;
 
 import javax.servlet.ServletException;

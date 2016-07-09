@@ -1,4 +1,4 @@
-package ua.sg.academy.java2.habraclone.service;
+package ua.sg.academy.java2.habraclone.service.transactional;
 
 import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
 import ua.sg.academy.java2.habraclone.dbModel.dao.factory.HibernateDaoFactory;
