@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title><fmt:message key="articles.title" /></title>
+    <title><c:out value="${article.title}" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <h2 class="comment_title">
+    <h2 class="comment_title div_centred">
         <fmt:message key="display_article.label.comments" /> (${fn:length(comments)})
     </h2>
     <c:choose>
@@ -96,11 +96,21 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <div class="message">
+            <div class="message no_comments_yet">
                 <fmt:message key="display_article.label.have_no_comments" />
             </div>
         </c:otherwise>
     </c:choose>
+
+    <div class="comment_title"><fmt:message key="display_article.label.leave_comment" /> </div>
+    <form action="${pageContext.request.contextPath}/add-comment" method="post">
+        <div class="comment_editor">
+            <textarea cols="30" rows="10" name="comment_body" class="comment_body"></textarea>
+        </div>
+        <input type="submit" class="submit_comment" disabled="disabled" value="Написать">
+        <input type="hidden" name="article_id" value="${article.id}">
+        <input type="hidden" name="user_email" value="${sessionScope.user_session}">
+    </form>
 
 </div>
 
@@ -108,6 +118,14 @@
     $("body").children().each(function () {
         $(this).html( $(this).html().replace(/@pre-code@/g,"<pre><code>") );
         $(this).html( $(this).html().replace(/@code-pre@/g,"</code></pre>") );
+    });
+
+    $(".comment_body").on('input', function() {
+        if ($(this).val().length > 0) {
+            $(".submit_comment").removeAttr('disabled');
+        } else {
+            $(".submit_comment").attr("disabled", "disabled");
+        }
     });
 </script>
 

@@ -8,6 +8,8 @@ public interface UserService extends EntityService {
 
     List<User> getAllUsersSortedAscByRating();
 
+    User getByEmail(String email);
+
     boolean login(String email, String password);
 
     boolean register(String username, String email, String password);

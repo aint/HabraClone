@@ -28,6 +28,11 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
+    public User getByEmail(String email) {
+        return getDao().getByEmail(email);
+    }
+
+    @Override
     public boolean login(String email, String password) {
         User user = getDao().getByEmail(email);
         return user != null && user.getPassword().equalsIgnoreCase(password);

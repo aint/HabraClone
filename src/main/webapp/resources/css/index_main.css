@@ -35,7 +35,6 @@ body, pre code {
 
 
 .comment_title {
-    text-align: center;
     color: #AFA56A;
     margin-bottom: 20px;
     font-size: 22px;
@@ -481,5 +480,56 @@ h1, h2, h3, h4, h5 {
     position: relative;
     padding: 0 0 0 20px;
 }
-
+.comment_editor {
+    width: 60%;
+    margin-bottom: 10px;
+    border: 1px solid #dcdcdc;
+    padding: 0;
+    background: #fff;
+    box-sizing: border-box;
+}
+.comment_editor textarea {
+    width: 100%;
+    padding: 4px;
+    border: 0;
+    margin: 0;
+    font-size: 14px;
+    outline: 0;
+    height: 120px;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+.submit_comment {
+    margin-left: -3px;
+    font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    color: #464646;
+    background-color: #F4F4F4;
+    box-shadow: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    border: 1px solid #C9C9C9;
+    height: 32px;
+    padding: 0 13px;
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.submit_comment[disabled=disabled], .submit_comment:disabled {
+    cursor: not-allowed;
+    color: #929292;
+    background-color: #fff;
+    border-color: #dcdcdc;
+}
+.no_comments_yet {
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #333;
+    background: #d3f2c0;
+    position: relative;
+}
 
