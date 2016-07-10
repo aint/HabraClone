@@ -2,9 +2,16 @@ package ua.sg.academy.java2.habraclone.webController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.sg.academy.java2.habraclone.service.ArticleService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class IndexController {
@@ -23,6 +30,15 @@ public class IndexController {
     @RequestMapping(value = "/")
     public ModelAndView index() {
         return new ModelAndView(INDEX_VIEW, ARTICLES_ATTRIBUTE, articleService.getAll());
+    }
+
+
+    @RequestMapping(value = "/locale/{ln}")
+    public String changeLocale(@PathVariable("ln") String ln, HttpServletRequest request, HttpServletResponse response) {
+//        Locale locale = LocaleContextHolder.getLocale();
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+        localeResolver.setLocale(request, response, StringUtils.parseLocaleString(ln));
+        return "redirect:/";
     }
 
 }

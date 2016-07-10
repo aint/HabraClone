@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<fmt:setLocale value="${pageContext.response.locale}" scope="session" />
+<%--<fmt:setLocale value="${pageContext.response.locale}" scope="session" />--%>
 
     <div class="div_centred">
         <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
@@ -31,9 +31,9 @@
         </c:otherwise>
     </c:choose>
 
-    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/flags/en.gif" alt="en"></a>
-    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/flags/ru.gif" alt="рус"></a>
-    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/flags/ua.gif" alt="укр"></a>
+    <a href="${pageContext.request.contextPath}/locale/en"><img src="${pageContext.request.contextPath}/resources/images/flags/en.gif" alt="en"></a>
+    <a href="${pageContext.request.contextPath}/locale/ru"><img src="${pageContext.request.contextPath}/resources/images/flags/ru.gif" alt="рус"></a>
+    <a href="${pageContext.request.contextPath}/locale/uk"><img src="${pageContext.request.contextPath}/resources/images/flags/ua.gif" alt="укр"></a>
 
     <div id="modal_log" class="popupContainer" style="display:none;">
         <header class="popupHeader">
