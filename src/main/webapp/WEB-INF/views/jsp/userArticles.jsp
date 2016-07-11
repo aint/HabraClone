@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>${USER.userName}</title>
+    <title>${USER.userName} <fmt:message key="user_profile.label.articles" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
@@ -55,12 +55,12 @@
             <div class="tabs">
                 <ul class="tabs-menu tabs-menu_habrahabr">
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked tab-item_current">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked">
                             <fmt:message key="user_profile.label.profile" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "tab-item_current": ""}">
                             <strong>${fn:length(USER.articles)}</strong> <fmt:message key="user_profile.label.articles" />
                         </a>
                     </li>
@@ -70,83 +70,61 @@
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/favorites/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/favorites/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "" : "tab-item_current"}">
                             <strong>${fn:length(USER.favorites)}</strong> <fmt:message key="user_profile.label.favorites" />
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="user_profile">
-                <dl>
-                    <dt><fmt:message key="user_profile.label.ranking" /></dt>
-                    <dd>
-                        <a href="${pageContext.request.contextPath}/users/">
-                            ${USER_POSITION}<fmt:message key="user_profile.label.position" />
-                        </a>
-                    </dd>
-                </dl>
-
-                <c:if test="${not empty USER.birthday}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.birthday" /></dt>
-                        <dd class="bday">
-                            <fmt:parseDate value="${USER.birthday}" pattern="yyyy-MM-dd" var="parsedBirthday" />
-                            <fmt:formatDate value="${parsedBirthday}" pattern="dd MMMM yyyy" />
-                        </dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.location}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.location" /></dt>
-                        <dd>${USER.location}</dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.about}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.about" /></dt>
-                        <dd>${USER.about}</dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.hubs}">
-                    <dl class="hubs_list">
-                        <dt><fmt:message key="user_profile.label.subscription" /></dt>
-                        <dd>
-                            <ul class="grey" id="hubs_data_items">
-                                <c:forEach items="${USER.hubs}" var="hub" varStatus="var">
-                                    <li class="">
-                                        <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
-                                        <a class="" href="${pageContext.request.contextPath}/hubs/${hub.name}/">${hub.name}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </dd>
-                    </dl>
-                </c:if>
-
-                <dl>
-                    <dt><fmt:message key="user_profile.label.registration_date" /></dt>
-                    <dd class="grey">
-                        <fmt:parseDate value="${fn:replace(USER.registrationDate, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="registrationDate" type="both" />
-                        <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${registrationDate}" />
-                    </dd>
-                </dl>
-
-                <dl>
-                    <dt><fmt:message key="user_profile.label.activity" /></dt>
-                    <dd>
-                        <fmt:message key="user_profile.label.last_login_time" />
-                        <fmt:parseDate value="${fn:replace(USER.lastLoginTime, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="lastLogDate" type="both" />
-                        <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${lastLogDate}" />
-                    </dd>
-                </dl>
-            </div>
         </div>
+
+
+        <div class="posts_list">
+            <c:set var="articles" value="${(empty FAVORITES) ? USER.articles : USER.favorites}" />
+            <c:choose>
+                <c:when test="${not empty articles}">
+                    <div class="posts shortcuts_items">
+                        <c:forEach items="${articles}" var="article" varStatus="var">
+                            <div class="post post_teaser shortcuts_item">
+
+                                <div class="post__header">
+                                    <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}</span>
+
+                                    <h2 class="post__title">
+                                        <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
+                                        <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
+                                    </h2>
+
+                                    <div class="hubs">
+                                        <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Test Hub 1</a>,
+                                        <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Test Hub 2</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="post__body post__body_crop ">
+                                    <div class="content html_format"><c:out value="${article.preview}" /></div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="message">
+                        <fmt:message key="user_profile.label.have_no_articles" />
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
     </div>
 
-    <div>&zwnj;&zwnj; &zwnj;&zwnj;</div>
 </div>
 </body>
 

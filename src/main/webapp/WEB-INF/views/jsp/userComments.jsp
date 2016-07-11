@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>${USER.userName}</title>
+    <title>${USER.userName} <fmt:message key="user_profile.label.comments" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
@@ -55,17 +55,17 @@
             <div class="tabs">
                 <ul class="tabs-menu tabs-menu_habrahabr">
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked tab-item_current">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked">
                             <fmt:message key="user_profile.label.profile" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked">
                             <strong>${fn:length(USER.articles)}</strong> <fmt:message key="user_profile.label.articles" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/comments/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/comments/" class="tab-item tab-item_stacked tab-item_current">
                             <strong>${fn:length(USER.comments)}</strong> <fmt:message key="user_profile.label.comments" />
                         </a>
                     </li>
@@ -76,77 +76,49 @@
                     </li>
                 </ul>
             </div>
-            <div class="user_profile">
-                <dl>
-                    <dt><fmt:message key="user_profile.label.ranking" /></dt>
-                    <dd>
-                        <a href="${pageContext.request.contextPath}/users/">
-                            ${USER_POSITION}<fmt:message key="user_profile.label.position" />
-                        </a>
-                    </dd>
-                </dl>
-
-                <c:if test="${not empty USER.birthday}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.birthday" /></dt>
-                        <dd class="bday">
-                            <fmt:parseDate value="${USER.birthday}" pattern="yyyy-MM-dd" var="parsedBirthday" />
-                            <fmt:formatDate value="${parsedBirthday}" pattern="dd MMMM yyyy" />
-                        </dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.location}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.location" /></dt>
-                        <dd>${USER.location}</dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.about}">
-                    <dl>
-                        <dt><fmt:message key="user_profile.label.about" /></dt>
-                        <dd>${USER.about}</dd>
-                    </dl>
-                </c:if>
-
-                <c:if test="${not empty USER.hubs}">
-                    <dl class="hubs_list">
-                        <dt><fmt:message key="user_profile.label.subscription" /></dt>
-                        <dd>
-                            <ul class="grey" id="hubs_data_items">
-                                <c:forEach items="${USER.hubs}" var="hub" varStatus="var">
-                                    <li class="">
-                                        <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
-                                        <a class="" href="${pageContext.request.contextPath}/hubs/${hub.name}/">${hub.name}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </dd>
-                    </dl>
-                </c:if>
-
-                <dl>
-                    <dt><fmt:message key="user_profile.label.registration_date" /></dt>
-                    <dd class="grey">
-                        <fmt:parseDate value="${fn:replace(USER.registrationDate, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="registrationDate" type="both" />
-                        <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${registrationDate}" />
-                    </dd>
-                </dl>
-
-                <dl>
-                    <dt><fmt:message key="user_profile.label.activity" /></dt>
-                    <dd>
-                        <fmt:message key="user_profile.label.last_login_time" />
-                        <fmt:parseDate value="${fn:replace(USER.lastLoginTime, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="lastLogDate" type="both" />
-                        <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${lastLogDate}" />
-                    </dd>
-                </dl>
-            </div>
         </div>
+
+        <c:choose>
+            <c:when test="${not empty USER.comments}">
+                <c:forEach items="${USER.comments}" var="comment" varStatus="var">
+                    <div class="user_comments">
+                        <div class="comments_list" style="margin-top:0;">
+                            <div class="comment_item_plain">
+                                <div class="post_info">
+                                    <a href="${pageContext.request.contextPath}/articles/${comment.article.id}" class="grey">${comment.article.title}</a>
+                                </div>
+
+                                <div class="comment_item">
+                                    <div class="comment-item">
+                                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="comment-item__avatar">
+                                            <img src="${pageContext.request.contextPath}/resources/images/user.png" class="comment-item__avatar-img">
+                                        </a>
+
+                                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="comment-item__username">${USER.userName}</a>
+                                        <time class="comment-item__time_pubished">${fn:replace(comment.creationDate, 'T', ' ')}</time>
+
+                                        <div class="voting voting-wjt voting-wjt_comments">
+                                            <div class="voting-wjt__counter">
+                                                <span class="voting-wjt__counter-score ">${comment.rating}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message html_format ">${comment.body}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <div class="message">
+                    <fmt:message key="user_profile.label.have_no_comments" />
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 
-    <div>&zwnj;&zwnj; &zwnj;&zwnj;</div>
 </div>
 </body>
 

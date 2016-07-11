@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%--<fmt:setLocale value="${pageContext.response.locale}" scope="session" />--%>
-
     <div class="div_centred">
         <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
     </div>
