@@ -19,7 +19,7 @@ public class UserHibernateDao extends GeneralHibernateDao implements UserDao {
     public User getByUserName(String username) {
         return (User) getSession()
                 .createCriteria(persistentClass)
-                .add(Restrictions.eq("username", username))
+                .add(Restrictions.eq("userName", username))
                 .uniqueResult();
     }
 

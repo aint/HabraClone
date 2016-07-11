@@ -9,6 +9,7 @@ import ua.sg.academy.java2.habraclone.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,8 +29,22 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
+    public User getByUserName(String username) {
+        return getDao().getByUserName(username);
+    }
+
+    @Override
     public User getByEmail(String email) {
         return getDao().getByEmail(email);
+    }
+
+    @Override
+    public int getPositionByRating(User user) {
+        return getAllUsersSortedAscByRating()
+                .stream()
+                .map(User::getRating)
+                .collect(Collectors.toList())
+                .indexOf(user.getRating()) + 1;
     }
 
     @Override

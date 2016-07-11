@@ -19,7 +19,7 @@ public class LinkToLatestArticle extends RequestContextAwareTag {
         ArticleDao articleDao = getRequestContext().getWebApplicationContext().getBean(ArticleDao.class);
         Article article = articleDao.getLatestArticleOfUser(user);
         try {
-            pageContext.getOut().print("<a href='articles/" + article.getId() + "'>" + article.getTitle() + "</a>");
+            pageContext.getOut().print("<a href='/articles/" + article.getId() + "'>" + article.getTitle() + "</a>");
             return SKIP_BODY;
         } catch (IOException e) {
             throw new JspException(e);

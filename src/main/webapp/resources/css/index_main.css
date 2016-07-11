@@ -180,57 +180,12 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     height: 100%;
 }
 
-.tabs {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-
-.tabs-menu_habrahabr {
-    background-color: #f2f2f2;
-    display: table;
-    vertical-align: middle;
-    width: 100%;
-    max-width: 100%;
-}
-.tabs-menu {
-    position: relative;
-}
-.tabs-menu__item_inline {
-    width: 17%;
-    display: table-cell;
-    vertical-align: top;
-}
-.tabs-menu * {
-    box-sizing: border-box;
-}
-
-.tab-item {
-    overflow: hidden;
-    padding: 0;
-    height: 35px;
-    line-height: 35px;
-    width: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    color: #555;
-    border-right: 1px solid #e5e5e5;
-    font-size: 13px;
-}
 
 a {
     text-decoration: none;
     color: #6da3bd;
 }
 
-.tabs-menu__item:last-child .tab-item {
-    border-right: 0;
-}
-a.tab-item_current {
-    border-right: 0;
-    background-color: #cee0e6;
-}
 
 .counter_new {
     color: #629729;
@@ -533,3 +488,253 @@ h1, h2, h3, h4, h5 {
     position: relative;
 }
 
+
+
+.profile-header {
+    display: table;
+    width: 100%;
+    margin: 20px auto 20px auto;
+}
+.profile-header__summary {
+    display: inline;
+    vertical-align: middle;
+    width: auto;
+    background-color: transparent;
+}
+.author-info_profile {
+    background-color: transparent;
+    padding: 0;
+    white-space: normal;
+}
+.author-info {
+    padding: 20px 5px 20px 0px;
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.author-info__image {
+    margin-right: 15px;
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    z-index: 2;
+}
+.author-info__desc, .author-info__image {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+.profile-header .author-info__specialization {
+    color: #888;
+    line-height: 16px;
+}
+.author-info__specialization {
+    color: #8b8b8b;
+    font-size: 14px;
+    margin: 5px 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5em;
+}
+.author-info * {
+    box-sizing: border-box;
+}
+.profile-header__stats {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+}
+.profile-header .user-rating, .profile-header .voting-wjt {
+    vertical-align: top;
+    height: auto;
+    border: 0;
+}
+.karma__widjet, .user-rating {
+    display: inline-block;
+    vertical-align: baseline;
+}
+.voting-wjt_user-profile {
+    vertical-align: top;
+    height: auto;
+    border: 0;
+}
+.voting-wjt {
+    padding: 0;
+    text-align: left;
+    height: 100%;
+}
+.voting-wjt_user-profile .voting-wjt__counter {
+    padding: 0 9px 0 15px;
+}
+.voting-wjt__counter {
+    height: 100%;
+    text-align: center;
+    position: relative;
+}
+.voting-wjt__button_minus, .voting-wjt__button_plus, .voting-wjt__counter {
+    display: inline-block;
+    vertical-align: middle;
+}
+.wjt__counter-score, .voting-wjt_user-profile .voting-wjt__counter-score {
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: 700;
+    position: relative;
+    top: -2px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+.voting-wjt__counter_positive .voting-wjt__counter-score {
+    color: #6c9007;
+}
+.voting-wjt_user-popover .voting-wjt__label, .voting-wjt_user-profile .voting-wjt__label {
+    position: static;
+    top: 0;
+    font-size: 13px;
+    line-height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0;
+}
+.voting-wjt__label {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #9b9b9b;
+    line-height: 10px;
+}
+.voting-wjt_user-profile + .statistic_user-rating {
+    padding-left: 6px;
+}
+.statistic_user-rating, .user-mail {
+    padding-left: 20px;
+}
+.statistic {
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+    line-height: normal;
+}
+.statistic__value_magenta {
+    color: #c6c;
+}
+.statistic__value {
+    top: -2px;
+    line-height: 23px;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+}
+.statistic__label {
+    color: #9b9b9b;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+}
+
+
+
+
+
+
+.column-wrapper {
+    width: 100%;
+    position: relative;
+}
+.content_left {
+    float: left;
+    /*padding-right: 320px;*/
+    width: 100%;
+    box-sizing: border-box;
+}
+.tabs {
+    margin-bottom: 20px;
+    position: relative;
+}
+.tabs-menu_habrahabr {
+    background-color: #f2f2f2;
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+    max-width: 100%;
+}
+.tabs-menu {
+    position: relative;
+}
+.tabs-menu__item_inline {
+    width: 17%;
+    display: table-cell;
+    vertical-align: top;
+}
+.tabs-menu * {
+    box-sizing: border-box;
+}
+a.tab-item_current {
+    border-right: 0;
+    background-color: #cee0e6;
+}
+.tab-item_stacked {
+    display: table;
+    height: 70px;
+    line-height: normal;
+}
+.tab-item {
+    overflow: hidden;
+    padding: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    color: #555;
+    border-right: 1px solid #e5e5e5;
+    font-size: 13px;
+}
+.user_profile dl {
+    margin-bottom: 16px;
+    padding-bottom: 1px;
+    overflow: hidden;
+}
+.user_profile dt {
+    float: left;
+    font-size: 13px;
+    color: #666;
+    text-align: left;
+    width: 145px;
+}
+.user_profile dd {
+    margin-left: 157px;
+    font-size: 13px;
+}
+.hubs_list ul {
+    font-size: 12px;
+}
+.companies_list ul, .friends_list ul, .hubs_list ul {
+    font-family: arial;
+    line-height: 18px;
+    overflow: hidden;
+}
+.hubs_list ul li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+.grey a, a.grey {
+    color: #666;
+}
+.hub_icon {
+    height: 12px;
+    margin-right: 2px;
+}

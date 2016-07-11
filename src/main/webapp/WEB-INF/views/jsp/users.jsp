@@ -31,8 +31,8 @@
 
     <div class="peoples_list">
         <div class="users_header">
-            <div class="rating"><fmt:message key="users.label.rating" /></div>
-            <div class="karma">карма</div>
+            <div class="rating"><fmt:message key="user_profile.label.rating" /></div>
+            <div class="karma"><fmt:message key="user_profile.label.karma" /></div>
         </div>
 
         <div id="peoples" class="users peoples">
@@ -59,8 +59,7 @@
                                 </div>
                             </div>
                             <div class="lifetime">
-                                <c:set var="regDateTime" value="${fn:replace(user.registrationDate, 'T', ' ')}" />
-                                <fmt:parseDate value="${regDateTime}" pattern="yyyy-MM-dd HH:mm" var="regDate" type="both" />
+                                <fmt:parseDate value="${fn:replace(user.registrationDate, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="regDate" type="both" />
                                 <!-- 1 * 24 * 60 * 60 * 1000 = 86400000 -->
                                 <fmt:formatNumber maxFractionDigits="0" value="${(currentDate.time - regDate.time) / 86400000}" />
                                 <fmt:message key="users.label.experience_in_days" />

@@ -22,6 +22,10 @@ public class User implements IEntity {
     @Column(nullable = false)
     private String password;
     @Column
+    private String about;
+    @Column
+    private String location;
+    @Column
     private int rating;
     @Column
     private boolean admin;
@@ -37,10 +41,14 @@ public class User implements IEntity {
     private LocalDateTime banExpirationDate;
     @Column
     private Language language = DEFAULT_LANGUAGE;
-    @OneToMany(mappedBy = "author", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", /*fetch=FetchType.EAGER,*/ cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Article> favorites = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hub> hubs = new ArrayList<>();
 
     public User() {
     }
@@ -99,6 +107,22 @@ public class User implements IEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getRating() {
@@ -181,4 +205,19 @@ public class User implements IEntity {
         this.comments = comments;
     }
 
+    public List<Article> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Article> favorites) {
+        this.favorites = favorites;
+    }
+
+    public List<Hub> getHubs() {
+        return hubs;
+    }
+
+    public void setHubs(List<Hub> hubs) {
+        this.hubs = hubs;
+    }
 }
