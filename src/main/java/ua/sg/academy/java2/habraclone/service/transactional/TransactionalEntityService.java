@@ -38,6 +38,14 @@ public abstract class TransactionalEntityService implements EntityService {
     }
 
     @Override
+    public void update(IEntity entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
+        }
+        dao.update(entity);
+    }
+
+    @Override
     public void delete(IEntity entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);

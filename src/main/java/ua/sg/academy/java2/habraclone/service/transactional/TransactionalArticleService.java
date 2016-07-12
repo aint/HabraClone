@@ -5,26 +5,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
+import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 import ua.sg.academy.java2.habraclone.service.ArticleService;
-
-import java.util.List;
+import ua.sg.academy.java2.habraclone.service.UserService;
 
 @Service
 @Transactional
 public class TransactionalArticleService extends TransactionalEntityService implements ArticleService {
 
+    private final UserService userService;
+
     @Autowired
-    public TransactionalArticleService(ArticleDao articleDao) {
+    public TransactionalArticleService(ArticleDao articleDao, UserService userService) {
         super(articleDao);
+        this.userService = userService;
     }
 
     @Override
-    public List<Comment> getCommentsOfArticle(Article article) {
-        if (article == null) {
-            throw new IllegalArgumentException("Article can't be null");
+    public Article getLatestArticleOfUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User can't be null");
         }
-        return article.getComments();
+        return getDao().getLatestArticleOfUser(user);
+    }
+
+    @Override
+    public boolean addArticleToFavorites(String username, long articleId) {
+        if (username == null || articleId < 0) {
+            throw new IllegalArgumentException("Username can't be null and articleId can't be negative");
+        }
+        Article article = (Article) getById(articleId);
+        article.setFavorites(article.getFavorites() + 1);
+        update(article);
+
+        User user = userService.getByUserName(username);
+        user.getFavorites().add(article);
+        user.setFavoritesCount(user.getFavoritesCount() + 1);
+        userService.update(user);
+
+        // check user favorities for duplicates
+        return false;
     }
 
     @Override

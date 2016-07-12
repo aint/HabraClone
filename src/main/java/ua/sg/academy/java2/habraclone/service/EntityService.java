@@ -22,6 +22,13 @@ public interface EntityService {
     void save(IEntity entity);
 
     /**
+     * Updates an entity in a data source.
+     *
+     * @param entity entity's instance
+     */
+    void update(IEntity entity);
+
+    /**
      * Deletes an entity from a data source.
      *
      * @param entity entity's instance

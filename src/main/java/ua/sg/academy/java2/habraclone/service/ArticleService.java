@@ -1,11 +1,11 @@
 package ua.sg.academy.java2.habraclone.service;
 
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
-
-import java.util.List;
+import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 
 public interface ArticleService extends EntityService {
 
-    List<Comment> getCommentsOfArticle(Article article);
+    Article getLatestArticleOfUser(User user);
+
+    boolean addArticleToFavorites(String username, long articleId);
 }

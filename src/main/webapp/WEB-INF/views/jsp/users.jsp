@@ -64,7 +64,7 @@
                                 <fmt:formatNumber maxFractionDigits="0" value="${(currentDate.time - regDate.time) / 86400000}" />
                                 <fmt:message key="users.label.experience_in_days" />
                             </div>
-                            <c:if test="${fn:length(user.articles) ne 0}">
+                            <c:if test="${user.articlesCount ne 0}">
                                 <div class="last_post">
                                     <fmt:message key="users.label.latest_article" />
                                     <habraclone:linkToLatestArticle user="${user}" />

@@ -45,10 +45,16 @@ public class User implements IEntity {
     private Language language = DEFAULT_LANGUAGE;
     @OneToMany(mappedBy = "author", /*fetch=FetchType.EAGER,*/ cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
+    @Column
+    private int articlesCount;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+    @Column
+    private int commentsCount;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> favorites = new ArrayList<>();
+    @Column
+    private int favoritesCount;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hub> hubs = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -231,5 +237,29 @@ public class User implements IEntity {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public int getArticlesCount() {
+        return articlesCount;
+    }
+
+    public void setArticlesCount(int articlesCount) {
+        this.articlesCount = articlesCount;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
+
+    public int getFavoritesCount() {
+        return favoritesCount;
+    }
+
+    public void setFavoritesCount(int favoritesCount) {
+        this.favoritesCount = favoritesCount;
     }
 }

@@ -67,7 +67,8 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     }
 
     protected Session getSession() {
-        session = sessionFactory.openSession();// getCurrentSession();
+        session = sessionFactory.getCurrentSession();
+//                openSession();
         if (session == null) {
             throw new IllegalStateException("Session has not been set on DAO before usage");
         }

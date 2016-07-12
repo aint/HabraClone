@@ -345,12 +345,6 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     cursor: pointer;
     background-color: transparent;
 }
-.favorite-wjt__button {
-    height: 100%;
-    padding: 0 8px 0 10px;
-    color: #bac8cc;
-    font-size: 13px;
-}
 .post_favorites {
     width: 20px;
     height: 20px;

@@ -61,17 +61,17 @@
                     </li>
                     <li class="tabs-menu__item_inline">
                         <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ">
-                            <strong>${fn:length(USER.articles)}</strong> <fmt:message key="user_profile.label.articles" />
+                            <strong>${USER.articlesCount}</strong> <fmt:message key="user_profile.label.articles" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
                         <a href="${pageContext.request.contextPath}/users/${USER.userName}/comments/" class="tab-item tab-item_stacked ">
-                            <strong>${fn:length(USER.comments)}</strong> <fmt:message key="user_profile.label.comments" />
+                            <strong>${USER.commentsCount}</strong> <fmt:message key="user_profile.label.comments" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
                         <a href="${pageContext.request.contextPath}/users/${USER.userName}/favorites/" class="tab-item tab-item_stacked ">
-                            <strong>${fn:length(USER.favorites)}</strong> <fmt:message key="user_profile.label.favorites" />
+                            <strong>${USER.favoritesCount}</strong> <fmt:message key="user_profile.label.favorites" />
                         </a>
                     </li>
                 </ul>

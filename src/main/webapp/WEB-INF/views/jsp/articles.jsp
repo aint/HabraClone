@@ -71,7 +71,9 @@
                         </li>
                         <li class="postinfo-panel__item">
                             <div class="favorite-wjt favorite">
-                                <button type="button" class="favorite-wjt__button add">
+                                <form action="${pageContext.request.contextPath}/articles/${article.id}/add-favorite" id="add-favorite-${article.id}" >
+                                </form>
+                                <button type="submit" form="add-favorite-${article.id}" class="favorite-wjt__button add">
                                     <img src="${pageContext.request.contextPath}/resources/images/favorites.png" class="post_favorites">
                                 </button>
                                 <span class="favorite-wjt__counter">${article.favorites}</span>
@@ -100,12 +102,11 @@
     </div>
 
     <h2 class="comment_title div_centred">
-        <fmt:message key="display_article.label.comments" /> (${fn:length(comments)})
+        <fmt:message key="display_article.label.comments" /> (${fn:length(article.comments)})
     </h2>
     <c:choose>
-        <c:when test="${not empty comments}">
-            <c:forEach items="${comments}" var="comment">
-
+        <c:when test="${not empty article.comments}">
+            <c:forEach items="${article.comments}" var="comment">
 
                 <div class="info comments-list__item comment-item ">
 
@@ -149,7 +150,7 @@
         </div>
         <input type="submit" class="submit_comment" disabled="disabled" value="Написать">
         <input type="hidden" name="article_id" value="${article.id}">
-        <input type="hidden" name="user_email" value="${sessionScope.user_session}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
 
 </div>

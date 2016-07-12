@@ -2,9 +2,9 @@ package ua.sg.academy.java2.habraclone.webController.tag;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
-import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
+import ua.sg.academy.java2.habraclone.service.ArticleService;
 
 import javax.servlet.jsp.JspException;
 import java.io.IOException;
@@ -16,8 +16,8 @@ public class LinkToLatestArticle extends RequestContextAwareTag {
 
     @Override
     public int doStartTagInternal() throws JspException {
-        ArticleDao articleDao = getRequestContext().getWebApplicationContext().getBean(ArticleDao.class);
-        Article article = articleDao.getLatestArticleOfUser(user);
+        ArticleService articleService = getRequestContext().getWebApplicationContext().getBean(ArticleService.class);
+        Article article = articleService.getLatestArticleOfUser(user);
         try {
             pageContext.getOut().print("<a href='/articles/" + article.getId() + "'>" + article.getTitle() + "</a>");
             return SKIP_BODY;

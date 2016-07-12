@@ -107,7 +107,9 @@
                             </li>
                             <li class="postinfo-panel__item">
                                 <div class="favorite-wjt favorite">
-                                    <button type="button" class="favorite-wjt__button add">
+                                    <form action="${pageContext.request.contextPath}/articles/${article.id}/add-favorite" id="add-favorite-${article.id}" >
+                                    </form>
+                                    <button type="submit" form="add-favorite-${article.id}" class="favorite-wjt__button add">
                                         <img src="${pageContext.request.contextPath}/resources/images/favorites.png" class="post_favorites">
                                     </button>
                                     <span class="favorite-wjt__counter">${article.favorites}</span>

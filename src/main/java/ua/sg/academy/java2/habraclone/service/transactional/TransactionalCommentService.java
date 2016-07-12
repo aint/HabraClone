@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.CommentDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
+import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 import ua.sg.academy.java2.habraclone.service.ArticleService;
 import ua.sg.academy.java2.habraclone.service.CommentService;
 import ua.sg.academy.java2.habraclone.service.UserService;
@@ -28,13 +29,16 @@ public class TransactionalCommentService extends TransactionalEntityService impl
 
     @Override
     @SuppressWarnings("unchecked")
-    public void createAndSave(String body, Long articleId, String authorEmail) {
+    public void createAndSave(String body, Long articleId, String authorUsername) {
         Comment comment = new Comment();
         comment.setBody(body);
         comment.setRating(0);
         comment.setCreationDate(LocalDateTime.now());
         comment.setArticle((Article) (articleService.getById(articleId)));
-        comment.setAuthor(userService.getByEmail(authorEmail));
+        User author = userService.getByUserName(authorUsername);
+        author.setCommentsCount(author.getCommentsCount() + 1);
+        userService.update(author);
+        comment.setAuthor(author);
         getDao().save(comment);
     }
 
