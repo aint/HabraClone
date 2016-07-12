@@ -9,6 +9,15 @@ body, pre code {
     font-size: 12px;
 }
 
+a {
+    text-decoration: none;
+    color: #6da3bd;
+}
+a:hover {
+    text-decoration: underline;
+    color: #4d7285;
+}
+
 .div_centred {
     text-align: center;
 }
@@ -181,11 +190,6 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 
 
-a {
-    text-decoration: none;
-    color: #6da3bd;
-}
-
 
 .counter_new {
     color: #629729;
@@ -299,6 +303,13 @@ a {
     font-size: 13px;
     color: #545454;
 }
+
+.post_views_count {
+    font-size: 16px;
+    margin-right: 8px;
+    top: 3px;
+    position: relative;
+}
 .favorite-wjt__counter, .post-comments, .views-count_post {
     height: 100%;
     line-height: 38px;
@@ -325,6 +336,28 @@ a {
     font-size: 13px;
 }
 
+.favorite-wjt__button.add {
+    color: #bac8cc;
+}
+.favorite-wjt__button, .voting-wjt__button {
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+.favorite-wjt__button {
+    height: 100%;
+    padding: 0 8px 0 10px;
+    color: #bac8cc;
+    font-size: 13px;
+}
+.post_favorites {
+    width: 20px;
+    height: 20px;
+    top: 1px;
+    position: relative;
+}
+
 .favorite-wjt__counter {
     display: inline-block;
     vertical-align: top;
@@ -335,9 +368,6 @@ a {
     min-width: .65em;
 }
 
-.postinfo-panel__item + .postinfo-panel__item {
-    margin-left: -4px;
-}
 .post-author, .post-author_original {
     padding-left: 10px;
     line-height: 38px;
@@ -353,10 +383,11 @@ a {
     color: #66a3be;
 }
 
-.post-author__pic_default {
+.post-author__pic {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+    margin-top: -4px;
     width: 24px;
     height: 24px;
     text-align: center;
@@ -370,10 +401,6 @@ a {
 .post-comments {
     text-align: center;
     padding: 0 10px;
-}
-.favorite-wjt__counter, .post-comments, .views-count_post {
-    height: 100%;
-    line-height: 38px;
 }
 
 .postinfo-panel__item_comments .post-comments__link {
@@ -568,15 +595,6 @@ h1, h2, h3, h4, h5 {
 }
 .voting-wjt_user-profile .voting-wjt__counter {
     padding: 0 9px 0 15px;
-}
-.voting-wjt__counter {
-    height: 100%;
-    text-align: center;
-    position: relative;
-}
-.voting-wjt__button_minus, .voting-wjt__button_plus, .voting-wjt__counter {
-    display: inline-block;
-    vertical-align: middle;
 }
 .wjt__counter-score, .voting-wjt_user-profile .voting-wjt__counter-score {
     font-size: 20px;
@@ -787,4 +805,19 @@ a.tab-item_current {
     color: #a94442;
     background-color: #f2dede;
     border: 1px solid #ebccd1;
+}
+
+
+.voting-wjt_infopanel .voting-wjt__counter {
+    line-height: 38px;
+}
+.voting-wjt__button_plus + .voting-wjt__counter {
+    margin-left: -1px;
+}
+
+.comments_pic {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: center;
 }

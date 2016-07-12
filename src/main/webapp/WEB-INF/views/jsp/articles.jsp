@@ -33,12 +33,10 @@
 
                 <div class="post__header">
                     <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}"</span>
-
                     <h2 class="post__title">
                         <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
                         <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
                     </h2>
-
                     <div class="hubs">
                         <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Test Hub 1</a>,
                         <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Test Hub 2</a>
@@ -50,12 +48,54 @@
                     <div id="post_content" class="content html_format"><c:out value="${article.body}" /></div>
                 </div>
 
+                <div class="post__footer" style="padding-top: 20px">
+                    <ul class="postinfo-panel">
+                        <li class="postinfo-panel__item">
+                            <div class="voting-wjt voting-wjt_infopanel">
+                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_plus">
+                                    <span>&uarr;</span>
+                                </button>
+                                <div class="voting-wjt__counter voting-wjt__counter_positive ">
+                                    <span class="voting-wjt__counter-score">${article.rating}</span>
+                                </div>
+                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_minus">
+                                    <span>&darr;</span>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="postinfo-panel__item">
+                            <div class="views-count_post">
+                                <img src="${pageContext.request.contextPath}/resources/images/page_views.png" class="post_views_count">
+                                ${article.views}
+                            </div>
+                        </li>
+                        <li class="postinfo-panel__item">
+                            <div class="favorite-wjt favorite">
+                                <button type="button" class="favorite-wjt__button add">
+                                    <img src="${pageContext.request.contextPath}/resources/images/favorites.png" class="post_favorites">
+                                </button>
+                                <span class="favorite-wjt__counter">${article.favorites}</span>
+                            </div>
+                        </li>
+                        <li class="postinfo-panel__item post-author">
+                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.userName}/" >
+                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.userName}
+                            </a>
+                        </li>
+                        <li class="postinfo-panel__item postinfo-panel__item_comments">
+                            <div class="post-comments">
+                                <img src="${pageContext.request.contextPath}/resources/images/comments.png" class="comments_pic">
+                                <a href="${pageContext.request.contextPath}/articles/${article.id}#comments" class="post-comments__link post-comments__link_all">
+                                    ${fn:length(article.comments)}
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+
+            <div style="padding-top: 50px"></div>
         </div>
     </div>
 

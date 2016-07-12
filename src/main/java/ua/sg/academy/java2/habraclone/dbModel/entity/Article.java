@@ -27,6 +27,8 @@ public class Article implements IEntity {
     private String keywords;
     @Column
     private int views;
+    @Column
+    private int favorites;
     @Column(nullable = false)
     private LocalDateTime creationDate;
     @ManyToOne
@@ -107,6 +109,14 @@ public class Article implements IEntity {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int favorites) {
+        this.favorites = favorites;
     }
 
     public LocalDateTime getCreationDate() {
