@@ -32,6 +32,7 @@ public class ArticleController {
         if (article == null) {
             return new ModelAndView(ERROR_404);
         }
+        articleService.incrementViewsCount(article);
         return new ModelAndView(ARTICLES_VIEW, ARTICLE_ATTRIBUTE, article);
     }
 

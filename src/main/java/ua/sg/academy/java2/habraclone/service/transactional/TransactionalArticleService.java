@@ -48,6 +48,12 @@ public class TransactionalArticleService extends TransactionalEntityService impl
     }
 
     @Override
+    public void incrementViewsCount(Article article) {
+        article.setViews(article.getViews() + 1);
+        update(article);
+    }
+
+    @Override
     protected ArticleDao getDao() {
         return (ArticleDao) dao;
     }

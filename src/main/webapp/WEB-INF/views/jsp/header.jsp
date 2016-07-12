@@ -5,7 +5,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
     <div class="div_centred">
-        <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
+        <a href="${pageContext.request.contextPath}/">
+            <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.title" /></h1>
+        </a>
     </div>
 
 

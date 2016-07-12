@@ -24,7 +24,7 @@
 
 
     <div class="page-header page-header_inline">
-        <h1 class="page-header__title page-header__title_inline">Публікації</h1>
+        <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.label.publications" /></h1>
     </div>
 
     <div class="tabs">
@@ -32,8 +32,7 @@
             <li class="tabs-menu__item tabs-menu__item_inline">
                 <a href="https://habrahabr.ru/all/" class="tab-item "  >
               <span class="tab-item__value">
-                Все підряд&nbsp;
-                <strong class="counter"></strong>
+                <fmt:message key="index.label.all" />&nbsp;
                 <strong class="counter_new">+3</strong>
               </span>
                 </a>
@@ -41,18 +40,14 @@
             <li class="tabs-menu__item tabs-menu__item_inline">
                 <a href="https://habrahabr.ru/top/" class="tab-item "  >
               <span class="tab-item__value">
-                Найкращі&nbsp;
-                <strong class="counter"></strong>
-
+                <fmt:message key="index.label.top" />
               </span>
                 </a>
             </li>
             <li class="tabs-menu__item tabs-menu__item_inline">
                 <a href="https://habrahabr.ru/interesting/" class="tab-item tab-item_current"  >
               <span class="tab-item__value">
-                Цікаві&nbsp;
-                <strong class="counter"></strong>
-
+                <fmt:message key="index.label.interesting" />
               </span>
                 </a>
             </li>

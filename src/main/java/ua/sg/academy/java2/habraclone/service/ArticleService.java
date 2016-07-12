@@ -8,4 +8,6 @@ public interface ArticleService extends EntityService {
     Article getLatestArticleOfUser(User user);
 
     boolean addArticleToFavorites(String username, long articleId);
+
+    void incrementViewsCount(Article article);
 }
