@@ -20,5 +20,6 @@
         <mapping class="ua.sg.academy.java2.habraclone.dbModel.entity.Comment" />
         <mapping class="ua.sg.academy.java2.habraclone.dbModel.entity.Hub" />
         <mapping class="ua.sg.academy.java2.habraclone.dbModel.entity.User" />
+        <mapping class="ua.sg.academy.java2.habraclone.dbModel.entity.UserRole" />
     </session-factory>
 </hibernate-configuration>

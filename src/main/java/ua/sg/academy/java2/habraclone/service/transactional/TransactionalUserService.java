@@ -1,23 +1,50 @@
 package ua.sg.academy.java2.habraclone.service.transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
+import ua.sg.academy.java2.habraclone.dbModel.entity.UserRole;
 import ua.sg.academy.java2.habraclone.service.UserService;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class TransactionalUserService extends TransactionalEntityService implements UserService {
+public class TransactionalUserService extends TransactionalEntityService implements UserService, UserDetailsService {
 
     @Autowired
     public TransactionalUserService(UserDao userDao) {
         super(userDao);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        User user = getByUserName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("No such username");
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUserName(),
+                user.getPassword(),
+                user.isActivated(),
+                true, true, true,
+                buildUserAuthority(user.getRoles()));
+    }
+
+    private Set<GrantedAuthority> buildUserAuthority(Set<UserRole> roles) {
+        return roles.stream()
+                .map(r -> new SimpleGrantedAuthority(r.getRole()))
+                .collect(Collectors.toSet());
     }
 
     @Override

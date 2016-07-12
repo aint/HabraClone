@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "User")
 public class User implements IEntity {
@@ -49,6 +51,8 @@ public class User implements IEntity {
     private List<Article> favorites = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hub> hubs = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> roles = new HashSet<>();
 
     public User() {
     }
@@ -219,5 +223,13 @@ public class User implements IEntity {
 
     public void setHubs(List<Hub> hubs) {
         this.hubs = hubs;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }

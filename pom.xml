@@ -11,13 +11,33 @@
 
     <dependency>
       <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>4.2.6.RELEASE</version>
+      <version>${springVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-      <version>4.2.6.RELEASE</version>
+      <version>${springVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${springSecurityVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${springSecurityVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>${springSecurityVersion}</version>
     </dependency>
 
     <dependency>
@@ -75,5 +95,11 @@
       </plugin>
     </plugins>
   </build>
+
+  <properties>
+    <springVersion>4.3.1.RELEASE</springVersion>
+    <springSecurityVersion>4.1.1.RELEASE</springSecurityVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
 </project>

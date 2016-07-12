@@ -1,0 +1,26 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true" >
+        <!--<intercept-url pattern="/" access="permitAll" />-->
+        <intercept-url pattern="/users/petro**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
+
+        <form-login login-page="/login" default-target-url="/" />
+
+        <logout logout-success-url="/" invalidate-session="true" />
+        <csrf/>
+    </http>
+
+    <!--<global-method-security secured-annotations="enabled" />-->
+
+    <authentication-manager >
+        <authentication-provider user-service-ref="transactionalUserService" >
+            <password-encoder hash="sha-256" />
+        </authentication-provider>
+    </authentication-manager>
+
+</b:beans>
