@@ -11,7 +11,10 @@
 
         <form-login login-page="/login" default-target-url="/" />
 
-        <logout logout-success-url="/" invalidate-session="true" />
+        <logout logout-success-url="/" invalidate-session="true" delete-cookies="remember-me" />
+
+        <remember-me key="somehashcode" token-validity-seconds="86400" />
+
         <csrf/>
     </http>
 

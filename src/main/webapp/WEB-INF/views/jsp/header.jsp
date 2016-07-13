@@ -52,6 +52,8 @@
                     <label><fmt:message key="login.label.password" /></label>
                     <input type="password" name="password" />
                     <br/>
+                    <label><input type="checkbox" name="remember-me" /> <fmt:message key="login.label.remember_me" /></label>
+                    <br/>
                     <input class="action_btns btn btn_red" type="submit" value="<fmt:message key="login.button.login" />" />
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
