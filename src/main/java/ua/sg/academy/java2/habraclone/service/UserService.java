@@ -16,6 +16,6 @@ public interface UserService extends EntityService {
 
     boolean login(String email, String password);
 
-    boolean register(String username, String email, String password);
+    void updateLoginTime(String username);
 
 }

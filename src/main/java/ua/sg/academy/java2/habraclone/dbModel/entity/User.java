@@ -51,11 +51,11 @@ public class User implements IEntity {
     private List<Comment> comments = new ArrayList<>();
     @Column
     private int commentsCount;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Article> favorites = new ArrayList<>();
     @Column
     private int favoritesCount;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Hub> hubs = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private Set<UserRole> roles = new HashSet<>();

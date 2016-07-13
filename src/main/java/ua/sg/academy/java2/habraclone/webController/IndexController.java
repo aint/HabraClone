@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -33,12 +34,13 @@ public class IndexController {
     }
 
 
-    @RequestMapping(value = "/locale/{ln}")
-    public String changeLocale(@PathVariable("ln") String ln, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/locale/{ln}**")
+    public String changeLocale(@PathVariable("ln") String ln, @RequestParam String url,
+                               HttpServletRequest request, HttpServletResponse response) {
 //        Locale locale = LocaleContextHolder.getLocale();
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString(ln));
-        return "redirect:/";
+        return "redirect:" + (url != null ? url : "/");
     }
 
 }

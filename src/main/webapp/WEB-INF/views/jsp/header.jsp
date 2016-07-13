@@ -33,9 +33,9 @@
         </div>
     </sec:authorize>
 
-    <a href="${pageContext.request.contextPath}/locale/en"><img src="${pageContext.request.contextPath}/resources/images/flags/en.gif" alt="en"></a>
-    <a href="${pageContext.request.contextPath}/locale/ru"><img src="${pageContext.request.contextPath}/resources/images/flags/ru.gif" alt="рус"></a>
-    <a href="${pageContext.request.contextPath}/locale/uk"><img src="${pageContext.request.contextPath}/resources/images/flags/ua.gif" alt="укр"></a>
+    <a href="${pageContext.request.contextPath}/locale/en?url=${requestScope['javax.servlet.forward.request_uri']}"><img src="${pageContext.request.contextPath}/resources/images/flags/en.gif" alt="en"></a>
+    <a href="${pageContext.request.contextPath}/locale/ru?url=${requestScope['javax.servlet.forward.request_uri']}"><img src="${pageContext.request.contextPath}/resources/images/flags/ru.gif" alt="рус"></a>
+    <a href="${pageContext.request.contextPath}/locale/uk?url=${requestScope['javax.servlet.forward.request_uri']}"><img src="${pageContext.request.contextPath}/resources/images/flags/ua.gif" alt="укр"></a>
 
     <div id="modal_log" class="popupContainer" style="display:none;">
         <header class="popupHeader">
@@ -55,6 +55,7 @@
                     <label><input type="checkbox" name="remember-me" /> <fmt:message key="login.label.remember_me" /></label>
                     <br/>
                     <input class="action_btns btn btn_red" type="submit" value="<fmt:message key="login.button.login" />" />
+                    <input type="hidden" name="return-url" value="${requestScope['javax.servlet.forward.request_uri']}" />
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </div>

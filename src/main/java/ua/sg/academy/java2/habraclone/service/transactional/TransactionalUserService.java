@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 import ua.sg.academy.java2.habraclone.dbModel.entity.UserRole;
 import ua.sg.academy.java2.habraclone.service.UserService;
@@ -83,12 +82,13 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
-    public boolean register(String username, String email, String password) {
-        if (getDao().getByEmail(email) == null) {
-            return false;
+    public void updateLoginTime(String username) {
+        if (username == null) {
+            throw new IllegalArgumentException("Username can't be null");
         }
-        getDao().save(new User(email, username, password, LocalDateTime.now(), LocalDateTime.now()));
-        return true;
+        User user = getByUserName(username);
+        user.setLastLoginTime(LocalDateTime.now());
+        update(user);
     }
 
     @Override

@@ -9,8 +9,8 @@
         <intercept-url pattern="/users/petro**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
 
-        <form-login login-page="/login" default-target-url="/" />
-
+        <form-login login-page="/login" authentication-success-handler-ref="successfulAuthenticationHandler" />
+        
         <logout logout-success-url="/" invalidate-session="true" delete-cookies="remember-me" />
 
         <remember-me key="somehashcode" token-validity-seconds="86400" />
