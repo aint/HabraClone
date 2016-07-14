@@ -4,26 +4,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
 import ua.sg.academy.java2.habraclone.service.ArticleService;
+import ua.sg.academy.java2.habraclone.service.HubService;
+import ua.sg.academy.java2.habraclone.webController.dto.ArticleForm;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 public class ArticleController {
 
     private static final String ARTICLES_VIEW = "articles";
+    private static final String ADD_ARTICLE_VIEW = "addArticle";
     private static final String ERROR_404 = "404";
     private static final String ARTICLE_ATTRIBUTE = "article";
+    private static final String HUBS_ATTRIBUTE = "HUBS";
 
     private final ArticleService articleService;
+    private final HubService hubService;
 
     @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, HubService hubService) {
         this.articleService = articleService;
+        this.hubService = hubService;
     }
 
     @RequestMapping(value = "/articles/{id}")
@@ -43,6 +53,20 @@ public class ArticleController {
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/");
 //        return "redirect:" + "/" + ARTICLES_VIEW + "/" + id;
+    }
+
+    @RequestMapping(value = "/articles/add", method = RequestMethod.GET)
+    public ModelAndView addArticle() {
+        return new ModelAndView(ADD_ARTICLE_VIEW, HUBS_ATTRIBUTE, hubService.getAll());
+    }
+
+    @RequestMapping(value = "/articles/add", method = RequestMethod.POST)
+    public ModelAndView addArticle(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView(ADD_ARTICLE_VIEW, HUBS_ATTRIBUTE, hubService.getAll());
+        }
+        Long id = articleService.createAndSave(articleForm, getPrincipal());
+        return new ModelAndView("redirect:/articles/" + id);
     }
 
     private String getPrincipal() {

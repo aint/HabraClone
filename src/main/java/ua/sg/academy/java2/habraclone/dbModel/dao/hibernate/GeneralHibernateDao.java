@@ -24,8 +24,8 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     }
 
     @Override
-    public void save(IEntity entity) {
-        getSession().save(entity);
+    public Long save(IEntity entity) {
+        return (Long) getSession().save(entity);
     }
 
     @Override

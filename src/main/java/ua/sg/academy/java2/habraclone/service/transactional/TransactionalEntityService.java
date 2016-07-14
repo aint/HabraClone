@@ -30,11 +30,11 @@ public abstract class TransactionalEntityService implements EntityService {
     }
 
     @Override
-    public void save(IEntity entity) {
+    public Long save(IEntity entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
         }
-        dao.save(entity);
+        return dao.save(entity);
     }
 
     @Override

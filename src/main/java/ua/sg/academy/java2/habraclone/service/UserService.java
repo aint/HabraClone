@@ -18,4 +18,6 @@ public interface UserService extends EntityService {
 
     void updateLoginTime(String username);
 
+    void incrementArticlesCount(User user);
+
 }

@@ -6,6 +6,7 @@
 
     <http auto-config="true" >
         <!--<intercept-url pattern="/" access="permitAll" />-->
+        <!--<intercept-url pattern="/articles/add" access="isAuthenticated()" />-->
         <intercept-url pattern="/users/petro**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
 

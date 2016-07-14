@@ -19,7 +19,7 @@ public interface EntityService {
      *
      * @param entity entity's instance
      */
-    void save(IEntity entity);
+    Long save(IEntity entity);
 
     /**
      * Updates an entity in a data source.

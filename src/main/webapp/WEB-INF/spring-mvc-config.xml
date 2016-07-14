@@ -41,9 +41,13 @@
         <property name="basename" value="habra-clone" />
     </bean>
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven validator="validator" />
 
 </beans>

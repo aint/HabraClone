@@ -8,7 +8,7 @@ public interface GeneralDao {
 
     IEntity getById(long id);
 
-    void save(IEntity entity);
+    Long save(IEntity entity);
 
     void update(IEntity entity);
 

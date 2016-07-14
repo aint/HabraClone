@@ -92,6 +92,12 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
+    public void incrementArticlesCount(User user) {
+        user.setArticlesCount(user.getArticlesCount() + 1);
+        update(user);
+    }
+
+    @Override
     protected UserDao getDao() {
         return (UserDao) dao;
     }

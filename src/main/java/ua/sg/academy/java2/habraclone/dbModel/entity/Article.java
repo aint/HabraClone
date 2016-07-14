@@ -46,11 +46,11 @@ public class Article implements IEntity {
         this.body = body;
     }
 
-    public Article(String title, String body, User author, Hub hub) {
+    public Article(String title, String preview, String body, String keywords) {
         this.title = title;
+        this.preview = preview;
         this.body = body;
-        this.author = author;
-        this.hub = hub;
+        this.keywords = keywords;
     }
 
     @Override
