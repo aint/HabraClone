@@ -21,11 +21,13 @@ import javax.validation.Valid;
 @Controller
 public class ArticleController {
 
+    private static final String INDEX_VIEW = "index";
     private static final String ARTICLES_VIEW = "articles";
     private static final String ADD_ARTICLE_VIEW = "addArticle";
     private static final String ERROR_404 = "404";
     private static final String ARTICLE_ATTRIBUTE = "article";
     private static final String HUBS_ATTRIBUTE = "HUBS";
+    private static final String TOP_ARTICLES_ATTRIBUTE = "TOP_ARTICLES";
 
     private final ArticleService articleService;
     private final HubService hubService;
@@ -34,6 +36,11 @@ public class ArticleController {
     public ArticleController(ArticleService articleService, HubService hubService) {
         this.articleService = articleService;
         this.hubService = hubService;
+    }
+
+    @RequestMapping(value = "/articles/top")
+    public ModelAndView showTopArticles() {
+        return new ModelAndView(INDEX_VIEW, TOP_ARTICLES_ATTRIBUTE, articleService.getMostPopularArticles());
     }
 
     @RequestMapping(value = "/articles/{id}")

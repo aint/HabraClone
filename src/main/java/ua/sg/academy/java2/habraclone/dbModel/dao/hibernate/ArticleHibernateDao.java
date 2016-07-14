@@ -20,7 +20,7 @@ public class ArticleHibernateDao extends GeneralHibernateDao implements ArticleD
     public List<Article> getMostPopularArticles() {
         return getSession()
                 .createCriteria(persistentClass)
-                .addOrder(Order.asc("rating"))
+                .addOrder(Order.desc("rating"))
                 .setMaxResults(10)
                 .list();
     }

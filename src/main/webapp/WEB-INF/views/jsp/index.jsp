@@ -27,28 +27,31 @@
         <h1 class="page-header__title page-header__title_inline"><fmt:message key="index.label.publications" /></h1>
     </div>
 
+    <c:if test="${not empty TOP_ARTICLES}">
+        <c:set var="ARTICLES" scope="page" value="${TOP_ARTICLES}" />
+    </c:if>
+
     <div class="tabs">
         <ul class="tabs-menu tabs-menu_habrahabr">
             <li class="tabs-menu__item tabs-menu__item_inline">
-                <a href="https://habrahabr.ru/all/" class="tab-item "  >
-              <span class="tab-item__value">
-                <fmt:message key="index.label.all" />&nbsp;
-                <strong class="counter_new">+3</strong>
-              </span>
+                <a href="${pageContext.request.contextPath}/" class="tab-item ${(empty TOP_ARTICLES) ? "tab-item_current": ""}" >
+                  <span class="tab-item__value">
+                    <fmt:message key="index.label.all" />
+                  </span>
                 </a>
             </li>
             <li class="tabs-menu__item tabs-menu__item_inline">
-                <a href="https://habrahabr.ru/top/" class="tab-item "  >
-              <span class="tab-item__value">
-                <fmt:message key="index.label.top" />
-              </span>
+                <a href="${pageContext.request.contextPath}/articles/top" class="tab-item ${(not empty TOP_ARTICLES) ? "tab-item_current": ""}" >
+                  <span class="tab-item__value">
+                    <fmt:message key="index.label.top" />
+                  </span>
                 </a>
             </li>
             <li class="tabs-menu__item tabs-menu__item_inline">
-                <a href="https://habrahabr.ru/interesting/" class="tab-item tab-item_current"  >
-              <span class="tab-item__value">
-                <fmt:message key="index.label.interesting" />
-              </span>
+                <a href="${pageContext.request.contextPath}/articles/add" class="tab-item" >
+                  <span class="tab-item__value">
+                    <fmt:message key="index.label.add_article" />
+                  </span>
                 </a>
             </li>
         </ul>
@@ -60,7 +63,7 @@
 
     <div class="posts_list">
         <div class="posts shortcuts_items">
-            <c:forEach items="${requestScope.ARTICLES}" var="article" varStatus="var">
+            <c:forEach items="${ARTICLES}" var="article" varStatus="var">
                 <div class="post post_teaser shortcuts_item">
 
                     <div class="post__header">

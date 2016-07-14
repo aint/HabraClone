@@ -30,7 +30,7 @@ public class IndexController {
 
     @RequestMapping(value = "/")
     public ModelAndView index() {
-        return new ModelAndView(INDEX_VIEW, ARTICLES_ATTRIBUTE, articleService.getAll());
+        return new ModelAndView(INDEX_VIEW, ARTICLES_ATTRIBUTE, articleService.getAllSortedAscByDate());
     }
 
 

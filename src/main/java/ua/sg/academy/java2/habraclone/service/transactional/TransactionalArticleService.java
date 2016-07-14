@@ -13,6 +13,7 @@ import ua.sg.academy.java2.habraclone.service.UserService;
 import ua.sg.academy.java2.habraclone.webController.dto.ArticleForm;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +27,19 @@ public class TransactionalArticleService extends TransactionalEntityService impl
         super(articleDao);
         this.hubService = hubService;
         this.userService = userService;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Article> getAllSortedAscByDate() {
+        List<Article> articles = (List<Article>) getDao().getAll();
+        articles.sort((a1, a2) -> a2.getCreationDate().compareTo(a1.getCreationDate()));
+        return articles;
+    }
+
+    @Override
+    public List<Article> getMostPopularArticles() {
+        return getDao().getMostPopularArticles();
     }
 
     @Override
