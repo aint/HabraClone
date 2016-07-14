@@ -4,27 +4,35 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true" >
-        <!--<intercept-url pattern="/" access="permitAll" />-->
+    <http pattern="/admin/**" auto-config="true" authentication-manager-ref="adminAuthManager">
+        <form-login login-page="/admin/login" />
+        <logout logout-url="/logout" invalidate-session="true" />
+    </http>
 
+    <authentication-manager alias="adminAuthManager">
+        <authentication-provider ref="customAuthenticationProvider" />
+    </authentication-manager>
+
+
+
+    <http auto-config="true" authentication-manager-ref="authenticationManager">
         <intercept-url pattern="/articles/add" access="isAuthenticated()" />
         <intercept-url pattern="/comments/add" access="isAuthenticated()" />
 
-        <intercept-url pattern="/users/petro**" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
+        <intercept-url pattern="/users/**/ban" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/users/**/unban" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/articles/**/delete" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/comments/**/delete" access="hasRole('ROLE_ADMIN')" />
 
-        <form-login login-page="/login" authentication-success-handler-ref="successfulAuthenticationHandler" />
-        
+        <form-login login-page="/login" authentication-success-handler-ref="successfulAuthenticationHandler"/>
         <logout logout-success-url="/" invalidate-session="true" delete-cookies="remember-me" />
 
-        <remember-me key="somehashcode" token-validity-seconds="86400" />
+        <remember-me key="somehashcode" token-validity-seconds="86400" user-service-ref="transactionalUserService" />
 
         <csrf/>
     </http>
 
-    <!--<global-method-security secured-annotations="enabled" />-->
-
-    <authentication-manager >
+    <authentication-manager id="authenticationManager">
         <authentication-provider user-service-ref="transactionalUserService" >
             <password-encoder hash="sha-256" />
         </authentication-provider>

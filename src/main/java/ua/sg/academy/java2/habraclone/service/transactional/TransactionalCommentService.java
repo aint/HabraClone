@@ -43,6 +43,15 @@ public class TransactionalCommentService extends TransactionalEntityService impl
     }
 
     @Override
+    public void deleteComment(Long id) {
+        Comment comment = (Comment) getById(id);
+        User author = comment.getAuthor();
+        author.setCommentsCount(author.getCommentsCount() + 1);
+        update(author);
+        delete(comment);
+    }
+
+    @Override
     protected CommentDao getDao() {
         return (CommentDao) dao;
     }

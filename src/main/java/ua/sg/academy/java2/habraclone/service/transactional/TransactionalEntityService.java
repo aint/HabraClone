@@ -54,14 +54,6 @@ public abstract class TransactionalEntityService implements EntityService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        if (id == null || id < 1) {
-            throw new IllegalArgumentException(ENTITY_ID_CANT_BE_NULL);
-        }
-        dao.deleteById(id);
-    }
-
-    @Override
     public List<? extends IEntity> getAll() {
         return dao.getAll();
     }

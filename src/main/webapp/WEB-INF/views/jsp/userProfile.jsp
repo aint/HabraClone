@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
@@ -77,6 +78,32 @@
                 </ul>
             </div>
             <div class="user_profile">
+
+                <jsp:useBean id="now" class="java.util.Date"/>
+                <fmt:parseDate value="${fn:replace(USER.banExpirationDate, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="banExpDate" type="both" />
+                <c:choose>
+                    <c:when test="${banExpDate gt now}">
+                        <dl style="color: red">
+                            <dt><fmt:message key="user_profile.label.ban_expiration_date" /></dt>
+                            <dd>
+                                <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${banExpDate}" />,&emsp;
+                                <a style="color: #009926" href="${pageContext.request.contextPath}/users/${USER.userName}/unban">REMOVE BAN</a>
+                            </dd>
+                        </dl>
+                    </c:when>
+                    <c:otherwise>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                            <dl>
+                                <dt>Ban for 5 days</dt>
+                                <dd>
+                                    <%--<input type="number" value="5">--%>
+                                    <a style="color: red" href="${pageContext.request.contextPath}/users/${USER.userName}/ban">BAN</a>
+                                </dd>
+                            </dl>
+                        </sec:authorize>
+                    </c:otherwise>
+                </c:choose>
+
                 <dl>
                     <dt><fmt:message key="user_profile.label.ranking" /></dt>
                     <dd>

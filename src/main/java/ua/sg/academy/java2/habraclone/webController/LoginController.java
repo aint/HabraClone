@@ -17,7 +17,7 @@ public class LoginController {
 
     private static final String SPRING_SECURITY_LAST_EXCEPTION = "SPRING_SECURITY_LAST_EXCEPTION";
     private static final String WRONG_EMAIL_OR_PASSWORD = "Wrong email or password";
-    private static final String ACCOUNT_IS_LOCKED = "This account is locked";
+    private static final String ACCOUNT_IS_LOCKED = "This account is banned";
     private static final String ACCOUNT_IS_NOT_ACTIVATED = "This account is not activated";
     private static final String ERROR_MSG = "error_msg";
 

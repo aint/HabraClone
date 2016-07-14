@@ -38,7 +38,7 @@ public class TransactionalUserService extends TransactionalEntityService impleme
                 user.getUserName(),
                 user.getPassword(),
                 user.isActivated(),
-                true, true, true,
+                true, true, !isBaned(user),
                 buildUserAuthority(user.getRoles()));
     }
 
@@ -95,6 +95,29 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     public void incrementArticlesCount(User user) {
         user.setArticlesCount(user.getArticlesCount() + 1);
         update(user);
+    }
+
+    @Override
+    public void decrementArticlesCount(User user) {
+        user.setArticlesCount(user.getArticlesCount() - 1);
+        update(user);
+    }
+
+    @Override
+    public void banUser(User user) {
+        user.setBanExpirationDate(LocalDateTime.now().plusDays(5));
+        update(user);
+    }
+
+    @Override
+    public void unbanUser(User user) {
+        user.setBanExpirationDate(null);
+        update(user);
+    }
+
+    @Override
+    public boolean isBaned(User user) {
+        return user.getBanExpirationDate() != null && LocalDateTime.now().isBefore(user.getBanExpirationDate());
     }
 
     @Override

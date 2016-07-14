@@ -42,7 +42,7 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     public void deleteById(long id) {
         getSession()
                 .createQuery("DELETE " + persistentClass.getName() + " e WHERE e.id = :id")
-                .setEntity("id", id)
+                .setLong("id", id)
                 .executeUpdate();
     }
 

@@ -35,12 +35,16 @@
                 <div class="post__header">
                     <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}"</span>
                     <h2 class="post__title">
-                        <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
+                        <a href="#" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
                         <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
                     </h2>
                     <div class="hubs">
-                        <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Test Hub 1</a>,
-                        <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Test Hub 2</a>
+                        <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
+                        <a href="${pageContext.request.contextPath}/hubs/${article.hub.id}/" class="hub ">${article.hub.name}</a>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                            &emsp;
+                            <a href="${pageContext.request.contextPath}/articles/${article.id}/delete" style="color: red">DELETE</a>
+                        </sec:authorize>
                     </div>
                 </div>
 
@@ -110,7 +114,6 @@
             <c:forEach items="${article.comments}" var="comment">
 
                 <div class="info comments-list__item comment-item ">
-
                     <span class="comment-item__user-info">
                         <a href="${pageContext.request.contextPath}/users/${comment.author.userName}" class="comment-item__avatar">
                             <img src="${pageContext.request.contextPath}/resources/images/user-icon.png">
@@ -120,6 +123,14 @@
 
                     <time class="comment-item__time_published">
                         ${fn:replace(comment.creationDate, 'T', ' ')}
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                            &emsp;
+                            <a style="color: red" href="#" onclick="document.forms['deleteComment-${comment.id}'].submit(); return false;">DELETE</a>
+                            <form action="${pageContext.request.contextPath}/comments/${comment.id}/delete" name="deleteComment-${comment.id}" method="post">
+                                <input type="hidden" name="articleId" value="${article.id}">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            </form>
+                        </sec:authorize>
                     </time>
 
                     <div class="voting-wjt voting-wjt_comments">
@@ -128,9 +139,8 @@
                             <span class="voting-wjt__counter-score">${comment.rating}</span>
                         </div>
 
-                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_plus" title="Голосовать могут только зарегистрированные пользователи"><span>↑</span></button>
-
-                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_minus" title="Голосовать могут только зарегистрированные пользователи"><span>↓</span></button>
+                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_plus"><span>↑</span></button>
+                        <button type="button" disabled="" class="voting-wjt__button voting-wjt__button_minus"><span>↓</span></button>
                     </div>
                 </div>
 

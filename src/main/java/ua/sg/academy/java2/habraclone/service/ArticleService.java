@@ -19,4 +19,6 @@ public interface ArticleService extends EntityService {
     void incrementViewsCount(Article article);
 
     Long createAndSave(ArticleForm articleForm, String authorUsername);
+
+    void deleteArticle(Long id);
 }

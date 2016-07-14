@@ -20,4 +20,12 @@ public interface UserService extends EntityService {
 
     void incrementArticlesCount(User user);
 
+    void decrementArticlesCount(User user);
+
+    void banUser(User user);
+
+    void unbanUser(User user);
+
+    boolean isBaned(User user);
+
 }

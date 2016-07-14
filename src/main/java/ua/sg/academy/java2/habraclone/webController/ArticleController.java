@@ -18,13 +18,14 @@ import ua.sg.academy.java2.habraclone.webController.dto.ArticleForm;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import static ua.sg.academy.java2.habraclone.webController.util.ConstantsHolder.ERROR_404;
+
 @Controller
 public class ArticleController {
 
     private static final String INDEX_VIEW = "index";
     private static final String ARTICLES_VIEW = "articles";
     private static final String ADD_ARTICLE_VIEW = "addArticle";
-    private static final String ERROR_404 = "404";
     private static final String ARTICLE_ATTRIBUTE = "article";
     private static final String HUBS_ATTRIBUTE = "HUBS";
     private static final String TOP_ARTICLES_ATTRIBUTE = "TOP_ARTICLES";

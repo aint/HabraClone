@@ -72,12 +72,12 @@
                     <div class="post__header">
                         <span class="post__time_published">${fn:replace(article.creationDate, 'T', ' ')}</span>
                         <h2 class="post__title">
-                            <a href="https://habrahabr.ru/flows/develop/" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
+                            <a href="#" class="post__flow">Development</a><span class="post__title-arrow">&nbsp;&rarr;</span>
                             <a href="${pageContext.request.contextPath}/articles/${article.id}" class="post__title_link"><c:out value="${article.title}" /></a>
                         </h2>
                         <div class="hubs">
-                            <a href="https://habrahabr.ru/hub/iot_dev/" class="hub ">Test Hub 1</a>,
-                            <a href="https://habrahabr.ru/hub/controllers/" class="hub ">Test Hub 2</a>
+                            <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
+                            <a href="${pageContext.request.contextPath}/hubs/${article.hub.id}/" class="hub ">${article.hub.name}</a>
                         </div>
                     </div>
 

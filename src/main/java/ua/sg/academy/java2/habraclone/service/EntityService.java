@@ -36,13 +36,6 @@ public interface EntityService {
     void delete(IEntity entity);
 
     /**
-     * Deletes an entity by the given primary {@code id}.
-     *
-     * @param id entity's primary key
-     */
-    void deleteById(Long id);
-
-    /**
      * Returns all entities.
      *
      * @return a list of entities

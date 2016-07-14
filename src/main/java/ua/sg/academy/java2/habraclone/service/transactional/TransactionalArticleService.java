@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
+import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
 import ua.sg.academy.java2.habraclone.dbModel.entity.Hub;
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
 import ua.sg.academy.java2.habraclone.service.ArticleService;
@@ -83,6 +84,17 @@ public class TransactionalArticleService extends TransactionalEntityService impl
         }
         userService.incrementArticlesCount(author);
         return save(dtoToArticle(articleForm, hub, author));
+    }
+
+    @Override
+    public void deleteArticle(Long id) {
+        Article article = (Article) getById(id);
+        User author = article.getAuthor();
+        userService.decrementArticlesCount(author);
+        article.getComments().stream()
+                .map(Comment::getAuthor).
+                forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); update(author);});
+        delete(article);
     }
 
     private Article dtoToArticle(ArticleForm articleForm, Hub hub, User author) {
