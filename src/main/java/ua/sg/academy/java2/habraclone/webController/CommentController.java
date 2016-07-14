@@ -20,7 +20,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @RequestMapping(value = "/add-comment")
+    @RequestMapping(value = "/comments/add")
     public String addComment(@RequestParam("comment_body") String commentBody,
                              @RequestParam("article_id") long articleId) {
         commentService.createAndSave(commentBody, articleId, getPrincipal());

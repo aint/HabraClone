@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
@@ -47,13 +48,15 @@
                   </span>
                 </a>
             </li>
-            <li class="tabs-menu__item tabs-menu__item_inline">
-                <a href="${pageContext.request.contextPath}/articles/add" class="tab-item" >
-                  <span class="tab-item__value">
-                    <fmt:message key="index.label.add_article" />
-                  </span>
-                </a>
-            </li>
+            <sec:authorize access="isAuthenticated()">
+                <li class="tabs-menu__item tabs-menu__item_inline">
+                    <a href="${pageContext.request.contextPath}/articles/add" class="tab-item" >
+                      <span class="tab-item__value">
+                        <fmt:message key="index.label.add_article" />
+                      </span>
+                    </a>
+                </li>
+            </sec:authorize>
         </ul>
     </div>
 

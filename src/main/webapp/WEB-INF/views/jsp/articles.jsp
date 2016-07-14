@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
@@ -143,15 +144,17 @@
         </c:otherwise>
     </c:choose>
 
-    <div class="comment_title"><fmt:message key="display_article.label.leave_comment" /> </div>
-    <form action="${pageContext.request.contextPath}/add-comment" method="post">
-        <div class="comment_editor">
-            <textarea cols="30" rows="10" name="comment_body" class="comment_body"></textarea>
-        </div>
-        <input type="submit" class="submit_comment" disabled="disabled" value="Написать">
-        <input type="hidden" name="article_id" value="${article.id}">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    </form>
+    <sec:authorize access="isAuthenticated()">
+        <div class="comment_title"><fmt:message key="display_article.label.leave_comment" /> </div>
+        <form action="${pageContext.request.contextPath}/comments/add" method="post">
+            <div class="comment_editor">
+                <textarea cols="30" rows="10" name="comment_body" class="comment_body"></textarea>
+            </div>
+            <input type="submit" class="submit_comment" disabled="disabled" value="Написать">
+            <input type="hidden" name="article_id" value="${article.id}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+    </sec:authorize>
 
 </div>
 
