@@ -49,9 +49,11 @@
                 <form action="${pageContext.request.contextPath}/login" name="loginForm" method="post" onsubmit="return validateLoginForm()">
                     <label><fmt:message key="login.label.username" /></label>
                     <input type="text" name="username" />
+                    <div class="error" id="username_log" style="display: none; font-size: 10px; margin-bottom: -10px; margin-right: 30px;"></div>
                     <br/>
                     <label><fmt:message key="login.label.password" /></label>
                     <input type="password" name="password" />
+                    <div class="error" id="password_log" style="display: none; font-size: 10px; margin-bottom: -10px; margin-right: 30px;"></div>
                     <br/>
                     <label><input type="checkbox" name="remember-me" /> <fmt:message key="login.label.remember_me" /></label>
                     <br/>
@@ -76,16 +78,19 @@
                     <label><fmt:message key="registration.label.username" /></label>
                     <input type="text" name="username" />
                     <form:errors path="username" cssClass="error" />
+                    <div class="error" id="username_reg" style="display: none; font-size: 10px; margin-bottom: -10px; margin-right: 30px;"></div>
                     <br/>
 
                     <label><fmt:message key="registration.label.email" /></label>
                     <input type="email" name="email" />
                     <form:errors path="email" cssClass="error" />
+                    <div class="error" id="email_reg" style="display: none; font-size: 10px; margin-bottom: -10px; margin-right: 30px;"></div>
                     <br/>
 
                     <label><fmt:message key="registration.label.password" /></label>
                     <input type="password" name="password" />
                     <form:errors path="password" cssClass="error" />
+                    <div class="error" id="password_reg" style="display: none; font-size: 10px; margin-bottom: -10px; margin-right: 30px;"></div>
                     <br/>
 
                     <input class="action_btns btn btn_red" type="submit" value="<fmt:message key="registration.button.sign_up" />" />

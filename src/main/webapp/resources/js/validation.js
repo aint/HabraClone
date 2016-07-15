@@ -1,30 +1,59 @@
-function validateIndexForm(formName) {
-    var email = document.forms[formName]["email"].value;
-    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
-        alert("Email not valid");
-        return false;
-    }
-    var password = document.forms[formName]["password"].value;
-    if (password == null || password == "" || password.length < 5) {
-        alert("Password must be at least 5 chars");
-        return false;
-    }
-}
-
 function validateLoginForm() {
-    return validateIndexForm("loginForm");
+    var flag = true;
+    var name = document.forms["loginForm"]["username"].value;
+    var usrDiv = document.getElementById('username_log');
+    if (name == null || name == "" || name.length < 3) {
+        usrDiv.style.display = 'block';
+        usrDiv.innerHTML = 'Username must be at least 3 chars';
+        flag = false;
+    } else {
+        usrDiv.style.display = 'none';
+    }
+    var password = document.forms["loginForm"]["password"].value;
+    var passDiv = document.getElementById('password_log');
+    if (password == null || password == "" || password.length < 5) {
+        passDiv.style.display = 'block';
+        passDiv.innerHTML = 'Password must be at least 5 chars';
+        flag = false;
+    } else {
+        passDiv.style.display = 'none';
+    }
+
+    return flag;
 }
 
 function validateRegForm() {
+    var flag = true;
     var name = document.forms["regForm"]["username"].value;
+    var usrDiv = document.getElementById('username_reg');
     if (name == null || name == "" || name.length < 3) {
-        alert("Name must be at least 3 chars");
-        return false;
+        usrDiv.style.display = 'block';
+        usrDiv.innerHTML = 'Username must be at least 3 chars';
+        flag = false;
+    } else {
+        usrDiv.style.display = 'none';
     }
-    return validateIndexForm("regForm");
-}
+    var email = document.forms["regForm"]["email"].value;
+    var emDiv = document.getElementById('email_reg');
+    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+        emDiv.style.display = 'block';
+        emDiv.innerHTML = 'Email not valid';
+        flag = false;
+    } else {
+        emDiv.style.display = 'none';
+    }
+    var password = document.forms["regForm"]["password"].value;
+    var passDiv = document.getElementById('password_reg');
+    if (password == null || password == "" || password.length < 5) {
+        passDiv.style.display = 'block';
+        passDiv.innerHTML = 'Password must be at least 5 chars';
+        flag = false;
+    } else {
+        passDiv.style.display = 'none';
+    }
 
-// service page
+    return flag;
+}
 
 var clicked = false;
 function addInput(divName){
