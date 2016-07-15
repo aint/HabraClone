@@ -1,4 +1,4 @@
-package ua.sg.academy.java2.habraclone.service.util;
+package ua.sg.academy.java2.habraclone.dbModel.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

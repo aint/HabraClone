@@ -1,4 +1,4 @@
-package ua.sg.academy.java2.habraclone.dbModel.dao.factory;
+package ua.sg.academy.java2.habraclone.dbModel.util;
 
 import org.hibernate.Session;
 import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
@@ -6,7 +6,6 @@ import ua.sg.academy.java2.habraclone.dbModel.dao.CommentDao;
 import ua.sg.academy.java2.habraclone.dbModel.dao.HubDao;
 import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
 import ua.sg.academy.java2.habraclone.dbModel.dao.hibernate.*;
-import ua.sg.academy.java2.habraclone.service.util.HibernateConnectionFactory;
 
 public class HibernateDaoFactory {
 
@@ -36,8 +35,16 @@ public class HibernateDaoFactory {
         }
     }
 
-    protected static Session getCurrentSession() {
+    public static Session getCurrentSession() {
         return HibernateConnectionFactory.getSessionFactory().getCurrentSession();
+    }
+
+    public static void beginTransaction() {
+        HibernateConnectionFactory.getSessionFactory().getCurrentSession().beginTransaction();
+    }
+
+    public static void commitTransaction() {
+        HibernateConnectionFactory.getSessionFactory().getCurrentSession().getTransaction().commit();
     }
 
 }
