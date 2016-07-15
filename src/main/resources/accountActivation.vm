@@ -1,0 +1,109 @@
+#*
+ * Copyright (C) 2012-2013  Olexandr Tyshkovets
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *#
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${account_activation_subject}</title>
+    <style type="text/css">
+      a {color: #4A72AF;}
+      body, #header h1, #header h2, p {margin: 0; padding: 0;}
+      #main {border: 1px solid #cfcece;}
+      img {display: block;}
+      #top-message p, #bottom-message p {color: #3f4042; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+      #header h1 {color: #ffffff !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; font-size: 24px; margin-bottom: 0!important; padding-bottom: 0; }
+      #header h2 {color: #ffffff !important; font-family: Arial, Helvetica, sans-serif; font-size: 24px; margin-bottom: 0 !important; padding-bottom: 0; }
+      #header p {color: #ffffff !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; font-size: 12px;  }
+      h1, h2, h3, h4, h5, h6 {margin: 0 0 0.8em 0;}
+      h3 {font-size: 28px; color: #444444 !important; font-family: Arial, Helvetica, sans-serif; }
+      h4 {font-size: 22px; color: #4A72AF !important; font-family: Arial, Helvetica, sans-serif; }
+      h5 {font-size: 18px; color: #444444 !important; font-family: Arial, Helvetica, sans-serif; }
+      p {font-size: 12px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
+    </style>
+    <script type="text/javascript">
+    function showDate() {
+      var d = new Date();
+      var monthname = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+      var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+      return TODAY;
+    }
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" cellpadding="0" cellspacing="0" bgcolor="e4e4e4">
+      <tr><td>
+        
+        <table id="main" width="600" align="center" cellpadding="0" cellspacing="15" bgcolor="ffffff">
+          
+          <tr><td>
+            <table id="header" cellpadding="10" cellspacing="0" align="center" bgcolor="8fb3e9">
+              <tr>
+                <td width="570" bgcolor="7aa7e9"><h1 align="center">${application_name}</h1></td>
+              </tr>
+              <tr>
+                <td width="570" bgcolor="8fb3e9"><h2 style="color:#ffffff!important">${account_activation_subject}</h2></td>
+              </tr>
+              <tr>
+                <td width="570" align="right" bgcolor="7aa7e9"><p><script type="text/javascript">document.write(showDate());</script></p></td>
+              </tr>
+            </table>
+          </tr></td><!-- header -->
+          
+          <tr><td></td></tr>
+          
+          <tr><td>
+            <table id="content-1" cellpadding="0" cellspacing="0" align="center">
+              <tr>
+                <td width="170" valign="top">
+                  <table cellpadding="5" cellspacing="0">
+                    <tr>
+##                      <td bgcolor="d0d0d0"><img src="${account_activation_img_path}" width="170" /></td>
+                    </tr>
+                  </table>
+                </td>
+                <td width="15"></td>
+                <td width="375" valign="top" colspan="3">
+                  <h4>${greeting}</h4>
+                  <p>${account_activation_content_part1}</p>
+                  <p>${account_activation_content_part2}</p>
+                  <p><i>${account_activation_content_part3}</i></p>
+                  <p><b>${account_activation_content_part4}</b></p>
+                  <p>${account_activation_content_part5}</p>
+                  <br>
+                  <p>${wish}</p>
+                </td>
+              </tr>
+            </table>
+          </td></tr><!-- content -->
+          
+        </table>
+
+        <table id="bottom-message" cellpadding="20" cellspacing="0" width="600" align="center">
+          <tr>
+            <td align="center">
+              ${application_name} email robot
+            </td>
+          </tr>
+        </table><!-- footer -->
+
+      </td></tr>
+    </table><!-- wrapper -->
+  </body>
+
+</html>

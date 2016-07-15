@@ -29,8 +29,7 @@ public class LoginController {
             redirectAttributes.addFlashAttribute(ERROR_MSG, getErrorMessage(request, SPRING_SECURITY_LAST_EXCEPTION));
         }
 
-        String referer = request.getHeader("Referer");
-        return "redirect:" + (referer != null ? referer : "/");
+        return "redirect:/";
     }
 
     private String getErrorMessage(HttpServletRequest request, String key) {

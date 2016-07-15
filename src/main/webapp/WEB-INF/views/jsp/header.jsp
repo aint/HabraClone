@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
     <div class="div_centred">
         <a href="${pageContext.request.contextPath}/">
@@ -71,21 +72,25 @@
 
         <section class="popupBody">
             <div class="user_register">
-                <form action="${pageContext.request.contextPath}/" name="regForm" method="post" onsubmit="return validateRegForm()">
+                <form:form action="${pageContext.request.contextPath}/users/add" name="regForm" method="post" modelAttribute="userForm" onsubmit="return validateRegForm()" >
                     <label><fmt:message key="registration.label.username" /></label>
                     <input type="text" name="username" />
+                    <form:errors path="username" cssClass="error" />
                     <br/>
 
                     <label><fmt:message key="registration.label.email" /></label>
                     <input type="email" name="email" />
+                    <form:errors path="email" cssClass="error" />
                     <br/>
 
                     <label><fmt:message key="registration.label.password" /></label>
                     <input type="password" name="password" />
+                    <form:errors path="password" cssClass="error" />
                     <br/>
 
                     <input class="action_btns btn btn_red" type="submit" value="<fmt:message key="registration.button.sign_up" />" />
-                </form>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form:form>
             </div>
         </section>
     </div>

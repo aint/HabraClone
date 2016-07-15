@@ -47,7 +47,7 @@
                             <label for="title">
                                 <fmt:message key="add_article.label.title" /><sup class="required_field">*</sup>
                             </label>
-                            <input id="title" name="title" value="<c:out value="${requestScope.articleTitleField}" />" type="text">
+                            <form:input path="title" id="title" name="title" type="text" />
                             <form:errors path="title" cssClass="error" />
                         </div>
 
@@ -57,7 +57,7 @@
                             </label>
                             <div class="editor">
                                 <div class="text-holder">
-                                    <textarea name="preview" cols="30" rows="4" id="preview" style="height: 170px;"></textarea>
+                                    <form:textarea path="preview" name="preview" id="preview" cols="30" rows="4" style="height: 170px;"></form:textarea>
                                 </div>
                             </div>
                             <form:errors path="preview" cssClass="error" />
@@ -76,7 +76,7 @@
                             </span><br>
                             <div class="editor">
                                 <div class="text-holder">
-                                    <textarea name="body" cols="30" rows="7" id="body"></textarea>
+                                    <form:textarea path="body" name="body" id="body" cols="30" rows="7" ></form:textarea>
                                 </div>
                             </div>
                             <form:errors path="body" cssClass="error" />
@@ -86,11 +86,11 @@
                             <label for="keywords">
                                 <fmt:message key="add_article.label.keywords" /><sup class="required_field">*</sup>
                             </label>
-                            <input name="keywords" type="text" id="keywords">
+                            <form:input path="keywords" name="keywords" type="text" id="keywords" />
                             <form:errors path="keywords" cssClass="error" />
                         </div>
 
-                        <div class="item tags_string">
+                        <div class="item tags_string required">
                             <div class="description">* - required</div>
                         </div>
 

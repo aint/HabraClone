@@ -34,8 +34,12 @@
 
     <authentication-manager id="authenticationManager">
         <authentication-provider user-service-ref="transactionalUserService" >
-            <password-encoder hash="sha-256" />
+            <password-encoder ref="encoder" />
         </authentication-provider>
     </authentication-manager>
+
+    <b:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <b:constructor-arg name="strength" value="11" />
+    </b:bean>
 
 </b:beans>

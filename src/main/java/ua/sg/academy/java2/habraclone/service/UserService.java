@@ -1,10 +1,15 @@
 package ua.sg.academy.java2.habraclone.service;
 
 import ua.sg.academy.java2.habraclone.dbModel.entity.User;
+import ua.sg.academy.java2.habraclone.webController.dto.UserForm;
 
 import java.util.List;
 
 public interface UserService extends EntityService {
+
+    void register(UserForm userForm);
+
+    void activate(User user);
 
     List<User> getAllUsersSortedAscByRating();
 

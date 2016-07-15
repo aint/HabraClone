@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +65,10 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/add", method = RequestMethod.GET)
-    public ModelAndView addArticle() {
-        return new ModelAndView(ADD_ARTICLE_VIEW, HUBS_ATTRIBUTE, hubService.getAll());
+    public String addArticle(Model model) {
+        model.addAttribute(HUBS_ATTRIBUTE, hubService.getAll());
+        model.addAttribute("articleForm", new ArticleForm());
+        return ADD_ARTICLE_VIEW;
     }
 
     @RequestMapping(value = "/articles/add", method = RequestMethod.POST)
