@@ -45,7 +45,7 @@ public class UserController {
 
     @RequestMapping(value = "/users")
     public ModelAndView showAllUsers() {
-        return new ModelAndView(USERS_VIEW, USERS_ATTRIBUTE, userService.getAllUsersSortedAscByRating());
+        return new ModelAndView(USERS_VIEW, USERS_ATTRIBUTE, userService.getAllSortedDeskByRating());
     }
 
     @RequestMapping(value = "/users/{username}/activate")

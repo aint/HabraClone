@@ -63,6 +63,11 @@ public abstract class TransactionalEntityService implements EntityService {
         return dao.getById(id) != null;
     }
 
+    @Override
+    public List<? extends IEntity> getAllSortedDeskByRating() {
+        return dao.getAllSortedDeskByRating();
+    }
+
     protected abstract GeneralDao getDao();
 
 }

@@ -3,6 +3,7 @@ package ua.sg.academy.java2.habraclone.dbModel.dao.hibernate;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.sg.academy.java2.habraclone.dbModel.dao.GeneralDao;
@@ -50,6 +51,15 @@ public abstract class GeneralHibernateDao implements GeneralDao {
     public List<? extends IEntity> getAll() {
         return getSession()
                 .createCriteria(persistentClass)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
+    public List<? extends IEntity> getAllSortedDeskByRating() {
+        return getSession()
+                .createCriteria(persistentClass)
+                .addOrder(Order.desc("rating"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }

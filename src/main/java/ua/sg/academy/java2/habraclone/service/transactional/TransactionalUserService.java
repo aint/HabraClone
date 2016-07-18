@@ -82,14 +82,6 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<User> getAllUsersSortedAscByRating() {
-        List<User> users = (List<User>) getDao().getAll();
-        users.sort((u1, u2) -> u2.getRating() - u1.getRating());
-        return users;
-    }
-
-    @Override
     public User getByUserName(String username) {
         return getDao().getByUserName(username);
     }
@@ -100,11 +92,12 @@ public class TransactionalUserService extends TransactionalEntityService impleme
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int getPositionByRating(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User can't be null");
         }
-        return getAllUsersSortedAscByRating()
+        return ((List<User>) getAllSortedDeskByRating())
                 .stream()
                 .map(User::getRating)
                 .collect(Collectors.toList())

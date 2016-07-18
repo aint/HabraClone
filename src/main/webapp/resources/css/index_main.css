@@ -959,3 +959,42 @@ span#tag_toolbar input, #tag_toolbar span {
 #tag_bold {
     font-weight: bold !important;
 }
+
+
+
+
+.hubs_list .hub {
+    position: relative;
+    margin-bottom: 20px;
+}
+.hubs_list .hub .habraindex {
+    width: 100px;
+    float: right;
+    color: #C6C;
+    font-family: Verdana,sans-serif;
+    font-size: 19px;
+    padding-top: 6px;
+}
+.hubs_list .hub .info {
+    margin-right: 100px;
+}
+.hubs_list .hub .info .title {
+    font-family: Verdana,sans-serif;
+    font-size: 24px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.hubs_list .hub .info .stat {
+    color: #999;
+    font-size: 12px;
+    line-height: 190%;
+    margin-bottom: 20px;
+}
+.hubs_list .hub .info .stat a {
+    color: #999;
+    text-decoration: none;
+}
+.hubs_list .hub .info .stat a:hover {
+    text-decoration: underline;
+}

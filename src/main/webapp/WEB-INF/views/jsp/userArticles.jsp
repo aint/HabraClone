@@ -95,7 +95,7 @@
                                     </h2>
                                     <div class="hubs">
                                         <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
-                                        <a href="${pageContext.request.contextPath}/hubs/${article.hub.id}/" class="hub ">${article.hub.name}</a>
+                                        <a href="${pageContext.request.contextPath}/hubs/${article.hub.id}/articles/" class="hub ">${article.hub.name}</a>
                                     </div>
                                 </div>
 

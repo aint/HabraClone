@@ -92,8 +92,8 @@ public class TransactionalArticleService extends TransactionalEntityService impl
         User author = article.getAuthor();
         userService.decrementArticlesCount(author);
         article.getComments().stream()
-                .map(Comment::getAuthor).
-                forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); update(author);});
+                .map(Comment::getAuthor)
+                .forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); update(author);});
         delete(article);
     }
 

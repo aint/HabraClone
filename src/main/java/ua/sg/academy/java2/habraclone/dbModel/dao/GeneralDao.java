@@ -18,4 +18,6 @@ public interface GeneralDao {
 
     List<? extends IEntity> getAll();
 
+    List<? extends IEntity> getAllSortedDeskByRating();
+
 }

@@ -50,4 +50,6 @@ public interface EntityService {
      */
     boolean isExist(Long id);
 
+    List<? extends IEntity> getAllSortedDeskByRating();
+
 }
