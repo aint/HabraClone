@@ -35,12 +35,8 @@
                         <a href="${pageContext.request.contextPath}/hubs/${hub.id}/articles/">${hub.name}</a>
                     </div>
                     <div class="stat">
-                        <a href="${pageContext.request.contextPath}/hubs/${hub.id}/subscribers/" class="members_count">
-                            241k <fmt:message key="hubs.label.subscribers" />,
-                        </a>
-                        <a href="${pageContext.request.contextPath}/hubs/${hub.id}/articles/">
-                            ${fn:length(hub.articles)} <fmt:message key="hubs.label.publications" />,
-                        </a>
+                        <a href="${pageContext.request.contextPath}/hubs/${hub.id}/subscribers/" class="members_count">2 <fmt:message key="hubs.label.subscribers" /></a>,
+                        <a href="${pageContext.request.contextPath}/hubs/${hub.id}/articles/">${fn:length(hub.articles)} <fmt:message key="hubs.label.publications" /></a>,
                         <fmt:parseDate value="${fn:replace(hub.creationDate, 'T', ' ')}" pattern="yyyy-MM-dd HH:mm" var="creationDate" type="both" />
                         <fmt:message key="hubs.label.creation_date" />
                         <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${creationDate}" />

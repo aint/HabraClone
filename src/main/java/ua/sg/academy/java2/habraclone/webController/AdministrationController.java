@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.ArticleService;
-import ua.sg.academy.java2.habraclone.service.CommentService;
-import ua.sg.academy.java2.habraclone.service.UserService;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
+import ua.sg.academy.java2.habraclone.service.transactional.CommentService;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
 
 import static ua.sg.academy.java2.habraclone.webController.util.ConstantsHolder.ERROR_404;
 

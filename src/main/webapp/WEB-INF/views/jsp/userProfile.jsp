@@ -145,7 +145,7 @@
                                 <c:forEach items="${USER.hubs}" var="hub" varStatus="var">
                                     <li class="">
                                         <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
-                                        <a class="" href="${pageContext.request.contextPath}/hubs/${hub.name}/">${hub.name}</a>
+                                        <a class="" href="${pageContext.request.contextPath}/hubs/${hub.id}/articles">${hub.name}</a>
                                     </li>
                                 </c:forEach>
                             </ul>

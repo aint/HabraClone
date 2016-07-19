@@ -4,10 +4,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.transactional.TransactionalArticleService;
+import ua.sg.academy.java2.habraclone.dao.ArticleDao;
+import ua.sg.academy.java2.habraclone.model.Article;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
+import ua.sg.academy.java2.habraclone.service.transactional.impl.ArticleTransactionalService;
+import ua.sg.academy.java2.habraclone.service.transactional.HubService;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -37,7 +40,7 @@ public class ArticleServiceTest {
     @Before
     public void init() throws SQLException {
         initMocks(this);
-        articleService = new TransactionalArticleService(articleDao, hubService, userService);
+        articleService = new ArticleTransactionalService(articleDao, hubService, userService);
     }
 
     @After

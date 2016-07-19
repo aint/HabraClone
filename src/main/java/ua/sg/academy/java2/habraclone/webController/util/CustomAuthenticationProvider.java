@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ua.sg.academy.java2.habraclone.service.transactional.TransactionalAdminAuthService;
+import ua.sg.academy.java2.habraclone.service.transactional.impl.AdminAuthTransactionalService;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private TransactionalAdminAuthService adminAuthService;
+    private AdminAuthTransactionalService adminAuthService;
 
     @Autowired
-    public CustomAuthenticationProvider(TransactionalAdminAuthService transactionalUserService) {
+    public CustomAuthenticationProvider(AdminAuthTransactionalService transactionalUserService) {
         this.adminAuthService = transactionalUserService;
     }
 

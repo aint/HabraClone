@@ -15,7 +15,7 @@
       <name>user</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>ua.sg.academy.java2.habraclone.dbModel.entity.User</type>
+      <type>ua.sg.academy.java2.habraclone.model.User</type>
     </attribute>
   </tag>
 

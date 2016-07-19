@@ -6,10 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.mail.javamail.JavaMailSender;
-import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.transactional.TransactionalUserService;
+import ua.sg.academy.java2.habraclone.dao.UserDao;
+import ua.sg.academy.java2.habraclone.model.Article;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
+import ua.sg.academy.java2.habraclone.service.transactional.impl.UserTransactionalService;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ public class UserServiceTest {
     @Before
     public void init() throws SQLException {
         initMocks(this);
-        userService = new TransactionalUserService(userDao, mailSender, velocityEngine);
+        userService = new UserTransactionalService(userDao, mailSender, velocityEngine);
     }
 
     @After

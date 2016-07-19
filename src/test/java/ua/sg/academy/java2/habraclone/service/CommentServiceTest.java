@@ -4,11 +4,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import ua.sg.academy.java2.habraclone.dbModel.dao.CommentDao;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Comment;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.transactional.TransactionalCommentService;
+import ua.sg.academy.java2.habraclone.dao.CommentDao;
+import ua.sg.academy.java2.habraclone.model.Article;
+import ua.sg.academy.java2.habraclone.model.Comment;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
+import ua.sg.academy.java2.habraclone.service.transactional.CommentService;
+import ua.sg.academy.java2.habraclone.service.transactional.impl.CommentTransactionalService;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -35,7 +38,7 @@ public class CommentServiceTest {
     @Before
     public void init() throws SQLException {
         initMocks(this);
-        commentService = new TransactionalCommentService(commentDao, articleService, userService);
+        commentService = new CommentTransactionalService(commentDao, articleService, userService);
     }
 
     @After

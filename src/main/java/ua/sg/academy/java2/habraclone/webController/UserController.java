@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.UserService;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
 import ua.sg.academy.java2.habraclone.webController.dto.UserForm;
 
 import javax.servlet.http.HttpServletRequest;

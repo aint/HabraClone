@@ -1,11 +1,11 @@
 package ua.sg.academy.java2.habraclone.dbModel.util;
 
 import org.hibernate.Session;
-import ua.sg.academy.java2.habraclone.dbModel.dao.ArticleDao;
-import ua.sg.academy.java2.habraclone.dbModel.dao.CommentDao;
-import ua.sg.academy.java2.habraclone.dbModel.dao.HubDao;
-import ua.sg.academy.java2.habraclone.dbModel.dao.UserDao;
-import ua.sg.academy.java2.habraclone.dbModel.dao.hibernate.*;
+import ua.sg.academy.java2.habraclone.dao.ArticleDao;
+import ua.sg.academy.java2.habraclone.dao.CommentDao;
+import ua.sg.academy.java2.habraclone.dao.HubDao;
+import ua.sg.academy.java2.habraclone.dao.UserDao;
+import ua.sg.academy.java2.habraclone.dao.hibernate.*;
 
 public class HibernateDaoFactory {
 

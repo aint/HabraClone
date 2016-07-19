@@ -2,9 +2,9 @@ package ua.sg.academy.java2.habraclone.webController.tag;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
-import ua.sg.academy.java2.habraclone.dbModel.entity.Article;
-import ua.sg.academy.java2.habraclone.dbModel.entity.User;
-import ua.sg.academy.java2.habraclone.service.ArticleService;
+import ua.sg.academy.java2.habraclone.model.Article;
+import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
 
 import javax.servlet.jsp.JspException;
 import java.io.IOException;

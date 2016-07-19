@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.sg.academy.java2.habraclone.service.CommentService;
+import ua.sg.academy.java2.habraclone.service.transactional.CommentService;
 
 @Controller
 public class CommentController {

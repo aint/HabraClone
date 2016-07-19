@@ -10,7 +10,7 @@
     <title><fmt:message key="index.title" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
-    <script type="text/javascript"src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.leanModal.min.js"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />

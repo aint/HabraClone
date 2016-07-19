@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import ua.sg.academy.java2.habraclone.service.HubService;
+import ua.sg.academy.java2.habraclone.service.transactional.HubService;
 
 @Controller
 public class HubController {

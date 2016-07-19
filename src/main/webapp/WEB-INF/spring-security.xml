@@ -27,13 +27,13 @@
         <form-login login-page="/login" authentication-success-handler-ref="successfulAuthenticationHandler"/>
         <logout logout-success-url="/" invalidate-session="true" delete-cookies="remember-me" />
 
-        <remember-me key="somehashcode" token-validity-seconds="86400" user-service-ref="transactionalUserService" />
+        <remember-me key="somehashcode" token-validity-seconds="86400" user-service-ref="userTransactionalService" />
 
         <csrf/>
     </http>
 
     <authentication-manager id="authenticationManager">
-        <authentication-provider user-service-ref="transactionalUserService" >
+        <authentication-provider user-service-ref="userTransactionalService" >
             <password-encoder ref="encoder" />
         </authentication-provider>
     </authentication-manager>

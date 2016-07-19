@@ -7,7 +7,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import ua.sg.academy.java2.habraclone.service.UserService;
+import ua.sg.academy.java2.habraclone.service.transactional.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
