@@ -3,7 +3,9 @@ package ua.sg.academy.java2.habraclone.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Article")
 @NamedQueries({
@@ -38,6 +40,8 @@ public class Article implements IEntity {
     private Hub hub;
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<User> usersVoted = new HashSet<>();
 
     public Article() {
     }
@@ -150,5 +154,13 @@ public class Article implements IEntity {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<User> getUsersVoted() {
+        return usersVoted;
+    }
+
+    public void setUsersVoted(Set<User> usersVoted) {
+        this.usersVoted = usersVoted;
     }
 }

@@ -21,4 +21,6 @@ public interface ArticleService extends EntityService {
     Long createAndSave(ArticleForm articleForm, String authorUsername);
 
     void deleteArticle(Long id);
+
+    void voteForArticle(Long articleId, String username, boolean plus);
 }

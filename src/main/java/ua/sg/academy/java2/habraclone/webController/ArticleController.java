@@ -80,6 +80,18 @@ public class ArticleController {
         return new ModelAndView("redirect:/articles/" + id);
     }
 
+    @RequestMapping(value = "/articles/{id}/vote/plus")
+    public String votePlusForArticle(@PathVariable Long id) {
+        articleService.voteForArticle(id, getPrincipal(), true);
+        return "redirect:/articles/" + id;
+    }
+
+    @RequestMapping(value = "/articles/{id}/vote/minus")
+    public String voteMinusForArticle(@PathVariable Long id) {
+        articleService.voteForArticle(id, getPrincipal(), false);
+        return "redirect:/articles/" + id;
+    }
+
     private String getPrincipal() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return (principal instanceof UserDetails

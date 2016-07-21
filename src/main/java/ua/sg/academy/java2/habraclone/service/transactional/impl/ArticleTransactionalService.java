@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sg.academy.java2.habraclone.dao.ArticleDao;
-import ua.sg.academy.java2.habraclone.model.Article;
-import ua.sg.academy.java2.habraclone.model.Comment;
-import ua.sg.academy.java2.habraclone.model.Hub;
-import ua.sg.academy.java2.habraclone.model.User;
+import ua.sg.academy.java2.habraclone.model.*;
 import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
 import ua.sg.academy.java2.habraclone.service.transactional.HubService;
 import ua.sg.academy.java2.habraclone.service.transactional.UserService;
@@ -95,6 +92,19 @@ public class ArticleTransactionalService extends EntityTransactionalService impl
                 .map(Comment::getAuthor)
                 .forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); update(author);});
         delete(article);
+    }
+
+    @Override
+    public void voteForArticle(Long articleId, String username, boolean plus) {
+        Article article = (Article) getById(articleId);
+        User user = userService.getByUserName(username);
+        if (user == null || article == null) {
+            throw new IllegalArgumentException("User or article can't be null");
+        }
+        article.getUsersVoted().add(user);
+        article.setRating(plus ? article.getRating() + 1 : article.getRating() - 1);
+        article.getAuthor().setRating(plus ? article.getAuthor().getRating() + 1 : article.getAuthor().getRating() - 1);
+        update(article);
     }
 
     private Article dtoToArticle(ArticleForm articleForm, Hub hub, User author) {

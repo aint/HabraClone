@@ -57,13 +57,13 @@
                     <ul class="postinfo-panel">
                         <li class="postinfo-panel__item">
                             <div class="voting-wjt voting-wjt_infopanel">
-                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_plus">
+                                <button type="button" onclick="location.href='/articles/${article.id}/vote/plus';" class="voting-wjt__button voting-wjt__button_plus">
                                     <span>&uarr;</span>
                                 </button>
                                 <div class="voting-wjt__counter voting-wjt__counter_positive ">
                                     <span class="voting-wjt__counter-score">${article.rating}</span>
                                 </div>
-                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_minus">
+                                <button type="button" onclick="location.href='/articles/${article.id}/vote/minus';" class="voting-wjt__button voting-wjt__button_minus">
                                     <span>&darr;</span>
                                 </button>
                             </div>
