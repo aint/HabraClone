@@ -18,6 +18,8 @@
     <http auto-config="true" authentication-manager-ref="authenticationManager">
         <intercept-url pattern="/articles/add" access="isAuthenticated()" />
         <intercept-url pattern="/comments/add" access="isAuthenticated()" />
+        <intercept-url pattern="/articles/**/vote/plus" access="isAuthenticated()" />
+        <intercept-url pattern="/articles/**/vote/minus" access="isAuthenticated()" />
 
         <intercept-url pattern="/users/**/ban" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/users/**/unban" access="hasRole('ROLE_ADMIN')" />

@@ -23,4 +23,6 @@ public interface ArticleService extends EntityService {
     void deleteArticle(Long id);
 
     void voteForArticle(Long articleId, String username, boolean plus);
+
+    boolean userCanVote(Long articleId, String username);
 }

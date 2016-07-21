@@ -19,4 +19,16 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>ifUserCanVote</name>
+    <tag-class>ua.sg.academy.java2.habraclone.webController.tag.IfUserCanVote</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>articleId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>long</type>
+    </attribute>
+  </tag>
+
 </taglib>

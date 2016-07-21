@@ -283,6 +283,10 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     cursor: pointer;
     background-color: transparent;
 }
+.voting-wjt__button[disabled=disabled] {
+    color: #c7d4d8;
+    cursor: not-allowed;
+}
 .voting-wjt__button_minus, .voting-wjt__button_plus {
     height: 100%;
     width: auto;
@@ -290,7 +294,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     margin: 0;
     overflow: hidden;
     font-size: 16px;
-    color: #c7d4d8;
+    color: #929292;
 }
 .voting-wjt__button_minus, .voting-wjt__button_plus, .voting-wjt__counter {
     display: inline-block;

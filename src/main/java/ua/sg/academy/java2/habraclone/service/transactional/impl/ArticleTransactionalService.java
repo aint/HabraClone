@@ -107,6 +107,15 @@ public class ArticleTransactionalService extends EntityTransactionalService impl
         update(article);
     }
 
+    @Override
+    public boolean userCanVote(Long articleId, String username) {
+        Article article = (Article) getById(articleId);
+        if (article == null) {
+            throw new IllegalArgumentException("Article can't be null");
+        }
+        return article.getUsersVoted().stream().noneMatch(u -> u.getUserName().equals(username));
+    }
+
     private Article dtoToArticle(ArticleForm articleForm, Hub hub, User author) {
         Article article = new Article();
         article.setAuthor(author);
