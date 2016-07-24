@@ -6,8 +6,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,7 +26,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,19 +50,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
         if (user == null) {
             throw new UsernameNotFoundException("No such username");
         }
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserName(),
-                user.getPassword(),
-                user.isActivated(),
-                true, true, !isBaned(user),
-                buildUserAuthority(user.getRoles()));
-    }
-
-    private Set<GrantedAuthority> buildUserAuthority(Set<UserRole> roles) {
-        return roles.stream()
-                .map(r -> new SimpleGrantedAuthority(r.getRole()))
-                .collect(Collectors.toSet());
+        return user;
     }
 
     @Override
@@ -77,7 +62,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
 
     @Override
     public void activate(User user) {
-        user.setActivated(true);
+        user.setEnabled(true);
         update(user);
     }
 
@@ -156,7 +141,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
 
     private User dtoToUser(UserForm userForm) {
         User user = new User();
-        user.setUserName(userForm.getUsername());
+        user.setUsername(userForm.getUsername());
         user.setEmail(userForm.getEmail());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
@@ -173,7 +158,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
     private void sendAccountActivationMail(User user) {
         Template veloTemp = velocityEngine.getTemplate(ACCOUNT_ACTIVATION_EMAIL, "UTF-8");
         StringWriter sw = new StringWriter();
-        veloTemp.merge(getTemplate(user.getUserName()), sw);
+        veloTemp.merge(getTemplate(user.getUsername()), sw);
 
         MimeMessage message = mailSender.createMimeMessage();
         try {

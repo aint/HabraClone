@@ -113,7 +113,7 @@ public class ArticleTransactionalService extends EntityTransactionalService impl
         if (article == null) {
             throw new IllegalArgumentException("Article can't be null");
         }
-        return article.getUsersVoted().stream().noneMatch(u -> u.getUserName().equals(username));
+        return article.getUsersVoted().stream().noneMatch(u -> u.getUsername().equals(username));
     }
 
     private Article dtoToArticle(ArticleForm articleForm, Hub hub, User author) {

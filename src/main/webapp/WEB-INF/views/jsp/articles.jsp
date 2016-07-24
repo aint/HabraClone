@@ -92,8 +92,8 @@
                             </div>
                         </li>
                         <li class="postinfo-panel__item post-author">
-                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.userName}/" >
-                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.userName}
+                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.username}/" >
+                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.username}
                             </a>
                         </li>
                         <li class="postinfo-panel__item postinfo-panel__item_comments">
@@ -122,10 +122,10 @@
 
                 <div class="info comments-list__item comment-item ">
                     <span class="comment-item__user-info">
-                        <a href="${pageContext.request.contextPath}/users/${comment.author.userName}" class="comment-item__avatar">
+                        <a href="${pageContext.request.contextPath}/users/${comment.author.username}" class="comment-item__avatar">
                             <img src="${pageContext.request.contextPath}/resources/images/user-icon.png">
                         </a>
-                        <a href="${pageContext.request.contextPath}/users/${comment.author.userName}" class="comment-item__username">${comment.author.userName}</a>
+                        <a href="${pageContext.request.contextPath}/users/${comment.author.username}" class="comment-item__username">${comment.author.username}</a>
                     </span>
 
                     <time class="comment-item__time_published">

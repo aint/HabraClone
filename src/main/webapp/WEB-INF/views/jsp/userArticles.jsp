@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>${USER.userName} <fmt:message key="user_profile.label.articles" /></title>
+    <title>${USER.username} <fmt:message key="user_profile.label.articles" /></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
@@ -24,13 +24,13 @@
 
     <div class="profile-header">
         <div class="profile-header__summary author-info author-info_profile ">
-            <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="author-info__image">
+            <a href="${pageContext.request.contextPath}/users/${USER.username}" class="author-info__image">
                 <img src="${pageContext.request.contextPath}/resources/images/user.png">
             </a>
             <div class="author-info__desc">
                 <div class="author-info__username">
-                    <a href="${pageContext.request.contextPath}/users/${USER.userName}">
-                        ${USER.userName}
+                    <a href="${pageContext.request.contextPath}/users/${USER.username}">
+                        ${USER.username}
                     </a>
                 </div>
                 <div class="author-info__specialization">${USER.fullName}</div>
@@ -55,22 +55,22 @@
             <div class="tabs">
                 <ul class="tabs-menu tabs-menu_habrahabr">
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}" class="tab-item tab-item_stacked">
                             <fmt:message key="user_profile.label.profile" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "tab-item_current": ""}">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/articles/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "tab-item_current": ""}">
                             <strong>${fn:length(USER.articles)}</strong> <fmt:message key="user_profile.label.articles" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/comments/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/comments/" class="tab-item tab-item_stacked ">
                             <strong>${fn:length(USER.comments)}</strong> <fmt:message key="user_profile.label.comments" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/favorites/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "" : "tab-item_current"}">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/favorites/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "" : "tab-item_current"}">
                             <strong>${fn:length(USER.favorites)}</strong> <fmt:message key="user_profile.label.favorites" />
                         </a>
                     </li>
@@ -136,8 +136,8 @@
                                             </div>
                                         </li>
                                         <li class="postinfo-panel__item post-author">
-                                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.userName}/" >
-                                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.userName}
+                                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.username}/" >
+                                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.username}
                                             </a>
                                         </li>
                                         <li class="postinfo-panel__item postinfo-panel__item_comments">

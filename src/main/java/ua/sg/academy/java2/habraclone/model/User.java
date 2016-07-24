@@ -1,15 +1,28 @@
 package ua.sg.academy.java2.habraclone.model;
 
-import javax.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "User")
-public class User implements IEntity {
+public class User implements IEntity, UserDetails {
     private static final long serialVersionUID = 2210516086819146239L;
     public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
 
@@ -17,11 +30,11 @@ public class User implements IEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, unique = true)
-    private String userName;
-    @Column
-    private String fullName;
+    private String username;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column
+    private String fullName;
     @Column(nullable = false)
     private String password;
     @Column
@@ -33,7 +46,7 @@ public class User implements IEntity {
     @Column
     private boolean admin;
     @Column
-    private boolean activated;
+    private boolean enabled;
     @Column
     private LocalDate birthday;
     @Column(nullable = false)
@@ -64,18 +77,30 @@ public class User implements IEntity {
     public User() {
     }
 
-    public User(String email, String userName, String password) {
+    public User(String email, String username, String password) {
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
 
-    public User(String email, String userName, String password, LocalDateTime lastLoginTime, LocalDateTime registrationDate) {
+    public User(String email, String username, String password, LocalDateTime lastLoginTime, LocalDateTime registrationDate) {
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.lastLoginTime = lastLoginTime;
         this.registrationDate = registrationDate;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return banExpirationDate == null || LocalDateTime.now().isAfter(banExpirationDate);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles().stream()
+                .map(r -> new SimpleGrantedAuthority(r.getRole()))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -88,20 +113,21 @@ public class User implements IEntity {
         this.id = id;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
@@ -112,12 +138,30 @@ public class User implements IEntity {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * After registration user account is disabled by default.
+     * If not enabled in 24 hours after registration account will be deleted.
+     * <p/>
+     * User can activate his account by following the link in email.
+     *
+     * @return true, if user account is enabled
+     */
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getAbout() {
@@ -150,14 +194,6 @@ public class User implements IEntity {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
     }
 
     public LocalDate getBirthday() {
@@ -263,4 +299,17 @@ public class User implements IEntity {
     public void setFavoritesCount(int favoritesCount) {
         this.favoritesCount = favoritesCount;
     }
+
+    // Methods from UserDetails interface. We don't need this functional now and users always enabled
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
 }

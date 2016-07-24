@@ -47,7 +47,7 @@
                         <div class="karma">${user.rating / 2}</div>
 
                         <div class="avatar">
-                            <a href="${pageContext.request.contextPath}/users/${user.userName}">
+                            <a href="${pageContext.request.contextPath}/users/${user.username}">
                                 <img src="${pageContext.request.contextPath}/resources/images/user.png">
                             </a>
                         </div>
@@ -55,7 +55,7 @@
                         <div class="info">
                             <div class="userlogin">
                                 <div class="username">
-                                    <a href="${pageContext.request.contextPath}/users/${user.userName}">${user.userName}</a>
+                                    <a href="${pageContext.request.contextPath}/users/${user.username}">${user.username}</a>
                                 </div>
                             </div>
                             <div class="lifetime">

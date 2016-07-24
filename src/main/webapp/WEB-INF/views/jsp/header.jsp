@@ -27,7 +27,7 @@
     <sec:authorize access="isAuthenticated()">
         <div style="text-align: right; margin-right: 30px">
             <form action="${pageContext.request.contextPath}/logout" method="post">
-                <h3><fmt:message key="header.label.welcome_message" /> ${pageContext.request.userPrincipal.name}</h3>
+                <h3><fmt:message key="header.label.welcome_message" /> <sec:authentication property="principal.username" /></h3>
                 <input class="command_btns btn" type="submit" value="<fmt:message key="header.link.sign_out" />">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>

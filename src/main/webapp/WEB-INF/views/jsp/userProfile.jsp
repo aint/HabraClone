@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <title>${USER.userName}</title>
+    <title>${USER.username}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.png" sizes="32x32" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
@@ -25,13 +25,13 @@
 
     <div class="profile-header">
         <div class="profile-header__summary author-info author-info_profile ">
-            <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="author-info__image">
+            <a href="${pageContext.request.contextPath}/users/${USER.username}" class="author-info__image">
                 <img src="${pageContext.request.contextPath}/resources/images/user.png">
             </a>
             <div class="author-info__desc">
                 <div class="author-info__username">
-                    <a href="${pageContext.request.contextPath}/users/${USER.userName}">
-                        ${USER.userName}
+                    <a href="${pageContext.request.contextPath}/users/${USER.username}">
+                        ${USER.username}
                     </a>
                 </div>
                 <div class="author-info__specialization">${USER.fullName}</div>
@@ -56,22 +56,22 @@
             <div class="tabs">
                 <ul class="tabs-menu tabs-menu_habrahabr">
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}" class="tab-item tab-item_stacked tab-item_current">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}" class="tab-item tab-item_stacked tab-item_current">
                             <fmt:message key="user_profile.label.profile" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/articles/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/articles/" class="tab-item tab-item_stacked ">
                             <strong>${USER.articlesCount}</strong> <fmt:message key="user_profile.label.articles" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/comments/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/comments/" class="tab-item tab-item_stacked ">
                             <strong>${USER.commentsCount}</strong> <fmt:message key="user_profile.label.comments" />
                         </a>
                     </li>
                     <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.userName}/favorites/" class="tab-item tab-item_stacked ">
+                        <a href="${pageContext.request.contextPath}/users/${USER.username}/favorites/" class="tab-item tab-item_stacked ">
                             <strong>${USER.favoritesCount}</strong> <fmt:message key="user_profile.label.favorites" />
                         </a>
                     </li>
@@ -87,7 +87,7 @@
                             <dt><fmt:message key="user_profile.label.ban_expiration_date" /></dt>
                             <dd>
                                 <fmt:formatDate pattern="dd MMMM yyyy HH:mm" value="${banExpDate}" />,&emsp;
-                                <a style="color: #009926" href="${pageContext.request.contextPath}/users/${USER.userName}/unban">REMOVE BAN</a>
+                                <a style="color: #009926" href="${pageContext.request.contextPath}/users/${USER.username}/unban">REMOVE BAN</a>
                             </dd>
                         </dl>
                     </c:when>
@@ -97,7 +97,7 @@
                                 <dt>Ban for 5 days</dt>
                                 <dd>
                                     <%--<input type="number" value="5">--%>
-                                    <a style="color: red" href="${pageContext.request.contextPath}/users/${USER.userName}/ban">BAN</a>
+                                    <a style="color: red" href="${pageContext.request.contextPath}/users/${USER.username}/ban">BAN</a>
                                 </dd>
                             </dl>
                         </sec:authorize>

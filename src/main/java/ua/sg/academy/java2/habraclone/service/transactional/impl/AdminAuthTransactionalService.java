@@ -32,9 +32,9 @@ public class AdminAuthTransactionalService implements UserDetailsService {
         }
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUserName(),
+                user.getUsername(),
                 user.getPassword(),
-                user.isActivated(),
+                user.isEnabled(),
                 true, true, true,
                 buildUserAuthority(user.getRoles()));
     }

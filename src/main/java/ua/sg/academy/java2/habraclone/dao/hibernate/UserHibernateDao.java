@@ -19,7 +19,7 @@ public class UserHibernateDao extends GeneralHibernateDao implements UserDao {
     public User getByUserName(String username) {
         return (User) getSession()
                 .createCriteria(persistentClass)
-                .add(Restrictions.eq("userName", username))
+                .add(Restrictions.eq("username", username))
                 .uniqueResult();
     }
 
@@ -35,7 +35,7 @@ public class UserHibernateDao extends GeneralHibernateDao implements UserDao {
     public List<User> getNonActivatedUsers() {
         return getSession()
                 .createCriteria(persistentClass)
-                .add(Restrictions.eq("activated", false))
+                .add(Restrictions.eq("enabled", false))
                 .list();
     }
 }

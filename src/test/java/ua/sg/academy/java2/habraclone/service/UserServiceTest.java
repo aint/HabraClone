@@ -52,7 +52,7 @@ public class UserServiceTest {
         final User user = getUser();
         userService.save(user);
 
-        assertNotNull(user.getUserName());
+        assertNotNull(user.getUsername());
         assertNotNull(user.getEmail());
         assertNotNull(user.getPassword());
         assertNotNull(user.getRegistrationDate());
@@ -67,7 +67,7 @@ public class UserServiceTest {
         final User user = getUser();
         userService.activate(user);
 
-        assertEquals(user.isActivated(), true);
+        assertEquals(user.isEnabled(), true);
     }
 
     @Test
