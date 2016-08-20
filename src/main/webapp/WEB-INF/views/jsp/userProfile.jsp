@@ -21,7 +21,7 @@
 
 <div class="container">
 
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="includes/header.jsp"/>
 
     <div class="profile-header">
         <div class="profile-header__summary author-info author-info_profile ">

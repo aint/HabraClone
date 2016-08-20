@@ -22,7 +22,7 @@
 
 <div class="container">
 
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="includes/header.jsp"/>
 
 
     <div class="page-header div_centred">

@@ -17,7 +17,7 @@
 <body>
     <div class="container">
 
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="includes/header.jsp"/>
 
         <div class="page-header">
             <h1 class="page-header__title"><fmt:message key="add_article.title" /></h1>

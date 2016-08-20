@@ -20,7 +20,7 @@
 
 <div class="container">
 
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="includes/header.jsp"/>
 
     <div class="profile-header">
         <div class="profile-header__summary author-info author-info_profile ">
@@ -104,52 +104,7 @@
                                     <div class="content html_format"><c:out value="${article.preview}" /></div>
                                 </div>
 
-                                <div class="post__footer" style="padding-top: 20px">
-                                    <ul class="postinfo-panel">
-                                        <li class="postinfo-panel__item">
-                                            <div class="voting-wjt voting-wjt_infopanel">
-                                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_plus">
-                                                    <span>&uarr;</span>
-                                                </button>
-                                                <div class="voting-wjt__counter voting-wjt__counter_positive ">
-                                                    <span class="voting-wjt__counter-score">${article.rating}</span>
-                                                </div>
-                                                <button type="button" disabled class="voting-wjt__button voting-wjt__button_minus">
-                                                    <span>&darr;</span>
-                                                </button>
-                                            </div>
-                                        </li>
-                                        <li class="postinfo-panel__item">
-                                            <div class="views-count_post">
-                                                <img src="${pageContext.request.contextPath}/resources/images/page_views.png" class="post_views_count">
-                                                    ${article.views}
-                                            </div>
-                                        </li>
-                                        <li class="postinfo-panel__item">
-                                            <div class="favorite-wjt favorite">
-                                                <form action="${pageContext.request.contextPath}/articles/${article.id}/add-favorite" id="add-favorite-${article.id}" >
-                                                </form>
-                                                <button type="submit" form="add-favorite-${article.id}" class="favorite-wjt__button add">
-                                                    <img src="${pageContext.request.contextPath}/resources/images/favorites.png" class="post_favorites">
-                                                </button>
-                                                <span class="favorite-wjt__counter">${article.favorites}</span>
-                                            </div>
-                                        </li>
-                                        <li class="postinfo-panel__item post-author">
-                                            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.username}/" >
-                                                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.username}
-                                            </a>
-                                        </li>
-                                        <li class="postinfo-panel__item postinfo-panel__item_comments">
-                                            <div class="post-comments">
-                                                <img src="${pageContext.request.contextPath}/resources/images/comments.png" class="comments_pic">
-                                                <a href="${pageContext.request.contextPath}/articles/${article.id}#comments" class="post-comments__link post-comments__link_all">
-                                                        ${fn:length(article.comments)}
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <%@ include file="includes/postFooter.jspf" %>
 
                             </div>
 

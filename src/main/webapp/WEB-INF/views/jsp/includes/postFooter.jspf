@@ -1,0 +1,57 @@
+<%--@elvariable id="article" type="ua.sg.academy.java2.habraclone.model.Article"--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+<div class="post__footer" style="padding-top: 20px">
+    <ul class="postinfo-panel">
+        <li class="postinfo-panel__item">
+            <div class="voting-wjt voting-wjt_infopanel">
+                <c:set var="voteButton" value="disabled='disabled'" />
+                <sec:authorize access="isAuthenticated()">
+                    <habraclone:ifUserCanVote articleId="${article.id}">
+                        <c:set var="voteButton" value="" />
+                    </habraclone:ifUserCanVote>
+                </sec:authorize>
+                <button type="button" ${voteButton} onclick="location.href='/articles/${article.id}/vote/plus';" class="voting-wjt__button voting-wjt__button_plus">
+                    <span>&uarr;</span>
+                </button>
+                <div class="voting-wjt__counter voting-wjt__counter_positive ">
+                    <span class="voting-wjt__counter-score">${article.rating}</span>
+                </div>
+                <button type="button" ${voteButton} onclick="location.href='/articles/${article.id}/vote/minus';" class="voting-wjt__button voting-wjt__button_minus">
+                    <span>&darr;</span>
+                </button>
+            </div>
+        </li>
+        <li class="postinfo-panel__item">
+            <div class="views-count_post">
+                <img src="${pageContext.request.contextPath}/resources/images/page_views.png" class="post_views_count">
+                ${article.views}
+            </div>
+        </li>
+        <li class="postinfo-panel__item">
+            <div class="favorite-wjt favorite">
+                <form action="${pageContext.request.contextPath}/articles/${article.id}/add-favorite" id="add-favorite-${article.id}" >
+                </form>
+                <button type="submit" form="add-favorite-${article.id}" class="favorite-wjt__button add">
+                    <img src="${pageContext.request.contextPath}/resources/images/favorites.png" class="post_favorites">
+                </button>
+                <span class="favorite-wjt__counter">${article.favorites}</span>
+            </div>
+        </li>
+        <li class="postinfo-panel__item post-author">
+            <a class="post-author__link" href="${pageContext.request.contextPath}/users/${article.author.username}/" >
+                <img src="${pageContext.request.contextPath}/resources/images/user.png" class="post-author__pic"/>${article.author.username}
+            </a>
+        </li>
+        <li class="postinfo-panel__item postinfo-panel__item_comments">
+            <div class="post-comments">
+                <img src="${pageContext.request.contextPath}/resources/images/comments.png" class="comments_pic">
+                <a href="${pageContext.request.contextPath}/articles/${article.id}#comments" class="post-comments__link post-comments__link_all">
+                    ${fn:length(article.comments)}
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>

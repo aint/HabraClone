@@ -20,7 +20,7 @@
 
 <div class="container">
 
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="includes/header.jsp"/>
 
     <div class="page-header div_centred">
         <h1 class="page-header__title page-header__title_flow"><fmt:message key="hubs.title" /></h1>
