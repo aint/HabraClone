@@ -22,62 +22,12 @@
 
     <jsp:include page="includes/header.jsp"/>
 
-    <div class="profile-header">
-        <div class="profile-header__summary author-info author-info_profile ">
-            <a href="${pageContext.request.contextPath}/users/${USER.username}" class="author-info__image">
-                <img src="${pageContext.request.contextPath}/resources/images/user.png">
-            </a>
-            <div class="author-info__desc">
-                <div class="author-info__username">
-                    <a href="${pageContext.request.contextPath}/users/${USER.username}">
-                        ${USER.username}
-                    </a>
-                </div>
-                <div class="author-info__specialization">${USER.fullName}</div>
-            </div>
-        </div>
-        <div class="profile-header__stats">
-            <div class="karma__widjet voting-wjt voting-wjt_user-profile js-karma ">
-                <div class="voting-wjt__counter js-karma-mark voting-wjt__counter_positive ">
-                    <div class="voting-wjt__counter-score js-karma_num">${USER.rating / 2}</div>
-                    <div class="voting-wjt__label"><fmt:message key="user_profile.label.karma" /></div>
-                </div>
-            </div>
-            <div class="statistic statistic_user-rating">
-                <div class="statistic__value statistic__value_magenta">${USER.rating}</div>
-                <div class="statistic__label"><fmt:message key="user_profile.label.rating" /></div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="includes/profileHeader.jsp"/>
 
     <div class="column-wrapper">
         <div class="content_left">
-            <div class="tabs">
-                <ul class="tabs-menu tabs-menu_habrahabr">
-                    <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.username}" class="tab-item tab-item_stacked">
-                            <fmt:message key="user_profile.label.profile" />
-                        </a>
-                    </li>
-                    <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.username}/articles/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "tab-item_current": ""}">
-                            <strong>${fn:length(USER.articles)}</strong> <fmt:message key="user_profile.label.articles" />
-                        </a>
-                    </li>
-                    <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.username}/comments/" class="tab-item tab-item_stacked ">
-                            <strong>${fn:length(USER.comments)}</strong> <fmt:message key="user_profile.label.comments" />
-                        </a>
-                    </li>
-                    <li class="tabs-menu__item_inline">
-                        <a href="${pageContext.request.contextPath}/users/${USER.username}/favorites/" class="tab-item tab-item_stacked ${(empty FAVORITES) ? "" : "tab-item_current"}">
-                            <strong>${fn:length(USER.favorites)}</strong> <fmt:message key="user_profile.label.favorites" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <jsp:include page="includes/userTabs.jsp" />
         </div>
-
 
         <div class="posts_list">
             <c:set var="articles" value="${(empty FAVORITES) ? USER.articles : USER.favorites}" />
