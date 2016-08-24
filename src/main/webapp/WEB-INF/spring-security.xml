@@ -14,6 +14,19 @@
     </authentication-manager>
 
 
+    <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless" >
+        <intercept-url pattern="/api/articles/**" access="permitAll"/>
+        <intercept-url pattern="/api/users/**" access="permitAll"/>
+
+        <intercept-url pattern="/api/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/api/comments/add" access="isAuthenticated()"/>
+
+        <access-denied-handler ref="restAccessDeniedHandler"/>
+        <custom-filter ref="tokenAuthenticationFilter" position="FORM_LOGIN_FILTER"   />
+
+        <logout />
+        <csrf disabled="true" />
+    </http>
 
     <http auto-config="true" authentication-manager-ref="authenticationManager">
         <intercept-url pattern="/articles/add" access="isAuthenticated()" />
