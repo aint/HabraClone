@@ -16,19 +16,19 @@ import java.io.IOException;
 @Component
 public class TokenAuthenticationFilter extends GenericFilterBean {
 
-    private final TokenUtils tokenUtils;
+    private final TokenHelper tokenHelper;
 
     @Autowired
-    public TokenAuthenticationFilter(TokenUtils tokenUtils) {
-        this.tokenUtils = tokenUtils;
+    public TokenAuthenticationFilter(TokenHelper tokenHelper) {
+        this.tokenHelper = tokenHelper;
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = request.getParameter("token");
         if (token != null) {
-            if (tokenUtils.validate(token)) {
-                UserDetails user = tokenUtils.getUserFromToken(token);
+            if (tokenHelper.validate(token)) {
+                UserDetails user = tokenHelper.getUserFromToken(token);
                 System.out.println("TOKEN AUTH " + user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities()));

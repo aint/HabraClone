@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sg.academy.java2.habraclone.model.User;
 import ua.sg.academy.java2.habraclone.service.transactional.UserService;
+import ua.sg.academy.java2.habraclone.webController.rest.security.TokenHelper;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
@@ -22,11 +23,13 @@ public class AuthenticationRestController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
+    private final TokenHelper tokenHelper;
 
     @Autowired
-    public AuthenticationRestController(AuthenticationManager authenticationManager, UserService userService) {
+    public AuthenticationRestController(AuthenticationManager authenticationManager, UserService userService, TokenHelper tokenHelper) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
+        this.tokenHelper = tokenHelper;
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -46,7 +49,7 @@ public class AuthenticationRestController {
             return ResponseEntity
                     .ok()
                     .contentType(APPLICATION_JSON_UTF8)
-                    .body(getJson(user.getUsername() + ":" + System.currentTimeMillis()));
+                    .body(getJson(tokenHelper.getToken(username)));
         } catch (BadCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
