@@ -24,7 +24,7 @@ public class TokenUtils {
 //    }
 
     public boolean validate(String token) {
-        return token.matches("(.){3,}:(\\d){10}");
+        return token.matches("(.){3,}:(\\d){13}");
     }
 
     public UserDetails getUserFromToken(String token) {
