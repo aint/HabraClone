@@ -45,7 +45,6 @@ public class TokenHelper {
     public UserDetails getUserFromToken(String token) {
         String decryptedToken = decrypt(token);
         String username = decryptedToken.substring(0, decryptedToken.length() - 13);
-        System.out.println("token username " + username);
         return userService.getByUserName(username);
     }
 

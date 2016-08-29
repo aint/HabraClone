@@ -1,5 +1,7 @@
 package ua.sg.academy.java2.habraclone.webController.rest.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import java.io.IOException;
 
 @Component
 public class TokenAuthenticationFilter extends GenericFilterBean {
+    private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationFilter.class.getName());
 
     private final TokenHelper tokenHelper;
 
@@ -29,14 +32,14 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
         if (token != null) {
             if (tokenHelper.validate(token)) {
                 UserDetails user = tokenHelper.getUserFromToken(token);
-                System.out.println("TOKEN AUTH " + user.getAuthorities());
+                logger.info("User '{}' {} authorized successful", user.getUsername(), user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities()));
             } else {
-                System.out.println("TOKEN NOT VALID");
+                logger.info("Token not valid");
             }
         } else {
-            System.out.println("TOKEN NOT FOUND");
+            logger.info("Token not found");
         }
         chain.doFilter(request, response);
     }

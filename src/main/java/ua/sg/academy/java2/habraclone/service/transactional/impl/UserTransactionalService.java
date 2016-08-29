@@ -3,6 +3,8 @@ package ua.sg.academy.java2.habraclone.service.transactional.impl;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserTransactionalService extends EntityTransactionalService implements UserService, UserDetailsService {
+    private static final Logger logger = LoggerFactory.getLogger(UserTransactionalService.class.getName());
 
     private static final String ACCOUNT_ACTIVATION_EMAIL = "/accountActivation.vm";
 
@@ -168,7 +171,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
             helper.setText(sw.toString(), true);
             sw.close();
         } catch (MessagingException | IOException e) {
-            System.out.println(e.getMessage());
+            logger.error("Emailing error", e);
         }
         mailSender.send(message);
     }
