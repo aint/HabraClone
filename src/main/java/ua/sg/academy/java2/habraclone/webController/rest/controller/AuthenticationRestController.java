@@ -21,6 +21,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 @RequestMapping(value = "/api")
 public class AuthenticationRestController {
 
+    private static final String USER_NOT_FOUND_MESSAGE = "User not found";
+    private static final String BAD_CREDENTIALS_MASSAGE = "Bad Credentials";
+    private static final String MESSAGE_FIELD = "message";
+
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final TokenHelper tokenHelper;
@@ -39,22 +43,25 @@ public class AuthenticationRestController {
             return ResponseEntity
                     .badRequest()
                     .contentType(APPLICATION_JSON_UTF8)
-                    .body(getJson("User not found"));
+                    .body(getJson(USER_NOT_FOUND_MESSAGE));
         }
+        return tryToAuthenticate(user, password);
+    }
 
+    private ResponseEntity<String> tryToAuthenticate(User user, String password) {
         try {
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    username, password, user.getAuthorities());
+            UsernamePasswordAuthenticationToken token =
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), password, user.getAuthorities());
             authenticationManager.authenticate(token);
             return ResponseEntity
                     .ok()
                     .contentType(APPLICATION_JSON_UTF8)
-                    .body(getJson(tokenHelper.getToken(username)));
+                    .body(getJson(tokenHelper.getToken(user.getUsername())));
         } catch (BadCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .contentType(APPLICATION_JSON_UTF8)
-                    .body(getJson("Bad Credentials"));
+                    .body(getJson(BAD_CREDENTIALS_MASSAGE));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -64,7 +71,7 @@ public class AuthenticationRestController {
     }
 
     private String getJson(String message) {
-        return new JSONObject().put("message", message).toString();
+        return new JSONObject().put(MESSAGE_FIELD, message).toString();
     }
 
 }

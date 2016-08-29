@@ -35,7 +35,7 @@ public class TokenHelper {
     }
 
     public boolean validate(String token) {
-        return TOKEN_PATTERN.matcher(token).matches();
+        return token != null && TOKEN_PATTERN.matcher(token).matches();
     }
 
     public String getToken(String username) throws GeneralSecurityException, UnsupportedEncodingException {

@@ -18,6 +18,7 @@ import java.io.IOException;
 @Component
 public class TokenAuthenticationFilter extends GenericFilterBean {
     private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationFilter.class.getName());
+    private static final String TOKEN_PARAMETER = "token";
 
     private final TokenHelper tokenHelper;
 
@@ -28,19 +29,20 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = request.getParameter("token");
-        if (token != null) {
-            if (tokenHelper.validate(token)) {
-                UserDetails user = tokenHelper.getUserFromToken(token);
-                logger.info("User '{}' {} authorized successful", user.getUsername(), user.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities()));
-            } else {
-                logger.info("Token not valid");
-            }
+        String token = request.getParameter(TOKEN_PARAMETER);
+        if (tokenHelper.validate(token)) {
+            authenticateUser(token);
         } else {
-            logger.info("Token not found");
+            logger.info("Token not valid");
         }
+
         chain.doFilter(request, response);
+    }
+
+    private void authenticateUser(String token) {
+        UserDetails user = tokenHelper.getUserFromToken(token);
+        logger.info("User '{}' {} authorized successful", user.getUsername(), user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities()));
     }
 }
