@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.sg.academy.java2.habraclone.model.Article;
 import ua.sg.academy.java2.habraclone.service.transactional.ArticleService;
 import ua.sg.academy.java2.habraclone.webController.rest.json.ArticleJson;
+import ua.sg.academy.java2.habraclone.webController.rest.json.CommentJson;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -39,6 +40,18 @@ public class ArticleRestController {
         }
         articleService.incrementViewsCount(article);
         return new ResponseEntity<>(new ArticleJson(article), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/articles/{id}/comments")
+    public ResponseEntity<Collection<CommentJson>> getCommentOfArticle(@PathVariable("id") Long id) {
+        Article article = (Article) articleService.getById(id);
+        if (article == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(
+                article.getComments().stream()
+                        .map(CommentJson::new)
+                        .collect(Collectors.toList()), HttpStatus.OK);
     }
 
 }
