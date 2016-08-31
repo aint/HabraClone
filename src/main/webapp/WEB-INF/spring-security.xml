@@ -18,6 +18,8 @@
         <intercept-url pattern="/api/articles/**" access="permitAll"/>
         <intercept-url pattern="/api/users/**" access="permitAll"/>
 
+        <intercept-url pattern="/api/authenticate" access="permitAll"/>
+
         <intercept-url pattern="/api/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/api/comments/add" access="isAuthenticated()"/>
 
