@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
 @ComponentScan({ "com.github.aint.habraclone.service" })
 @Import(DataSpringConfig.class)
 public class ServiceSpringConfig {
