@@ -19,7 +19,7 @@ import java.util.Locale;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "com.github.aint.habraclone.web" })
+@ComponentScan({ "com.github.aint.habraclone.web.mvc", "com.github.aint.habraclone.web.rest" })
 public class DispatcherSpringConfig extends WebMvcConfigurerAdapter {
 
     @Override
