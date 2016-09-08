@@ -15,12 +15,4 @@ public interface CommentDao extends GeneralDao {
      */
     List<Comment> getAllCommentsOfUser(User user);
 
-    /**
-     * Returns the latest comment of the specified {@code user}.
-     *
-     * @param user to find comments for
-     * @return the latest comment of the given {@code user} or {@code null} if the {@code user} has no comments
-     */
-    Comment getLatestCommentOfUser(User user);
-
 }

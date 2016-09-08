@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CommentDaoHibernate extends GeneralHibernateDao implements CommentDao {
+public class CommentHibernateDao extends GeneralHibernateDao implements CommentDao {
 
-    public CommentDaoHibernate() {
+    public CommentHibernateDao() {
         persistentClass = Comment.class;
     }
 
@@ -23,11 +23,4 @@ public class CommentDaoHibernate extends GeneralHibernateDao implements CommentD
                 .list();
     }
 
-    @Override
-    public Comment getLatestCommentOfUser(User user) {
-        return (Comment) getSession()
-                .getNamedQuery("getLatestCommentOfUser")
-                .setEntity("author", user)
-                .uniqueResult();
-    }
 }
