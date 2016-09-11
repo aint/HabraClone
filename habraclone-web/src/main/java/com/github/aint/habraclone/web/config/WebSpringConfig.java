@@ -2,7 +2,9 @@ package com.github.aint.habraclone.web.config;
 
 import com.github.aint.habraclone.data.config.DataSpringConfig;
 import com.github.aint.habraclone.service.config.ServiceSpringConfig;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
@@ -27,7 +29,11 @@ public class WebSpringConfig extends AbstractAnnotationConfigDispatcherServletIn
 
     @Override
     protected Filter[] getServletFilters() {
-        return new Filter[] { new CharacterEncodingFilter("UTF-8", true) };
+        return new Filter[] {
+                new OpenSessionInViewFilter(),
+                new DelegatingFilterProxy("springSecurityFilterChain"),
+                new CharacterEncodingFilter("UTF-8", true)
+        };
     }
 
     @Override
