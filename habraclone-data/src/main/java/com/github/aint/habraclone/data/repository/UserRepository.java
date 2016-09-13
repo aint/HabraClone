@@ -1,10 +1,11 @@
-package com.github.aint.habraclone.data.dao.inter;
+package com.github.aint.habraclone.data.repository;
 
 import com.github.aint.habraclone.data.model.User;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UserDao extends GeneralDao {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * Returns a {@code User} by the given {@code username}.

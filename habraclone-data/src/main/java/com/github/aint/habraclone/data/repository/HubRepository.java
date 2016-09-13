@@ -1,7 +1,7 @@
-package com.github.aint.habraclone.data.dao.inter;
+package com.github.aint.habraclone.data.repository;
 
-import com.github.aint.habraclone.data.dao.hibernate.HubHibernateDao;
 import com.github.aint.habraclone.data.model.Hub;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
@@ -9,9 +9,8 @@ import java.util.List;
  * This interface represents persistence methods for {@link Hub} objects.
  *
  * @author Oleksandr Tyshkovets
- * @see HubHibernateDao
  */
-public interface HubDao extends GeneralDao {
+public interface HubRepository extends CrudRepository<Hub, Long> {
 
     /**
      * Returns a {@code Hub} by the given {@code name}.
