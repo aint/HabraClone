@@ -11,9 +11,9 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
     /**
      * Returns all comments of the specified {@code user}.
      *
-     * @param user to find comments for
-     * @return all comments of the given {@code user}
+     * @param author to find comments for
+     * @return all comments of the given {@code author}
      */
-    List<Comment> getAllCommentsOfUser(User user);
+    List<Comment> findByAuthor(User author);
 
 }

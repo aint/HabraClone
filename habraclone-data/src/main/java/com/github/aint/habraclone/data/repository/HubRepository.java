@@ -18,13 +18,13 @@ public interface HubRepository extends CrudRepository<Hub, Long> {
      * @param name the name of the requested hub
      * @return a {@code Hub} or {@code null} if a hub with the given {@code name} not found
      */
-    Hub getByHubName(String name);
+    Hub findByName(String name);
 
     /**
      * Returns the 10 most popular hubs.
      *
      * @return a list of the most popular hubs
      */
-    List getMostPopularHubs();
+    List<Hub> findTop10ByOrderByRating();
 
 }

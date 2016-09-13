@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GenericRepository<T extends IEntity> extends CrudRepository<T, Long> {
 
-    List<T> getAllSortedDeskByRating();
+    List<T> findByOrderByRatingDesc();
 
 }
