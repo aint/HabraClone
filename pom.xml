@@ -13,6 +13,15 @@
     <module>habraclone-web</module>
   </modules>
 
+  <properties>
+    <hibernateVersion>5.2.2.Final</hibernateVersion>
+    <hibernateValidatorVersion>5.2.4.Final</hibernateValidatorVersion>
+    <springVersion>4.3.1.RELEASE</springVersion>
+    <springDataVersion>1.10.3.RELEASE</springDataVersion>
+    <springSecurityVersion>4.1.1.RELEASE</springSecurityVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
 
@@ -33,6 +42,7 @@
         <version>1.0-SNAPSHOT</version>
       </dependency>
 
+      <!-- DB/ORM -->
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
@@ -41,7 +51,19 @@
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>5.2.2.Final</version>
+        <version>${hibernateVersion}</version>
+      </dependency>
+
+      <!-- Validation -->
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>1.1.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernateValidatorVersion}</version>
       </dependency>
 
       <!-- Spring -->
@@ -59,7 +81,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-jpa</artifactId>
-        <version>1.10.3.RELEASE</version>
+        <version>${springDataVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
@@ -104,30 +126,6 @@
         <version>20160810</version>
       </dependency>
 
-      <!-- Validation -->
-      <dependency>
-        <groupId>javax.validation</groupId>
-        <artifactId>validation-api</artifactId>
-        <version>1.1.0.Final</version>
-      </dependency>
-      <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>5.2.4.Final</version>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.mail</groupId>
-        <artifactId>mail</artifactId>
-        <version>1.4.7</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.velocity</groupId>
-        <artifactId>velocity</artifactId>
-        <version>1.7</version>
-      </dependency>
-
       <!-- Logging -->
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -140,6 +138,7 @@
         <version>1.1.7</version>
       </dependency>
 
+      <!-- Servlet/JSP -->
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
@@ -158,6 +157,25 @@
         <version>1.2</version>
       </dependency>
 
+      <!-- Misc -->
+      <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.7</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>1.7</version>
+      </dependency>
+
+      <!-- Test -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${springVersion}</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -173,7 +191,13 @@
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
-        <version>1.3.173</version>
+        <version>1.4.192</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.ninja-squad</groupId>
+        <artifactId>DbSetup</artifactId>
+        <version>2.1.0</version>
         <scope>test</scope>
       </dependency>
 
@@ -194,11 +218,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <properties>
-    <springVersion>4.3.1.RELEASE</springVersion>
-    <springSecurityVersion>4.1.1.RELEASE</springSecurityVersion>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
 </project>
