@@ -55,6 +55,7 @@ public class DataSpringConfig {
         em.setPackagesToScan("com.github.aint.habraclone.data.model");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(hibernateProperties());
+        em.afterPropertiesSet();
 
         return em.getObject();
     }
