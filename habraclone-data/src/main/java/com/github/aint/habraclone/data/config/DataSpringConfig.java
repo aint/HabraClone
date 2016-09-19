@@ -30,12 +30,8 @@ public class DataSpringConfig {
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL = "hibernate.hbm2ddl.auto";
 
-    private final Environment env;
-
-    @Autowired
-    public DataSpringConfig(Environment env) {
-        this.env = env;
-    }
+    @Resource
+    private Environment env;
 
     @Bean
     public DataSource dataSource() {
