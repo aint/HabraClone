@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -12,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -45,20 +45,25 @@ public class DataSpringConfig {
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("com.github.aint.habraclone.data.model");
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(hibernateProperties());
-        em.afterPropertiesSet();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource());
+        entityManager.setPackagesToScan("com.github.aint.habraclone.data.model");
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManager.setJpaProperties(hibernateProperties());
+        entityManager.afterPropertiesSet();
 
-        return em.getObject();
+        return entityManager;
     }
 
     @Bean
     public PlatformTransactionManager transactionManager(){
-        return new JpaTransactionManager(entityManagerFactory());
+        return new JpaTransactionManager(entityManagerFactory().getObject());
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     private Properties hibernateProperties() {
