@@ -4,17 +4,20 @@ import com.github.aint.habraclone.data.config.DataSpringConfig;
 import com.github.aint.habraclone.data.model.Hub;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
+import com.ninja_squad.dbsetup.generator.ValueGenerators;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("classpath:test-db.properties")
@@ -30,13 +35,17 @@ public class HubRepositoryTest {
 
     private static final String HUB_TABLE = Hub.class.getSimpleName();
 
+    private static final int HUBS_COUNT = 20;
+
     private static final Operation DELETE_ALL = sequenceOf(deleteAllFrom(HUB_TABLE));
     private static final Operation INSERT_DATA =
             sequenceOf(
                     insertInto(HUB_TABLE)
-                            .columns("id", "name", "creationDate", "description",  "rating")
-                            .values(1L, "Hub_1", "2016-07-01 15:47:17", "First Hub", 11)
-                            .values(2L, "Hub_2", "2016-07-01 15:47:17", "Second Hub", 12)
+                            .withGeneratedValue("id", ValueGenerators.sequence().startingAt(1L))
+                            .withGeneratedValue("name", ValueGenerators.stringSequence("hub-").startingAt(1L))
+                            .withGeneratedValue("rating", ValueGenerators.sequence().startingAt(-10))
+                            .columns("creationDate")
+                            .repeatingValues(LocalDateTime.now()).times(HUBS_COUNT)
                             .build());
 
     @Autowired
@@ -56,6 +65,29 @@ public class HubRepositoryTest {
 
 
     @Test
+    public void findByName() {
+        assertNotNull(hubRepository.findByName("hub-1"));
+    }
+
+    @Test
+    public void findByNameNull() {
+        assertNull(hubRepository.findByName(null));
+    }
+
+    @Test
+    public void findByNameNotFound() {
+        assertNull(hubRepository.findByName("hub-42"));
+    }
+
+    @Test
+    public void findTop10ByOrderByRating() {
+        final int expectedSize = 2;
+        assertEquals(expectedSize, hubRepository.findTop10ByOrderByRating().size());
+    }
+
+    /*===== Common methods =====*/
+
+    @Test
     public void findOne() {
         final long expectedId = 1;
         assertEquals(expectedId, hubRepository.findOne(1L).getId());
@@ -63,11 +95,48 @@ public class HubRepositoryTest {
 
     @Test
     public void findAll() {
-        final int expectedSize = 2;
-
         List<Hub> allHubs = new ArrayList<>();
         hubRepository.findAll().forEach(allHubs::add);
 
-        assertEquals(expectedSize, allHubs.size());
+        assertEquals(HUBS_COUNT, allHubs.size());
+    }
+
+    @Test
+    public void save() {
+        Hub hub = new Hub("hub-101", "description");
+        hub.setCreationDate(LocalDateTime.now());
+        assertNotNull(hubRepository.save(hub));
+    }
+
+    @Test
+    public void update() {
+        final long hubId = 1L;
+        final String expectedName = "new_name";
+
+        Hub hub = hubRepository.findOne(hubId);
+        hub.setName(expectedName);
+        hubRepository.save(hub);
+
+        assertEquals(expectedName, hubRepository.findOne(hubId).getName());
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void saveUsersWithSameEmail() {
+        final String hubName = "same_hub_name";
+
+        Hub hub1 = new Hub(hubName, "description");
+        hub1.setCreationDate(LocalDateTime.now());
+        Hub hub2 = new Hub(hubName, "description");
+        hub2.setCreationDate(LocalDateTime.now());
+
+        hubRepository.save(hub1);
+        hubRepository.save(hub2);
+    }
+
+    @Test
+    public void delete() {
+        final long hubId = 1L;
+        hubRepository.delete(hubId);
+        assertNull(hubRepository.findOne(hubId));
     }
 }
