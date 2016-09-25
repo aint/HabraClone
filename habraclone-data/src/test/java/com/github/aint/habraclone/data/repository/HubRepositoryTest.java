@@ -20,10 +20,13 @@ import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
+import static java.util.Comparator.reverseOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -81,8 +84,14 @@ public class HubRepositoryTest {
 
     @Test
     public void findTop10ByOrderByRating() {
-        final int expectedSize = 2;
-        assertEquals(expectedSize, hubRepository.findTop10ByOrderByRating().size());
+        List<Integer> actualRatings = hubRepository.findTop10ByOrderByRatingDesc().stream()
+                .map(Hub::getRating)
+                .collect(Collectors.toList());
+        List<Integer> expectedRatings = IntStream.range(0, 10)
+                .boxed()
+                .sorted(reverseOrder())
+                .collect(Collectors.toList());
+        assertEquals(expectedRatings, actualRatings);
     }
 
     /*===== Common methods =====*/

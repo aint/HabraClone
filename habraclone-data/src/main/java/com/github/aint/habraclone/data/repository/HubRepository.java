@@ -25,6 +25,6 @@ public interface HubRepository extends CrudRepository<Hub, Long> {
      *
      * @return a list of the most popular hubs
      */
-    List<Hub> findTop10ByOrderByRating();
+    List<Hub> findTop10ByOrderByRatingDesc();
 
 }
