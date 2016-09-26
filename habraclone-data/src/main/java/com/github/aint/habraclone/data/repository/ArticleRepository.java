@@ -26,9 +26,9 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     /**
      * Returns the latest article of the specified {@code user}.
      *
-     * @param user to find articles for
+     * @param author to find articles for
      * @return the latest article of the given {@code user} or {@code null} if the {@code user} has no articles
      */
-    Article findLatestArticleOfUser(User user);
+    Article findLatestArticleOfUser(User author);
 
 }
