@@ -25,6 +25,8 @@ import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("classpath:test-db.properties")
@@ -68,6 +70,8 @@ public class CommentRepositoryTest {
     private DataSource dataSource;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -79,6 +83,25 @@ public class CommentRepositoryTest {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
     }
 
+
+    @Test
+    public void findByAuthor() {
+        final User author = userRepository.findOne(1L);
+        assertFalse(commentRepository.findByAuthor(author).isEmpty());
+    }
+
+    @Test
+    public void findByAuthorNull() {
+        assertTrue(commentRepository.findByAuthor(null).isEmpty());
+    }
+
+    @Test
+    public void findByAuthorNotFound() {
+        final User author = userRepository.findOne(42L);
+        assertTrue(commentRepository.findByAuthor(author).isEmpty());
+    }
+
+    /*===== Common methods =====*/
 
     @Test
     public void findOne() {
