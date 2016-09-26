@@ -38,33 +38,33 @@ public class CommentRepositoryTest {
     private static final String HUB_TABLE = Hub.class.getSimpleName();
     private static final String USER_TABLE = User.class.getSimpleName();
 
-    private static final Operation DELETE_ALL = sequenceOf(deleteAllFrom(COMMENT_TABLE, ARTICLE_TABLE, HUB_TABLE, USER_TABLE));
-    private static final Operation INSERT_DATA =
-            sequenceOf(
-                    insertInto(USER_TABLE)
-                            .columns("id", "email", "username", "password", "lastLoginTime", "registrationDate",
-                                    "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
-                                    "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
-                            .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
-                                    true, true, null, null, 0, "about", "first user",
-                                    2, 0, 1, null, null)
-                            .build(),
-                    insertInto(HUB_TABLE)
-                            .columns("id", "name", "creationDate", "description",  "rating")
-                            .values(1L, "Hub_1", "2016-07-01 15:47:17", "First Hub", 11)
-                            .values(2L, "Hub_2", "2016-07-01 15:47:17", "Second Hub", 12)
-                            .build(),
-                    insertInto(ARTICLE_TABLE)
-                            .columns("id", "title", "body", "preview", "creationDate", "keywords", "favorites", "rating",
-                                    "views", "author_id", "hub_id")
-                            .values(1L, "title_1", "body_1", "preview_1", "2016-07-01 15:47:17", "keyword_1", 1, 11, 12, 1, 1)
-                            .values(2L, "title_2", "body_2", "preview_2", "2016-07-01 15:47:17", "keyword_2", 2, 21, 22, 1, 2)
-                            .build(),
-                    insertInto(COMMENT_TABLE)
-                            .columns("id", "body", "creationDate", "rating", "article_id", "author_id")
-                            .values(1L, "body_1", "2016-01-01 10:10:10", -1, 1, 1)
-                            .values(2L, "body_2", "2016-02-02 12:12:12", 12, 2, 1)
-                            .build());
+    private static final Operation DELETE_ALL = sequenceOf(
+            deleteAllFrom(COMMENT_TABLE, ARTICLE_TABLE, HUB_TABLE, USER_TABLE));
+    private static final Operation INSERT_DATA = sequenceOf(
+            insertInto(USER_TABLE)
+                    .columns("id", "email", "username", "password", "lastLoginTime", "registrationDate",
+                             "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
+                             "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
+                    .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
+                            true, true, null, null, 0, "about", "first user",
+                            2, 0, 1, null, null)
+                    .build(),
+            insertInto(HUB_TABLE)
+                    .columns("id", "name", "creationDate", "description",  "rating")
+                    .values(1L, "Hub_1", "2016-07-01 15:47:17", "First Hub", 11)
+                    .values(2L, "Hub_2", "2016-07-01 15:47:17", "Second Hub", 12)
+                    .build(),
+            insertInto(ARTICLE_TABLE)
+                    .columns("id", "title", "body", "preview", "creationDate", "keywords", "favorites", "rating",
+                             "views", "author_id", "hub_id")
+                    .values(1L, "title_1", "body_1", "preview_1", "2016-07-01 15:47:17", "keyword_1", 1, 11, 12, 1, 1)
+                    .values(2L, "title_2", "body_2", "preview_2", "2016-07-01 15:47:17", "keyword_2", 2, 21, 22, 1, 2)
+                    .build(),
+            insertInto(COMMENT_TABLE)
+                    .columns("id", "body", "creationDate", "rating", "article_id", "author_id")
+                    .values(1L, "body_1", "2016-01-01 10:10:10", -1, 1, 1)
+                    .values(2L, "body_2", "2016-02-02 12:12:12", 12, 2, 1)
+                    .build());
 
     @Autowired
     private DataSource dataSource;
@@ -75,14 +75,12 @@ public class CommentRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        new DbSetup(new DataSourceDestination(dataSource), INSERT_DATA).launch();
+        new DbSetup(new DataSourceDestination(dataSource), sequenceOf(DELETE_ALL, INSERT_DATA)).launch();
     }
-
     @After
     public void tearDown() throws Exception {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
     }
-
 
     @Test
     public void findByAuthor() {

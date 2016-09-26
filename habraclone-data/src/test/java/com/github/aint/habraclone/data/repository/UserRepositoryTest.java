@@ -35,19 +35,18 @@ public class UserRepositoryTest {
     private static final String USER_TABLE = User.class.getSimpleName();
 
     private static final Operation DELETE_ALL = sequenceOf(deleteAllFrom(USER_TABLE));
-    private static final Operation INSERT_DATA =
-            sequenceOf(
-                    insertInto(USER_TABLE)
-                            .columns("id", "email", "username", "password", "lastLoginTime", "registrationDate",
-                                    "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
-                                    "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
-                            .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
-                                    true, true, null, null, 0, "about", "first user",
-                                    2, 0, 1, null, null)
-                            .values(2L, "user2@gmail.com", "user_2", "111111", "2012-02-02 22:22:22", "2012-02-02 12:22:12",
-                                    false, false, null, null, 0, "about", "second user",
-                                    2, 2, 2, null, null)
-                            .build());
+    private static final Operation INSERT_DATA = sequenceOf(
+            insertInto(USER_TABLE)
+                    .columns("id", "email", "username", "password", "lastLoginTime", "registrationDate",
+                            "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
+                            "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
+                    .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
+                            true, true, null, null, 0, "about", "first user",
+                            2, 0, 1, null, null)
+                    .values(2L, "user2@gmail.com", "user_2", "111111", "2012-02-02 22:22:22", "2012-02-02 12:22:12",
+                            false, false, null, null, 0, "about", "second user",
+                            2, 2, 2, null, null)
+                    .build());
 
     @Autowired
     private DataSource dataSource;
@@ -56,14 +55,12 @@ public class UserRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        new DbSetup(new DataSourceDestination(dataSource), INSERT_DATA).launch();
+        new DbSetup(new DataSourceDestination(dataSource), sequenceOf(DELETE_ALL, INSERT_DATA)).launch();
     }
-
     @After
     public void tearDown() throws Exception {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
     }
-
 
     @Test
     public void findByUsername() {

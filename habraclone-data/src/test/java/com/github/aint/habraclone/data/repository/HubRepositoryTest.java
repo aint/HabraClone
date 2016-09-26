@@ -4,7 +4,6 @@ import com.github.aint.habraclone.data.config.DataSpringConfig;
 import com.github.aint.habraclone.data.model.Hub;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
-import com.ninja_squad.dbsetup.generator.ValueGenerators;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +24,8 @@ import java.util.stream.IntStream;
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
+import static com.ninja_squad.dbsetup.generator.ValueGenerators.sequence;
+import static com.ninja_squad.dbsetup.generator.ValueGenerators.stringSequence;
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static java.util.Comparator.reverseOrder;
 import static org.junit.Assert.assertEquals;
@@ -41,15 +42,14 @@ public class HubRepositoryTest {
     private static final int HUBS_COUNT = 20;
 
     private static final Operation DELETE_ALL = sequenceOf(deleteAllFrom(HUB_TABLE));
-    private static final Operation INSERT_DATA =
-            sequenceOf(
-                    insertInto(HUB_TABLE)
-                            .withGeneratedValue("id", ValueGenerators.sequence().startingAt(1L))
-                            .withGeneratedValue("name", ValueGenerators.stringSequence("hub-").startingAt(1L))
-                            .withGeneratedValue("rating", ValueGenerators.sequence().startingAt(-10))
-                            .columns("creationDate")
-                            .repeatingValues(LocalDateTime.now()).times(HUBS_COUNT)
-                            .build());
+    private static final Operation INSERT_DATA = sequenceOf(
+            insertInto(HUB_TABLE)
+                    .withGeneratedValue("id", sequence().startingAt(1L))
+                    .withGeneratedValue("name", stringSequence("hub-").startingAt(1L))
+                    .withGeneratedValue("rating", sequence().startingAt(-10))
+                    .columns("creationDate")
+                    .repeatingValues(LocalDateTime.now()).times(HUBS_COUNT)
+                    .build());
 
     @Autowired
     private DataSource dataSource;
@@ -58,14 +58,12 @@ public class HubRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        new DbSetup(new DataSourceDestination(dataSource), INSERT_DATA).launch();
+        new DbSetup(new DataSourceDestination(dataSource), sequenceOf(DELETE_ALL, INSERT_DATA)).launch();
     }
-
     @After
     public void tearDown() throws Exception {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
     }
-
 
     @Test
     public void findByName() {
