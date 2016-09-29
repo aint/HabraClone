@@ -1,7 +1,6 @@
 package com.github.aint.habraclone.data.repository;
 
 import com.github.aint.habraclone.data.model.Hub;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  *
  * @author Oleksandr Tyshkovets
  */
-public interface HubRepository extends CrudRepository<Hub, Long> {
+public interface HubRepository extends GenericRepository<Hub, Long> {
 
     /**
      * Returns a {@code Hub} by the given {@code name}.

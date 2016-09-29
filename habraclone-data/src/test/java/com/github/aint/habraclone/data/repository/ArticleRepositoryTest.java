@@ -96,6 +96,18 @@ public class ArticleRepositoryTest {
 
 
     @Test
+    public void findByOrderByRatingDesc() {
+        List<Integer> actualRatings = articleRepository.findByOrderByRatingDesc().stream()
+                .map(Article::getRating)
+                .collect(Collectors.toList());
+        List<Integer> expectedRatings = IntStream.range(-10, 10)
+                .boxed()
+                .sorted(reverseOrder())
+                .collect(Collectors.toList());
+        assertEquals(expectedRatings, actualRatings);
+    }
+
+    @Test
     public void findTop10ByOrderByRatingDesc() {
         List<Integer> actualRatings = articleRepository.findTop10ByOrderByRatingDesc().stream()
                 .map(Article::getRating)

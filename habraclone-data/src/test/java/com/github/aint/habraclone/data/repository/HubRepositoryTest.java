@@ -65,6 +65,19 @@ public class HubRepositoryTest {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
     }
 
+
+    @Test
+    public void findByOrderByRatingDesc() {
+        List<Integer> actualRatings = hubRepository.findByOrderByRatingDesc().stream()
+                .map(Hub::getRating)
+                .collect(Collectors.toList());
+        List<Integer> expectedRatings = IntStream.range(-10, 10)
+                .boxed()
+                .sorted(reverseOrder())
+                .collect(Collectors.toList());
+        assertEquals(expectedRatings, actualRatings);
+    }
+
     @Test
     public void findByName() {
         assertNotNull(hubRepository.findByName("hub-1"));

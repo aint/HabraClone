@@ -20,6 +20,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
@@ -80,6 +82,18 @@ public class CommentRepositoryTest {
     @After
     public void tearDown() throws Exception {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
+    }
+
+
+    @Test
+    public void findByOrderByRatingDesc() {
+        List<Integer> actualRatings = commentRepository.findByOrderByRatingDesc().stream()
+                .map(Comment::getRating)
+                .collect(Collectors.toList());
+        List<Integer> expectedRatings = IntStream.of(12, -1)
+                .boxed()
+                .collect(Collectors.toList());
+        assertEquals(expectedRatings, actualRatings);
     }
 
     @Test

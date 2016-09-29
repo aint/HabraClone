@@ -2,11 +2,10 @@ package com.github.aint.habraclone.data.repository;
 
 import com.github.aint.habraclone.data.model.Article;
 import com.github.aint.habraclone.data.model.User;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ArticleRepository extends CrudRepository<Article, Long> {
+public interface ArticleRepository extends GenericRepository<Article, Long> {
 
     /**
      * Returns the 10 most popular articles.

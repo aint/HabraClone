@@ -19,6 +19,8 @@ import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
@@ -41,10 +43,10 @@ public class UserRepositoryTest {
                             "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
                             "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
                     .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
-                            true, true, null, null, 0, "about", "first user",
+                            true, true, null, null, 11, "about", "first user",
                             2, 0, 1, null, null)
                     .values(2L, "user2@gmail.com", "user_2", "111111", "2012-02-02 22:22:22", "2012-02-02 12:22:12",
-                            false, false, null, null, 0, "about", "second user",
+                            false, false, null, null, -22, "about", "second user",
                             2, 2, 2, null, null)
                     .build());
 
@@ -60,6 +62,18 @@ public class UserRepositoryTest {
     @After
     public void tearDown() throws Exception {
         new DbSetup(new DataSourceDestination(dataSource), DELETE_ALL).launch();
+    }
+
+
+    @Test
+    public void findByOrderByRatingDesc() {
+        List<Integer> actualRatings = userRepository.findByOrderByRatingDesc().stream()
+                .map(User::getRating)
+                .collect(Collectors.toList());
+        List<Integer> expectedRatings = IntStream.of(11, -22)
+                .boxed()
+                .collect(Collectors.toList());
+        assertEquals(expectedRatings, actualRatings);
     }
 
     @Test

@@ -1,11 +1,10 @@
 package com.github.aint.habraclone.data.repository;
 
 import com.github.aint.habraclone.data.model.User;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends GenericRepository<User, Long> {
 
     /**
      * Returns a {@code User} by the given {@code username}.
