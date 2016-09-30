@@ -6,7 +6,7 @@ import com.github.aint.habraclone.service.dto.ArticleForm;
 
 import java.util.List;
 
-public interface ArticleService extends EntityService {
+public interface ArticleService extends EntityService<Article> {
 
     List<Article> getAllSortedAscByDate();
 

@@ -1,6 +1,8 @@
 package com.github.aint.habraclone.service.transactional.inter;
 
-public interface CommentService extends EntityService {
+import com.github.aint.habraclone.data.model.Comment;
+
+public interface CommentService extends EntityService<Comment> {
 
     void createAndSave(String body, Long articleId, String authorUsername);
 
