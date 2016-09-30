@@ -1,5 +1,10 @@
 package com.github.aint.habraclone.service.transactional.impl;
 
+import com.github.aint.habraclone.data.model.User;
+import com.github.aint.habraclone.data.model.UserRole;
+import com.github.aint.habraclone.data.repository.UserRepository;
+import com.github.aint.habraclone.service.dto.UserForm;
+import com.github.aint.habraclone.service.transactional.inter.UserService;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -14,11 +19,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.aint.habraclone.data.dao.inter.UserDao;
-import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.data.model.UserRole;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
-import com.github.aint.habraclone.service.dto.UserForm;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -27,12 +27,11 @@ import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserTransactionalService extends EntityTransactionalService implements UserService, UserDetailsService {
+public class UserTransactionalService extends EntityTransactionalService<User> implements UserService, UserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(UserTransactionalService.class.getName());
 
     private static final String ACCOUNT_ACTIVATION_EMAIL = "/accountActivation.vm";
@@ -41,8 +40,8 @@ public class UserTransactionalService extends EntityTransactionalService impleme
     private final VelocityEngine velocityEngine;
 
     @Autowired
-    public UserTransactionalService(UserDao userDao, JavaMailSender mailSender, VelocityEngine velocityEngine) {
-        super(userDao);
+    public UserTransactionalService(UserRepository userRepository, JavaMailSender mailSender, VelocityEngine velocityEngine) {
+        super(userRepository);
         this.mailSender = mailSender;
         this.velocityEngine = velocityEngine;
     }
@@ -71,21 +70,20 @@ public class UserTransactionalService extends EntityTransactionalService impleme
 
     @Override
     public User getByUserName(String username) {
-        return getDao().getByUserName(username);
+        return getRepository().findByUsername(username);
     }
 
     @Override
     public User getByEmail(String email) {
-        return getDao().getByEmail(email);
+        return getRepository().findByEmail(email);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public int getPositionByRating(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User can't be null");
         }
-        return ((List<User>) getAllSortedDeskByRating())
+        return getAllSortedDeskByRating()
                 .stream()
                 .map(User::getRating)
                 .collect(Collectors.toList())
@@ -94,7 +92,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
 
     @Override
     public boolean login(String email, String password) {
-        User user = getDao().getByEmail(email);
+        User user = getRepository().findByEmail(email);
         return user != null && user.getPassword().equalsIgnoreCase(password);
     }
 
@@ -138,8 +136,8 @@ public class UserTransactionalService extends EntityTransactionalService impleme
     }
 
     @Override
-    protected UserDao getDao() {
-        return (UserDao) dao;
+    protected UserRepository getRepository() {
+        return (UserRepository) repository;
     }
 
     private User dtoToUser(UserForm userForm) {
@@ -152,7 +150,7 @@ public class UserTransactionalService extends EntityTransactionalService impleme
         user.setLastLoginTime(LocalDateTime.now());
         user.setRegistrationDate(LocalDateTime.now());
         UserRole role = new UserRole("ROLE_USER", user);
-        save(role);
+//        save(role);
         user.setRoles(new HashSet<>(Collections.singletonList(role)));
         return user;
     }
