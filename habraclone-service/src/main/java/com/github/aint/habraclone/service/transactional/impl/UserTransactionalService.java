@@ -65,7 +65,7 @@ public class UserTransactionalService extends EntityTransactionalService<User> i
     @Override
     public void activate(User user) {
         user.setEnabled(true);
-        update(user);
+        save(user);
     }
 
     @Override
@@ -103,31 +103,31 @@ public class UserTransactionalService extends EntityTransactionalService<User> i
         }
         User user = getByUserName(username);
         user.setLastLoginTime(LocalDateTime.now());
-        update(user);
+        save(user);
     }
 
     @Override
     public void incrementArticlesCount(User user) {
         user.setArticlesCount(user.getArticlesCount() + 1);
-        update(user);
+        save(user);
     }
 
     @Override
     public void decrementArticlesCount(User user) {
         user.setArticlesCount(user.getArticlesCount() - 1);
-        update(user);
+        save(user);
     }
 
     @Override
     public void banUser(User user) {
         user.setBanExpirationDate(LocalDateTime.now().plusDays(5));
-        update(user);
+        save(user);
     }
 
     @Override
     public void unbanUser(User user) {
         user.setBanExpirationDate(null);
-        update(user);
+        save(user);
     }
 
     @Override

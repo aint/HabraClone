@@ -58,12 +58,12 @@ public class ArticleTransactionalService extends EntityTransactionalService<Arti
         }
         Article article = getById(articleId);
         article.setFavorites(article.getFavorites() + 1);
-        update(article);
+        save(article);
 
         User user = userService.getByUserName(username);
         user.getFavorites().add(article);
         user.setFavoritesCount(user.getFavoritesCount() + 1);
-        userService.update(user);
+        userService.save(user);
 
         // check user favorities for duplicates
         return false;
@@ -72,7 +72,7 @@ public class ArticleTransactionalService extends EntityTransactionalService<Arti
     @Override
     public void incrementViewsCount(Article article) {
         article.setViews(article.getViews() + 1);
-        update(article);
+        save(article);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ArticleTransactionalService extends EntityTransactionalService<Arti
         userService.decrementArticlesCount(author);
         article.getComments().stream()
                 .map(Comment::getAuthor)
-                .forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); userService.update(author);});
+                .forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); userService.save(author);});
         delete(article);
     }
 
@@ -107,7 +107,7 @@ public class ArticleTransactionalService extends EntityTransactionalService<Arti
         article.getUsersVoted().add(user);
         article.setRating(plus ? article.getRating() + 1 : article.getRating() - 1);
         article.getAuthor().setRating(plus ? article.getAuthor().getRating() + 1 : article.getAuthor().getRating() - 1);
-        update(article);
+        save(article);
     }
 
     @Override

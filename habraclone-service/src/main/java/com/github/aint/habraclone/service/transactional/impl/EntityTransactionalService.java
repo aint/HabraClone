@@ -39,14 +39,6 @@ public abstract class EntityTransactionalService<T extends IEntity> implements E
     }
 
     @Override
-    public void update(T entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
-        }
-        repository.save(entity);
-    }
-
-    @Override
     public void delete(T entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);

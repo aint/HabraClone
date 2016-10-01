@@ -36,7 +36,7 @@ public class CommentTransactionalService extends EntityTransactionalService<Comm
         comment.setArticle((articleService.getById(articleId)));
         User author = userService.getByUserName(authorUsername);
         author.setCommentsCount(author.getCommentsCount() + 1);
-        userService.update(author);
+        userService.save(author);
         comment.setAuthor(author);
         getRepository().save(comment);
     }
@@ -46,7 +46,7 @@ public class CommentTransactionalService extends EntityTransactionalService<Comm
         Comment comment = getById(id);
         User author = comment.getAuthor();
         author.setCommentsCount(author.getCommentsCount() + 1);
-        userService.update(author);
+        userService.save(author);
         delete(comment);
     }
 

@@ -15,18 +15,11 @@ public interface EntityService<T extends IEntity> {
     T getById(Long id);
 
     /**
-     * Saves an entity in a data source.
+     * Saves or update an entity in a data source.
      *
      * @param entity entity's instance
      */
     Long save(T entity);
-
-    /**
-     * Updates an entity in a data source.
-     *
-     * @param entity entity's instance
-     */
-    void update(T entity);
 
     /**
      * Deletes an entity from a data source.
