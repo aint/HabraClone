@@ -4,7 +4,7 @@ import com.github.aint.habraclone.data.model.IEntity;
 
 import java.util.List;
 
-public interface EntityService {
+public interface EntityService<T extends IEntity> {
 
     /**
      * Returns an entity by the given primary {@code id}.
@@ -12,35 +12,35 @@ public interface EntityService {
      * @param id entity's primary key
      * @return the entity with the given {@code id} or {@code null} if not found
      */
-    IEntity getById(Long id);
+    T getById(Long id);
 
     /**
      * Saves an entity in a data source.
      *
      * @param entity entity's instance
      */
-    Long save(IEntity entity);
+    Long save(T entity);
 
     /**
      * Updates an entity in a data source.
      *
      * @param entity entity's instance
      */
-    void update(IEntity entity);
+    void update(T entity);
 
     /**
      * Deletes an entity from a data source.
      *
      * @param entity entity's instance
      */
-    void delete(IEntity entity);
+    void delete(T entity);
 
     /**
      * Returns all entities.
      *
      * @return a list of entities
      */
-    List<? extends IEntity> getAll();
+    List<T> getAll();
 
     /**
      * Checks entity existence by the given primary {@code id}.
@@ -50,6 +50,6 @@ public interface EntityService {
      */
     boolean isExist(Long id);
 
-    List<? extends IEntity> getAllSortedDeskByRating();
+    List<T> getAllSortedDeskByRating();
 
 }

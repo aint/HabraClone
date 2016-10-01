@@ -1,6 +1,5 @@
-package com.github.aint.habraclone.data.dao.inter;
+package com.github.aint.habraclone.data.repository;
 
-import com.github.aint.habraclone.data.dao.hibernate.HubHibernateDao;
 import com.github.aint.habraclone.data.model.Hub;
 
 import java.util.List;
@@ -9,9 +8,8 @@ import java.util.List;
  * This interface represents persistence methods for {@link Hub} objects.
  *
  * @author Oleksandr Tyshkovets
- * @see HubHibernateDao
  */
-public interface HubDao extends GeneralDao {
+public interface HubRepository extends GenericRepository<Hub, Long> {
 
     /**
      * Returns a {@code Hub} by the given {@code name}.
@@ -19,13 +17,13 @@ public interface HubDao extends GeneralDao {
      * @param name the name of the requested hub
      * @return a {@code Hub} or {@code null} if a hub with the given {@code name} not found
      */
-    Hub getByHubName(String name);
+    Hub findByName(String name);
 
     /**
      * Returns the 10 most popular hubs.
      *
      * @return a list of the most popular hubs
      */
-    List getMostPopularHubs();
+    List<Hub> findTop10ByOrderByRatingDesc();
 
 }

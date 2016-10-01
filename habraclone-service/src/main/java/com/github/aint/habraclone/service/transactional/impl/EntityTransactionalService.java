@@ -1,73 +1,76 @@
 package com.github.aint.habraclone.service.transactional.impl;
 
+import com.github.aint.habraclone.data.model.IEntity;
+import com.github.aint.habraclone.data.repository.GenericRepository;
+import com.github.aint.habraclone.service.transactional.inter.EntityService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.aint.habraclone.data.dao.inter.GeneralDao;
-import com.github.aint.habraclone.data.model.IEntity;
-import com.github.aint.habraclone.service.transactional.inter.EntityService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
-public abstract class EntityTransactionalService implements EntityService {
+public abstract class EntityTransactionalService<T extends IEntity> implements EntityService<T> {
 
     private static final String ENTITY_CANT_BE_NULL = "Entity can't be null";
     private static final String ENTITY_ID_CANT_BE_NULL = "Entity id can't be null";
 
-    protected GeneralDao dao;
+    protected GenericRepository<T, Long> repository;
 
-    protected EntityTransactionalService(GeneralDao dao) {
-        this.dao = dao;
+    protected EntityTransactionalService(GenericRepository<T, Long> repository) {
+        this.repository = repository;
     }
 
     @Override
-    public IEntity getById(Long id) {
+    public T getById(Long id) {
         if (id == null || id < 1) {
             throw new IllegalArgumentException(ENTITY_ID_CANT_BE_NULL);
         }
-        return dao.getById(id);
+        return repository.findOne(id);
     }
 
     @Override
-    public Long save(IEntity entity) {
+    public Long save(T entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
         }
-        return dao.save(entity);
+        return repository.save(entity).getId();
     }
 
     @Override
-    public void update(IEntity entity) {
+    public void update(T entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
         }
-        dao.update(entity);
+        repository.save(entity);
     }
 
     @Override
-    public void delete(IEntity entity) {
+    public void delete(T entity) {
         if (entity == null) {
             throw new IllegalArgumentException(ENTITY_CANT_BE_NULL);
         }
-        dao.delete(entity);
+        repository.delete(entity);
     }
 
     @Override
-    public List<? extends IEntity> getAll() {
-        return dao.getAll();
+    public List<T> getAll() {
+        List<T> entities = new ArrayList<>();
+        repository.findAll().forEach(entities::add);
+        return entities;
     }
 
     @Override
     public boolean isExist(Long id) {
-        return dao.getById(id) != null;
+        return repository.exists(id);
     }
 
     @Override
-    public List<? extends IEntity> getAllSortedDeskByRating() {
-        return dao.getAllSortedDeskByRating();
+    public List<T> getAllSortedDeskByRating() {
+        return repository.findByOrderByRatingDesc();
     }
 
-    protected abstract GeneralDao getDao();
+    protected abstract GenericRepository<T, Long> getRepository();
 
 }

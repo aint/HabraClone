@@ -1,28 +1,27 @@
 package com.github.aint.habraclone.service.transactional.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.github.aint.habraclone.data.dao.inter.CommentDao;
-import com.github.aint.habraclone.data.model.Article;
 import com.github.aint.habraclone.data.model.Comment;
 import com.github.aint.habraclone.data.model.User;
+import com.github.aint.habraclone.data.repository.CommentRepository;
 import com.github.aint.habraclone.service.transactional.inter.ArticleService;
 import com.github.aint.habraclone.service.transactional.inter.CommentService;
 import com.github.aint.habraclone.service.transactional.inter.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
 @Transactional
-public class CommentTransactionalService extends EntityTransactionalService implements CommentService {
+public class CommentTransactionalService extends EntityTransactionalService<Comment> implements CommentService {
 
     private final ArticleService articleService;
     private final UserService userService;
 
     @Autowired
-    public CommentTransactionalService(CommentDao commentDao, ArticleService articleService, UserService userService) {
-        super(commentDao);
+    public CommentTransactionalService(CommentRepository commentRepository, ArticleService articleService, UserService userService) {
+        super(commentRepository);
         this.articleService = articleService;
         this.userService = userService;
     }
@@ -34,25 +33,25 @@ public class CommentTransactionalService extends EntityTransactionalService impl
         comment.setBody(body);
         comment.setRating(0);
         comment.setCreationDate(LocalDateTime.now());
-        comment.setArticle((Article) (articleService.getById(articleId)));
+        comment.setArticle((articleService.getById(articleId)));
         User author = userService.getByUserName(authorUsername);
         author.setCommentsCount(author.getCommentsCount() + 1);
         userService.update(author);
         comment.setAuthor(author);
-        getDao().save(comment);
+        getRepository().save(comment);
     }
 
     @Override
     public void deleteComment(Long id) {
-        Comment comment = (Comment) getById(id);
+        Comment comment = getById(id);
         User author = comment.getAuthor();
         author.setCommentsCount(author.getCommentsCount() + 1);
-        update(author);
+        userService.update(author);
         delete(comment);
     }
 
     @Override
-    protected CommentDao getDao() {
-        return (CommentDao) dao;
+    protected CommentRepository getRepository() {
+        return (CommentRepository) repository;
     }
 }

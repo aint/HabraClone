@@ -3,7 +3,7 @@ package com.github.aint.habraclone.service.transactional.inter;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.service.dto.UserForm;
 
-public interface UserService extends EntityService {
+public interface UserService extends EntityService<User> {
 
     void register(UserForm userForm);
 

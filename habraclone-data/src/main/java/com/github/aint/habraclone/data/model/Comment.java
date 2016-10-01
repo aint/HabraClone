@@ -6,14 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import java.time.LocalDateTime;
 
 @Entity(name = "Comment")
-@NamedQueries({
-        @NamedQuery(name = "getAllCommentsOfUser", query = "FROM Comment c WHERE c.author = :author")
-})
 public class Comment implements IEntity {
     private static final long serialVersionUID = -2014066093631580026L;
 

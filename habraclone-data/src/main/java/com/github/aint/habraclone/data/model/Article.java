@@ -20,8 +20,7 @@ import java.util.Set;
 
 @Entity(name = "Article")
 @NamedQueries({
-        @NamedQuery(name = "getAllArticlesOfUser", query = "FROM Article a WHERE a.author = :author"),
-        @NamedQuery(name = "getLatestArticleOfUser", query = "FROM Article art WHERE art.creationDate = (SELECT MAX(a.creationDate) FROM Article a WHERE a.author = :author)"),
+        @NamedQuery(name = "Article.findLatestArticleOfUser", query = "FROM Article art WHERE art.creationDate = (SELECT MAX(a.creationDate) FROM Article a WHERE a.author = ?1)"),
 })
 public class Article implements IEntity {
     private static final long serialVersionUID = 7485328530548217202L;

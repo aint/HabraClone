@@ -1,22 +1,24 @@
 package com.github.aint.habraclone.data.config;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @PropertySource({ "classpath:db.properties" })
-@ComponentScan({ "com.github.aint.habraclone.data" })
+@EnableJpaRepositories("com.github.aint.habraclone.data.repository")
 public class DataSpringConfig {
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
@@ -28,12 +30,8 @@ public class DataSpringConfig {
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL = "hibernate.hbm2ddl.auto";
 
-    private final Environment env;
-
-    @Autowired
-    public DataSpringConfig(Environment env) {
-        this.env = env;
-    }
+    @Resource
+    private Environment env;
 
     @Bean
     public DataSource dataSource() {
@@ -47,22 +45,25 @@ public class DataSpringConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.github.aint.habraclone.data.model");
-        sessionFactory.setHibernateProperties(hibernateProperties());
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource());
+        entityManager.setPackagesToScan("com.github.aint.habraclone.data.model");
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManager.setJpaProperties(hibernateProperties());
+        entityManager.afterPropertiesSet();
 
-        return sessionFactory;
+        return entityManager;
     }
 
     @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager txManager = new HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory);
+    public PlatformTransactionManager transactionManager(){
+        return new JpaTransactionManager(entityManagerFactory().getObject());
+    }
 
-        return txManager;
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     private Properties hibernateProperties() {
