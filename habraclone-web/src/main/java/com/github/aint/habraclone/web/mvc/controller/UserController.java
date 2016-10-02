@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import com.github.aint.habraclone.service.dto.UserForm;
 
 import javax.servlet.http.HttpServletRequest;

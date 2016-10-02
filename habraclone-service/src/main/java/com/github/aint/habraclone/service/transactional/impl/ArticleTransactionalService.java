@@ -6,9 +6,9 @@ import com.github.aint.habraclone.data.model.Hub;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.repository.ArticleRepository;
 import com.github.aint.habraclone.service.dto.ArticleForm;
-import com.github.aint.habraclone.service.transactional.inter.ArticleService;
-import com.github.aint.habraclone.service.transactional.inter.HubService;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.transactional.HubService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ArticleTransactionalService extends EntityTransactionalService<Article> implements ArticleService {
+public class ArticleTransactionalService extends AbstractEntityTransactionalService<Article> implements ArticleService {
 
     private final HubService hubService;
     private final UserService userService;

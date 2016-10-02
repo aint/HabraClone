@@ -1,4 +1,4 @@
-package com.github.aint.habraclone.service.transactional.inter;
+package com.github.aint.habraclone.service.transactional;
 
 import com.github.aint.habraclone.data.model.IEntity;
 

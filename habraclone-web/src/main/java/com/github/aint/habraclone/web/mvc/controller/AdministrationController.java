@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.service.transactional.inter.ArticleService;
-import com.github.aint.habraclone.service.transactional.inter.CommentService;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.transactional.CommentService;
+import com.github.aint.habraclone.service.transactional.UserService;
 
 import static com.github.aint.habraclone.web.mvc.util.ConstantsHolder.ERROR_404;
 

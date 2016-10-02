@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.model.UserRole;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.UserService;
 
 import java.util.Set;
 import java.util.stream.Collectors;

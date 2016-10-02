@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import com.github.aint.habraclone.web.rest.json.ArticleJson;
 import com.github.aint.habraclone.web.rest.json.CommentJson;
 import com.github.aint.habraclone.web.rest.json.UserJson;

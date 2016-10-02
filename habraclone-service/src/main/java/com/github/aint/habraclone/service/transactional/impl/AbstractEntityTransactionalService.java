@@ -2,7 +2,7 @@ package com.github.aint.habraclone.service.transactional.impl;
 
 import com.github.aint.habraclone.data.model.IEntity;
 import com.github.aint.habraclone.data.repository.GenericRepository;
-import com.github.aint.habraclone.service.transactional.inter.EntityService;
+import com.github.aint.habraclone.service.transactional.EntityService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,14 +11,14 @@ import java.util.List;
 
 @Service
 @Transactional
-public abstract class EntityTransactionalService<T extends IEntity> implements EntityService<T> {
+public abstract class AbstractEntityTransactionalService<T extends IEntity> implements EntityService<T> {
 
     private static final String ENTITY_CANT_BE_NULL = "Entity can't be null";
     private static final String ENTITY_ID_CANT_BE_NULL = "Entity id can't be null";
 
     protected GenericRepository<T, Long> repository;
 
-    protected EntityTransactionalService(GenericRepository<T, Long> repository) {
+    protected AbstractEntityTransactionalService(GenericRepository<T, Long> repository) {
         this.repository = repository;
     }
 

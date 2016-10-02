@@ -6,13 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.aint.habraclone.data.repository.HubRepository;
 import com.github.aint.habraclone.data.model.Article;
 import com.github.aint.habraclone.data.model.Hub;
-import com.github.aint.habraclone.service.transactional.inter.HubService;
+import com.github.aint.habraclone.service.transactional.HubService;
 
 import java.util.List;
 
 @Service
 @Transactional
-public class HubTransactionalService extends EntityTransactionalService<Hub> implements HubService {
+public class HubTransactionalService extends AbstractEntityTransactionalService<Hub> implements HubService {
 
     @Autowired
     public HubTransactionalService(HubRepository hubRepository) {

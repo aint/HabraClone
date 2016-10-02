@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.aint.habraclone.data.model.Article;
-import com.github.aint.habraclone.service.transactional.inter.ArticleService;
-import com.github.aint.habraclone.service.transactional.inter.HubService;
+import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.transactional.HubService;
 import com.github.aint.habraclone.service.dto.ArticleForm;
 
 import javax.servlet.http.HttpServletRequest;

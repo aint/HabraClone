@@ -4,7 +4,7 @@ import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.model.UserRole;
 import com.github.aint.habraclone.data.repository.UserRepository;
 import com.github.aint.habraclone.service.dto.UserForm;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserTransactionalService extends EntityTransactionalService<User> implements UserService, UserDetailsService {
+public class UserTransactionalService extends AbstractEntityTransactionalService<User> implements UserService, UserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(UserTransactionalService.class.getName());
 
     private static final String ACCOUNT_ACTIVATION_EMAIL = "/accountActivation.vm";

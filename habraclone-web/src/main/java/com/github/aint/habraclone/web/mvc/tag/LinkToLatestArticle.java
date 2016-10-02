@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 import com.github.aint.habraclone.data.model.Article;
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.service.transactional.inter.ArticleService;
+import com.github.aint.habraclone.service.transactional.ArticleService;
 
 import javax.servlet.jsp.JspException;
 import java.io.IOException;

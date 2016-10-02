@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import com.github.aint.habraclone.web.rest.security.TokenHelper;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;

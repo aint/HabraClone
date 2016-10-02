@@ -3,9 +3,9 @@ package com.github.aint.habraclone.service.transactional.impl;
 import com.github.aint.habraclone.data.model.Comment;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.repository.CommentRepository;
-import com.github.aint.habraclone.service.transactional.inter.ArticleService;
-import com.github.aint.habraclone.service.transactional.inter.CommentService;
-import com.github.aint.habraclone.service.transactional.inter.UserService;
+import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.transactional.CommentService;
+import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Transactional
-public class CommentTransactionalService extends EntityTransactionalService<Comment> implements CommentService {
+public class CommentTransactionalService extends AbstractEntityTransactionalService<Comment> implements CommentService {
 
     private final ArticleService articleService;
     private final UserService userService;
