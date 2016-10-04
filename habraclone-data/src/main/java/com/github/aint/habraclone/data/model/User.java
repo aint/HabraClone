@@ -71,7 +71,7 @@ public class User implements IEntity, UserDetails {
     private int favoritesCount;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Hub> hubs = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserRole> roles = new HashSet<>();
 
     public User() {

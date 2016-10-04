@@ -2,7 +2,7 @@ package com.github.aint.habraclone.data.model;
 
 import javax.persistence.*;
 
-@Entity(name = "UserRole")
+@Entity(name = "Role")
 public class UserRole implements IEntity {
     private static final long serialVersionUID = -3836356052817241387L;
 
@@ -11,15 +11,12 @@ public class UserRole implements IEntity {
     private long id;
     @Column(nullable = false)
     private String role;
-    @ManyToOne
-    private User user;
 
     public UserRole() {
     }
 
-    public UserRole(String role, User user) {
+    public UserRole(String role) {
         this.role = role;
-        this.user = user;
     }
 
     @Override
@@ -38,14 +35,6 @@ public class UserRole implements IEntity {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

@@ -149,9 +149,7 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
         user.setFullName(userForm.getFullName());
         user.setLastLoginTime(LocalDateTime.now());
         user.setRegistrationDate(LocalDateTime.now());
-        UserRole role = new UserRole("ROLE_USER", user);
-//        save(role);
-        user.setRoles(new HashSet<>(Collections.singletonList(role)));
+        user.setRoles(new HashSet<>(Collections.singletonList(new UserRole("ROLE_USER"))));
         return user;
     }
 
