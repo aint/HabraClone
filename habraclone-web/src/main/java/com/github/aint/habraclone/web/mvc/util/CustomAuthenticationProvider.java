@@ -1,5 +1,7 @@
 package com.github.aint.habraclone.web.mvc.util;
 
+import com.github.aint.habraclone.data.model.Role;
+import com.github.aint.habraclone.service.transactional.impl.AdminAuthTransactionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,7 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import com.github.aint.habraclone.service.transactional.impl.AdminAuthTransactionalService;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -48,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         return userRoles.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet())
-                .contains("ROLE_ADMIN");
+                .contains(Role.ADMIN.name());
     }
 
     @Override

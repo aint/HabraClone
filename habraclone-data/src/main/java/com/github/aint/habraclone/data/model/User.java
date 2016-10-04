@@ -1,12 +1,14 @@
 package com.github.aint.habraclone.data.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,10 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "User")
 public class User implements IEntity, UserDetails {
@@ -47,6 +46,9 @@ public class User implements IEntity, UserDetails {
     private boolean admin;
     @Column
     private boolean enabled;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
     @Column
     private LocalDate birthday;
     @Column(nullable = false)
@@ -71,8 +73,6 @@ public class User implements IEntity, UserDetails {
     private int favoritesCount;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Hub> hubs = new ArrayList<>();
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserRole> roles = new HashSet<>();
 
     public User() {
     }
@@ -98,9 +98,7 @@ public class User implements IEntity, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles().stream()
-                .map(r -> new SimpleGrantedAuthority(r.getRole()))
-                .collect(Collectors.toSet());
+        return AuthorityUtils.createAuthorityList(role.name());
     }
 
     @Override
@@ -162,6 +160,14 @@ public class User implements IEntity, UserDetails {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAbout() {
@@ -266,14 +272,6 @@ public class User implements IEntity, UserDetails {
 
     public void setHubs(List<Hub> hubs) {
         this.hubs = hubs;
-    }
-
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
     }
 
     public int getArticlesCount() {

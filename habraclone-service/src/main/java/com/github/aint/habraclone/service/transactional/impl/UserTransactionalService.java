@@ -1,7 +1,6 @@
 package com.github.aint.habraclone.service.transactional.impl;
 
 import com.github.aint.habraclone.data.model.User;
-import com.github.aint.habraclone.data.model.UserRole;
 import com.github.aint.habraclone.data.repository.UserRepository;
 import com.github.aint.habraclone.service.dto.UserForm;
 import com.github.aint.habraclone.service.transactional.UserService;
@@ -25,8 +24,6 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -149,7 +146,6 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
         user.setFullName(userForm.getFullName());
         user.setLastLoginTime(LocalDateTime.now());
         user.setRegistrationDate(LocalDateTime.now());
-        user.setRoles(new HashSet<>(Collections.singletonList(new UserRole("ROLE_USER"))));
         return user;
     }
 
