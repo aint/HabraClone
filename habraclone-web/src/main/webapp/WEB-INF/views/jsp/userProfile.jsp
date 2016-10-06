@@ -45,7 +45,7 @@
                         </dl>
                     </c:when>
                     <c:otherwise>
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                        <sec:authorize access="hasAuthority('ADMIN')">
                             <dl>
                                 <dt>Ban for 5 days</dt>
                                 <dd>

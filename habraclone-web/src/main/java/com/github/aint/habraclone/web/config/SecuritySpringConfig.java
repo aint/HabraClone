@@ -1,5 +1,6 @@
 package com.github.aint.habraclone.web.config;
 
+import com.github.aint.habraclone.data.model.Role;
 import com.github.aint.habraclone.service.config.ServiceSpringConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +52,7 @@ public class SecuritySpringConfig {
                             .antMatchers("/api/articles/**").permitAll()
                             .antMatchers("/api/users/**").permitAll()
                             .antMatchers("/api/comments/add").authenticated()
-                            .antMatchers("/api/admin/**").hasRole("ADMIN")
+                            .antMatchers("/api/admin/**").hasAuthority(Role.ADMIN.name())
                             .and()
                     .exceptionHandling()
                             .authenticationEntryPoint(authenticationEntryPoint)
@@ -82,10 +83,10 @@ public class SecuritySpringConfig {
                             .antMatchers("/resources/**", "/login").permitAll()
                             .antMatchers("/articles/add", "/comments/add").authenticated()
                             .antMatchers("/articles/**/vote/plus", "/articles/**/vote/minus").authenticated()
-                            .antMatchers("/users/**/ban").hasRole("ADMIN")
-                            .antMatchers("/users/**/unban").hasRole("ADMIN")
-                            .antMatchers("/articles/**/delete").hasRole("ADMIN")
-                            .antMatchers("/comments/**/delete").hasRole("ADMIN")
+                            .antMatchers("/users/**/ban").hasAuthority(Role.ADMIN.name())
+                            .antMatchers("/users/**/unban").hasAuthority(Role.ADMIN.name())
+                            .antMatchers("/articles/**/delete").hasAuthority(Role.ADMIN.name())
+                            .antMatchers("/comments/**/delete").hasAuthority(Role.ADMIN.name())
                             .and()
                     .formLogin()
                             .loginPage("/login").permitAll()

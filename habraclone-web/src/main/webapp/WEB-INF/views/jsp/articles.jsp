@@ -42,7 +42,7 @@
                     <div class="hubs">
                         <img class="hub_icon" src="${pageContext.request.contextPath}/resources/images/hub-icon.png">
                         <a href="${pageContext.request.contextPath}/hubs/${article.hub.id}/articles/" class="hub ">${article.hub.name}</a>
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                        <sec:authorize access="hasAuthority('ADMIN')">
                             &emsp;
                             <a href="${pageContext.request.contextPath}/articles/${article.id}/delete" style="color: red">DELETE</a>
                         </sec:authorize>
@@ -79,7 +79,7 @@
 
                     <time class="comment-item__time_published">
                         ${fn:replace(comment.creationDate, 'T', ' ')}
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                        <sec:authorize access="hasAuthority('ADMIN')">
                             &emsp;
                             <a style="color: red" href="#" onclick="document.forms['deleteComment-${comment.id}'].submit(); return false;">DELETE</a>
                             <form action="${pageContext.request.contextPath}/comments/${comment.id}/delete" name="deleteComment-${comment.id}" method="post">
