@@ -3,6 +3,7 @@ package com.github.aint.habraclone.data.repository;
 import com.github.aint.habraclone.data.config.DataSpringConfig;
 import com.github.aint.habraclone.data.model.Article;
 import com.github.aint.habraclone.data.model.Hub;
+import com.github.aint.habraclone.data.model.Role;
 import com.github.aint.habraclone.data.model.User;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
@@ -53,13 +54,13 @@ public class ArticleRepositoryTest {
             insertInto(USER_TABLE)
                     .columns("id", "email", "username", "password", "lastLoginTime", "registrationDate",
                              "enabled", "admin", "banExpirationDate", "birthday", "rating", "about", "fullName",
-                             "articlesCount", "commentsCount",  "favoritesCount", "language", "location")
+                             "articlesCount", "commentsCount",  "favoritesCount", "language", "location", "role")
                     .values(1L, "user1@gmail.com", "user_1", "111111", "2010-01-01 11:11:11", "2016-01-01 15:47:17",
                             true, true, null, null, 0, "about", "first user",
-                            2, 0, 1, null, null)
+                            2, 0, 1, null, null, Role.USER)
                     .values(2L, "user2@gmail.com", "user_2", "222222", "2012-02-02 12:12:12", "2016-02-02 15:47:17",
                             true, false, null, null, 0, "about", "second user",
-                            0, 0, 0, null, null)
+                            0, 0, 0, null, null, Role.USER)
                     .build(),
             insertInto(HUB_TABLE)
                     .columns("id", "name", "creationDate", "description",  "rating")
