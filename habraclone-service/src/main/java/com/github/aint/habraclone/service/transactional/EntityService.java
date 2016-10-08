@@ -3,6 +3,7 @@ package com.github.aint.habraclone.service.transactional;
 import com.github.aint.habraclone.data.model.IEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EntityService<T extends IEntity> {
 
@@ -10,16 +11,17 @@ public interface EntityService<T extends IEntity> {
      * Returns an entity by the given primary {@code id}.
      *
      * @param id entity's primary key
-     * @return the entity with the given {@code id} or {@code null} if not found
+     * @return the entity with the given {@code id}
      */
-    T getById(Long id);
+    Optional<T> getById(Long id);
 
     /**
      * Saves or update an entity in a data source.
      *
      * @param entity entity's instance
+     * @return the persisted entity
      */
-    Long save(T entity);
+    T save(T entity);
 
     /**
      * Deletes an entity from a data source.
@@ -27,6 +29,13 @@ public interface EntityService<T extends IEntity> {
      * @param entity entity's instance
      */
     void delete(T entity);
+
+    /**
+     * Deletes an entity with the given id from a data source.
+     *
+     * @param id entity's id
+     */
+    void delete(Long id);
 
     /**
      * Returns all entities.

@@ -3,15 +3,17 @@ package com.github.aint.habraclone.service.transactional;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.service.dto.UserForm;
 
+import java.util.Optional;
+
 public interface UserService extends EntityService<User> {
 
     void register(UserForm userForm);
 
     void activate(User user);
 
-    User getByUserName(String username);
+    Optional<User> getByUserName(String username);
 
-    User getByEmail(String email);
+    Optional<User> getByEmail(String email);
 
     int getPositionByRating(User user);
 

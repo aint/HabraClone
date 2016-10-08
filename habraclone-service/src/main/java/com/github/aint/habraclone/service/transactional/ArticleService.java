@@ -5,6 +5,7 @@ import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.service.dto.ArticleForm;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleService extends EntityService<Article> {
 
@@ -12,7 +13,7 @@ public interface ArticleService extends EntityService<Article> {
 
     List<Article> getMostPopularArticles();
 
-    Article getLatestArticleOfUser(User user);
+    Optional<Article> getLatestArticleOfUser(User user);
 
     boolean addArticleToFavorites(String username, long articleId);
 

@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -44,23 +46,19 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     }
 
     @Override
-    public Article getLatestArticleOfUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User can't be null");
-        }
-        return getRepository().findLatestArticleOfUser(user);
+    public Optional<Article> getLatestArticleOfUser(User user) {
+        return Optional.ofNullable(getRepository().findLatestArticleOfUser(user));
     }
 
     @Override
     public boolean addArticleToFavorites(String username, long articleId) {
-        if (username == null || articleId < 0) {
-            throw new IllegalArgumentException("Username can't be null and articleId can't be negative");
-        }
-        Article article = getById(articleId);
+        Article article = getById(articleId)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
         article.setFavorites(article.getFavorites() + 1);
         save(article);
 
-        User user = userService.getByUserName(username);
+        User user = userService.getByUserName(username)
+                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", articleId)));
         user.getFavorites().add(article);
         user.setFavoritesCount(user.getFavoritesCount() + 1);
         userService.save(user);
@@ -77,18 +75,18 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     public Long createAndSave(ArticleForm articleForm, String authorUsername) {
-        User author = userService.getByUserName(authorUsername);
-        Hub hub = hubService.getById(articleForm.getHubId());
-        if (author == null || hub == null) {
-            throw new IllegalArgumentException("Username or hub can't be null");
-        }
+        User author = userService.getByUserName(authorUsername)
+                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", authorUsername)));
+        Hub hub = hubService.getById(articleForm.getHubId())
+                .orElseThrow(() -> new NoSuchElementException(String.format("Hub=%s not found", articleForm.getHubId())));
         userService.incrementArticlesCount(author);
-        return save(dtoToArticle(articleForm, hub, author));
+        return save(dtoToArticle(articleForm, hub, author)).getId();
     }
 
     @Override
     public void deleteArticle(Long id) {
-        Article article = getById(id);
+        Article article = getById(id)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", id)));
         User author = article.getAuthor();
         userService.decrementArticlesCount(author);
         article.getComments().stream()
@@ -99,11 +97,10 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     public void voteForArticle(Long articleId, String username, boolean plus) {
-        Article article = getById(articleId);
-        User user = userService.getByUserName(username);
-        if (user == null || article == null) {
-            throw new IllegalArgumentException("User or article can't be null");
-        }
+        Article article = getById(articleId)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
+        User user = userService.getByUserName(username)
+                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", username)));
         article.getUsersVoted().add(user);
         article.setRating(plus ? article.getRating() + 1 : article.getRating() - 1);
         article.getAuthor().setRating(plus ? article.getAuthor().getRating() + 1 : article.getAuthor().getRating() - 1);
@@ -112,10 +109,8 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     public boolean userCanVote(Long articleId, String username) {
-        Article article = getById(articleId);
-        if (article == null) {
-            throw new IllegalArgumentException("Article can't be null");
-        }
+        Article article = getById(articleId)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
         return article.getUsersVoted().stream().noneMatch(u -> u.getUsername().equals(username));
     }
 

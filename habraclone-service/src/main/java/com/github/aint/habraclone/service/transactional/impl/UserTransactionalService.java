@@ -24,6 +24,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,11 +47,8 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        User user = getByUserName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("No such username");
-        }
-        return user;
+        return getByUserName(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User=%s not found", username)));
     }
 
     @Override
@@ -66,13 +65,13 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
     }
 
     @Override
-    public User getByUserName(String username) {
-        return getRepository().findByUsername(username);
+    public Optional<User> getByUserName(String username) {
+        return Optional.ofNullable(getRepository().findByUsername(username));
     }
 
     @Override
-    public User getByEmail(String email) {
-        return getRepository().findByEmail(email);
+    public Optional<User> getByEmail(String email) {
+        return Optional.ofNullable(getRepository().findByEmail(email));
     }
 
     @Override
@@ -95,10 +94,8 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
 
     @Override
     public void updateLoginTime(String username) {
-        if (username == null) {
-            throw new IllegalArgumentException("Username can't be null");
-        }
-        User user = getByUserName(username);
+        User user = getByUserName(username)
+                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", username)));
         user.setLastLoginTime(LocalDateTime.now());
         save(user);
     }

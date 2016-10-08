@@ -26,9 +26,6 @@ public class HubTransactionalService extends AbstractEntityTransactionalService<
 
     @Override
     public List<Article> getAllArticlesOfHub(Long hubId) {
-        if (hubId == null || hubId < 0) {
-            throw new IllegalArgumentException("Hub id can't be null");
-        }
         return (getRepository().findOne(hubId)).getArticles();
     }
 }

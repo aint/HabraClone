@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -33,8 +34,10 @@ public class CommentTransactionalService extends AbstractEntityTransactionalServ
         comment.setBody(body);
         comment.setRating(0);
         comment.setCreationDate(LocalDateTime.now());
-        comment.setArticle((articleService.getById(articleId)));
-        User author = userService.getByUserName(authorUsername);
+        comment.setArticle((articleService.getById(articleId))
+                .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId))));
+        User author = userService.getByUserName(authorUsername)
+                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", authorUsername)));
         author.setCommentsCount(author.getCommentsCount() + 1);
         userService.save(author);
         comment.setAuthor(author);
@@ -43,9 +46,10 @@ public class CommentTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     public void deleteComment(Long id) {
-        Comment comment = getById(id);
+        Comment comment = getById(id)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Comment=%s not found", id)));
         User author = comment.getAuthor();
-        author.setCommentsCount(author.getCommentsCount() + 1);
+        author.setCommentsCount(author.getCommentsCount() - 1);
         userService.save(author);
         delete(comment);
     }
