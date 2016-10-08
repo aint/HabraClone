@@ -10,6 +10,7 @@ import com.github.aint.habraclone.service.transactional.ArticleService;
 import com.github.aint.habraclone.service.transactional.HubService;
 import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,14 +52,13 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     }
 
     @Override
-    public boolean addArticleToFavorites(String username, long articleId) {
+    public boolean addArticleToFavorites(long articleId) {
         Article article = getById(articleId)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
         article.setFavorites(article.getFavorites() + 1);
         save(article);
 
-        User user = userService.getByUserName(username)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", articleId)));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.getFavorites().add(article);
         user.setFavoritesCount(user.getFavoritesCount() + 1);
         userService.save(user);
@@ -74,12 +74,11 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     }
 
     @Override
-    public Long createAndSave(ArticleForm articleForm, String authorUsername) {
-        User author = userService.getByUserName(authorUsername)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", authorUsername)));
+    public Long createAndSave(ArticleForm articleForm) {
+        User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Hub hub = hubService.getById(articleForm.getHubId())
                 .orElseThrow(() -> new NoSuchElementException(String.format("Hub=%s not found", articleForm.getHubId())));
-        userService.incrementArticlesCount(author);
+        userService.incrementArticlesCount();
         return save(dtoToArticle(articleForm, hub, author)).getId();
     }
 
@@ -88,7 +87,7 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
         Article article = getById(id)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", id)));
         User author = article.getAuthor();
-        userService.decrementArticlesCount(author);
+        userService.decrementArticlesCount();
         article.getComments().stream()
                 .map(Comment::getAuthor)
                 .forEach(a -> {a.setCommentsCount(a.getCommentsCount() - 1); userService.save(author);});
@@ -96,11 +95,10 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     }
 
     @Override
-    public void voteForArticle(Long articleId, String username, boolean plus) {
+    public void voteForArticle(Long articleId, boolean plus) {
         Article article = getById(articleId)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
-        User user = userService.getByUserName(username)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", username)));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         article.getUsersVoted().add(user);
         article.setRating(plus ? article.getRating() + 1 : article.getRating() - 1);
         article.getAuthor().setRating(plus ? article.getAuthor().getRating() + 1 : article.getAuthor().getRating() - 1);
@@ -108,9 +106,10 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     }
 
     @Override
-    public boolean userCanVote(Long articleId, String username) {
+    public boolean userCanVote(Long articleId) {
         Article article = getById(articleId)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
+        String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         return article.getUsersVoted().stream().noneMatch(u -> u.getUsername().equals(username));
     }
 

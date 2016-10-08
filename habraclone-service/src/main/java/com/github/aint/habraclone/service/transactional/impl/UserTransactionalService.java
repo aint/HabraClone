@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +25,6 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -76,9 +76,6 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
 
     @Override
     public int getPositionByRating(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User can't be null");
-        }
         return getAllSortedDeskByRating()
                 .stream()
                 .map(User::getRating)
@@ -93,21 +90,22 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
     }
 
     @Override
-    public void updateLoginTime(String username) {
-        User user = getByUserName(username)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", username)));
+    public void updateLoginTime() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setLastLoginTime(LocalDateTime.now());
         save(user);
     }
 
     @Override
-    public void incrementArticlesCount(User user) {
+    public void incrementArticlesCount() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setArticlesCount(user.getArticlesCount() + 1);
         save(user);
     }
 
     @Override
-    public void decrementArticlesCount(User user) {
+    public void decrementArticlesCount() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setArticlesCount(user.getArticlesCount() - 1);
         save(user);
     }

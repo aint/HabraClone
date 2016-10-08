@@ -15,15 +15,15 @@ public interface ArticleService extends EntityService<Article> {
 
     Optional<Article> getLatestArticleOfUser(User user);
 
-    boolean addArticleToFavorites(String username, long articleId);
+    boolean addArticleToFavorites(long articleId);
 
     void incrementViewsCount(Article article);
 
-    Long createAndSave(ArticleForm articleForm, String authorUsername);
+    Long createAndSave(ArticleForm articleForm);
 
     void deleteArticle(Long id);
 
-    void voteForArticle(Long articleId, String username, boolean plus);
+    void voteForArticle(Long articleId, boolean plus);
 
-    boolean userCanVote(Long articleId, String username);
+    boolean userCanVote(Long articleId);
 }

@@ -19,11 +19,11 @@ public interface UserService extends EntityService<User> {
 
     boolean login(String email, String password);
 
-    void updateLoginTime(String username);
+    void updateLoginTime();
 
-    void incrementArticlesCount(User user);
+    void incrementArticlesCount();
 
-    void decrementArticlesCount(User user);
+    void decrementArticlesCount();
 
     void banUser(User user);
 

@@ -7,6 +7,7 @@ import com.github.aint.habraclone.service.transactional.ArticleService;
 import com.github.aint.habraclone.service.transactional.CommentService;
 import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,15 +30,14 @@ public class CommentTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     @SuppressWarnings("unchecked")
-    public void createAndSave(String body, Long articleId, String authorUsername) {
+    public void createAndSave(String body, Long articleId) {
         Comment comment = new Comment();
         comment.setBody(body);
         comment.setRating(0);
         comment.setCreationDate(LocalDateTime.now());
         comment.setArticle((articleService.getById(articleId))
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId))));
-        User author = userService.getByUserName(authorUsername)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", authorUsername)));
+        User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         author.setCommentsCount(author.getCommentsCount() + 1);
         userService.save(author);
         comment.setAuthor(author);
