@@ -4,10 +4,10 @@ import com.github.aint.habraclone.data.model.Comment;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.repository.CommentRepository;
 import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.security.AuthenticationService;
 import com.github.aint.habraclone.service.transactional.CommentService;
 import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +18,15 @@ import java.util.NoSuchElementException;
 @Transactional
 public class CommentTransactionalService extends AbstractEntityTransactionalService<Comment> implements CommentService {
 
+    private final AuthenticationService authenticationService;
     private final ArticleService articleService;
     private final UserService userService;
 
     @Autowired
-    public CommentTransactionalService(CommentRepository commentRepository, ArticleService articleService, UserService userService) {
+    public CommentTransactionalService(CommentRepository commentRepository, AuthenticationService authenticationService,
+                                       ArticleService articleService, UserService userService) {
         super(commentRepository);
+        this.authenticationService = authenticationService;
         this.articleService = articleService;
         this.userService = userService;
     }
@@ -37,7 +40,7 @@ public class CommentTransactionalService extends AbstractEntityTransactionalServ
         comment.setCreationDate(LocalDateTime.now());
         comment.setArticle((articleService.getById(articleId))
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId))));
-        User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = authenticationService.getPrincipal();
         author.setCommentsCount(author.getCommentsCount() + 1);
         userService.save(author);
         comment.setAuthor(author);

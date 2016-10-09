@@ -7,10 +7,10 @@ import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.repository.ArticleRepository;
 import com.github.aint.habraclone.service.dto.ArticleForm;
 import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.security.AuthenticationService;
 import com.github.aint.habraclone.service.transactional.HubService;
 import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +23,15 @@ import java.util.Optional;
 @Transactional
 public class ArticleTransactionalService extends AbstractEntityTransactionalService<Article> implements ArticleService {
 
+    private final AuthenticationService authenticationService;
     private final HubService hubService;
     private final UserService userService;
 
     @Autowired
-    public ArticleTransactionalService(ArticleRepository articleRepository, HubService hubService, UserService userService) {
+    public ArticleTransactionalService(ArticleRepository articleRepository, AuthenticationService authenticationService,
+                                       HubService hubService, UserService userService) {
         super(articleRepository);
+        this.authenticationService = authenticationService;
         this.hubService = hubService;
         this.userService = userService;
     }
@@ -58,7 +61,7 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
         article.setFavorites(article.getFavorites() + 1);
         save(article);
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = authenticationService.getPrincipal();
         user.getFavorites().add(article);
         user.setFavoritesCount(user.getFavoritesCount() + 1);
         userService.save(user);
@@ -75,7 +78,7 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
 
     @Override
     public Long createAndSave(ArticleForm articleForm) {
-        User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = authenticationService.getPrincipal();
         Hub hub = hubService.getById(articleForm.getHubId())
                 .orElseThrow(() -> new NoSuchElementException(String.format("Hub=%s not found", articleForm.getHubId())));
         userService.incrementArticlesCount();
@@ -98,7 +101,7 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     public void voteForArticle(Long articleId, boolean plus) {
         Article article = getById(articleId)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = authenticationService.getPrincipal();
         article.getUsersVoted().add(user);
         article.setRating(plus ? article.getRating() + 1 : article.getRating() - 1);
         article.getAuthor().setRating(plus ? article.getAuthor().getRating() + 1 : article.getAuthor().getRating() - 1);
@@ -109,7 +112,7 @@ public class ArticleTransactionalService extends AbstractEntityTransactionalServ
     public boolean userCanVote(Long articleId) {
         Article article = getById(articleId)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Article=%s not found", articleId)));
-        String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        String username = authenticationService.getPrincipal().getUsername();
         return article.getUsersVoted().stream().noneMatch(u -> u.getUsername().equals(username));
     }
 

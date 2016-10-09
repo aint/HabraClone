@@ -3,6 +3,7 @@ package com.github.aint.habraclone.service.transactional.impl;
 import com.github.aint.habraclone.data.model.User;
 import com.github.aint.habraclone.data.repository.UserRepository;
 import com.github.aint.habraclone.service.dto.UserForm;
+import com.github.aint.habraclone.service.security.AuthenticationService;
 import com.github.aint.habraclone.service.transactional.UserService;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -12,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,12 +35,15 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
 
     private static final String ACCOUNT_ACTIVATION_EMAIL = "/accountActivation.vm";
 
+    private final AuthenticationService authenticationService;
     private final JavaMailSender mailSender;
     private final VelocityEngine velocityEngine;
 
     @Autowired
-    public UserTransactionalService(UserRepository userRepository, JavaMailSender mailSender, VelocityEngine velocityEngine) {
+    public UserTransactionalService(UserRepository userRepository, AuthenticationService authenticationService,
+                                    JavaMailSender mailSender, VelocityEngine velocityEngine) {
         super(userRepository);
+        this.authenticationService = authenticationService;
         this.mailSender = mailSender;
         this.velocityEngine = velocityEngine;
     }
@@ -91,21 +94,21 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
 
     @Override
     public void updateLoginTime() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = authenticationService.getPrincipal();
         user.setLastLoginTime(LocalDateTime.now());
         save(user);
     }
 
     @Override
     public void incrementArticlesCount() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = authenticationService.getPrincipal();
         user.setArticlesCount(user.getArticlesCount() + 1);
         save(user);
     }
 
     @Override
     public void decrementArticlesCount() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = authenticationService.getPrincipal();
         user.setArticlesCount(user.getArticlesCount() - 1);
         save(user);
     }
