@@ -1,5 +1,6 @@
 package com.github.aint.habraclone.web.rest.controller;
 
+import com.github.aint.habraclone.web.ResourceNotFoundException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,14 +38,9 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<String> authenticate(@RequestParam("username") String username, @RequestParam("password") String password) {
-        User user = userService.getByUserName(username);
-        if (user == null) {
-            return ResponseEntity
-                    .badRequest()
-                    .contentType(APPLICATION_JSON_UTF8)
-                    .body(getJson(USER_NOT_FOUND_MESSAGE));
-        }
+    public ResponseEntity<String> authenticate(@RequestParam("username") String username,
+                                               @RequestParam("password") String password) {
+        User user = userService.getByUserName(username).orElseThrow(ResourceNotFoundException::new);
         return tryToAuthenticate(user, password);
     }
 

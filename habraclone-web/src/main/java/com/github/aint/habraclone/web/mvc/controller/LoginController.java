@@ -2,8 +2,6 @@ package com.github.aint.habraclone.web.mvc.controller;
 
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,13 +39,6 @@ public class LoginController {
             return ACCOUNT_IS_NOT_ACTIVATED;
         }
         return WRONG_EMAIL_OR_PASSWORD;
-    }
-
-    private String getPrincipal() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (principal instanceof UserDetails
-                ? ((UserDetails)principal).getUsername()
-                : principal.toString());
     }
 
 }

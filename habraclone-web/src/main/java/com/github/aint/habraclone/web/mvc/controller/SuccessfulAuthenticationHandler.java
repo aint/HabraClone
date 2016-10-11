@@ -1,13 +1,12 @@
 package com.github.aint.habraclone.web.mvc.controller;
 
+import com.github.aint.habraclone.service.transactional.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import com.github.aint.habraclone.service.transactional.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,18 +29,13 @@ public class SuccessfulAuthenticationHandler implements AuthenticationSuccessHan
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         clearAuthenticationAttributes(request);
-        updateUserLoginTime(authentication);
+        userService.updateLoginTime();
         new DefaultRedirectStrategy().sendRedirect(request, response, getPreviousUrl(request));
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         Optional.ofNullable(request.getSession(false))
                 .ifPresent(s -> s.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
-    }
-
-    private void updateUserLoginTime(Authentication authentication) {
-        userService.updateLoginTime(((UserDetails) authentication.getPrincipal()).getUsername());
-
     }
 
     private String getPreviousUrl(HttpServletRequest request) {

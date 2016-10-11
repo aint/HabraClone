@@ -1,11 +1,9 @@
 package com.github.aint.habraclone.web.mvc.tag;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.github.aint.habraclone.service.transactional.ArticleService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.JspAwareRequestContext;
 import org.springframework.web.servlet.support.RequestContext;
-import com.github.aint.habraclone.service.transactional.ArticleService;
 
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.jstl.core.ConditionalTagSupport;
@@ -21,18 +19,11 @@ public class IfUserCanVote extends ConditionalTagSupport {
     @Override
     protected boolean condition() throws JspTagException {
         ArticleService articleService = getRequestContext().getWebApplicationContext().getBean(ArticleService.class);
-        return articleService.userCanVote(articleId, getPrincipal());
+        return articleService.userCanVote(articleId);
     }
 
     public void setArticleId(Long articleId) {
         this.articleId = articleId;
-    }
-
-    private String getPrincipal() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (principal instanceof UserDetails
-                ? ((UserDetails)principal).getUsername()
-                : principal.toString());
     }
 
     private RequestContext getRequestContext() {

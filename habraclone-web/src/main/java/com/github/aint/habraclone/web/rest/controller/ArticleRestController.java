@@ -1,5 +1,6 @@
 package com.github.aint.habraclone.web.rest.controller;
 
+import com.github.aint.habraclone.web.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,20 +35,14 @@ public class ArticleRestController {
 
     @RequestMapping(value = "/articles/{id}")
     public ResponseEntity<ArticleJson> getArticleById(@PathVariable("id") Long id) {
-        Article article = (Article) articleService.getById(id);
-        if (article == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Article article = articleService.getById(id).orElseThrow(ResourceNotFoundException::new);
         articleService.incrementViewsCount(article);
         return new ResponseEntity<>(new ArticleJson(article), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/articles/{id}/comments")
     public ResponseEntity<Collection<CommentJson>> getCommentOfArticle(@PathVariable("id") Long id) {
-        Article article = (Article) articleService.getById(id);
-        if (article == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Article article = articleService.getById(id).orElseThrow(ResourceNotFoundException::new);
         return new ResponseEntity<>(
                 article.getComments().stream()
                         .map(CommentJson::new)

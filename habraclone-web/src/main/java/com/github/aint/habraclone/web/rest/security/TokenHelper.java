@@ -10,6 +10,7 @@ import com.github.aint.habraclone.service.transactional.UserService;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import static java.time.ZoneId.systemDefault;
@@ -45,7 +46,7 @@ public class TokenHelper {
     public UserDetails getUserFromToken(String token) {
         String decryptedToken = decrypt(token);
         String username = decryptedToken.substring(0, decryptedToken.length() - 13);
-        return userService.getByUserName(username);
+        return userService.getByUserName(username).orElseThrow(NoSuchElementException::new);
     }
 
     private String encrypt(String text) {

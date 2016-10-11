@@ -1,5 +1,6 @@
 package com.github.aint.habraclone.web.rest.controller;
 
+import com.github.aint.habraclone.web.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,32 +36,35 @@ public class UserRestController {
 
     @RequestMapping(value = "/users/{username}")
     public ResponseEntity<UserJson> getUserByUsername(@PathVariable("username") String username) {
-        User user = userService.getByUserName(username);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        User user = userService.getByUserName(username).orElseThrow(ResourceNotFoundException::new);;
         return new ResponseEntity<>(new UserJson(user), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{username}/articles")
     public Collection<ArticleJson> userArticles(@PathVariable("username") String username) {
-        return userService.getByUserName(username).getArticles().stream()
-                .map(ArticleJson::new)
-                .collect(Collectors.toList());
+        return userService.getByUserName(username)
+                .orElseThrow(ResourceNotFoundException::new)
+                .getArticles().stream()
+                        .map(ArticleJson::new)
+                        .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/users/{username}/favorites")
     public Collection<ArticleJson> userFavorites(@PathVariable("username") String username) {
-        return userService.getByUserName(username).getFavorites().stream()
-                .map(ArticleJson::new)
-                .collect(Collectors.toList());
+        return userService.getByUserName(username)
+                .orElseThrow(ResourceNotFoundException::new)
+                .getFavorites().stream()
+                        .map(ArticleJson::new)
+                        .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/users/{username}/comments")
     public Collection<CommentJson> userComments(@PathVariable("username") String username) {
-        return userService.getByUserName(username).getComments().stream()
-                .map(CommentJson::new)
-                .collect(Collectors.toList());
+        return userService.getByUserName(username)
+                .orElseThrow(ResourceNotFoundException::new)
+                .getComments().stream()
+                        .map(CommentJson::new)
+                        .collect(Collectors.toList());
     }
 
 

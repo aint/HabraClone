@@ -1,8 +1,11 @@
 package com.github.aint.habraclone.web.mvc.controller;
 
+import com.github.aint.habraclone.data.model.Article;
+import com.github.aint.habraclone.service.dto.ArticleForm;
+import com.github.aint.habraclone.service.transactional.ArticleService;
+import com.github.aint.habraclone.service.transactional.HubService;
+import com.github.aint.habraclone.web.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,15 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.github.aint.habraclone.data.model.Article;
-import com.github.aint.habraclone.service.transactional.ArticleService;
-import com.github.aint.habraclone.service.transactional.HubService;
-import com.github.aint.habraclone.service.dto.ArticleForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import static com.github.aint.habraclone.web.mvc.util.ConstantsHolder.ERROR_404;
 
 @Controller
 public class ArticleController {
@@ -46,18 +43,15 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/{id}")
-    public ModelAndView showArticleWithComments(@PathVariable("id") Long id) {
-        Article article = (Article) articleService.getById(id);
-        if (article == null) {
-            return new ModelAndView(ERROR_404);
-        }
+    public ModelAndView showArticle(@PathVariable("id") Long id) {
+        Article article = articleService.getById(id).orElseThrow(ResourceNotFoundException::new);
         articleService.incrementViewsCount(article);
         return new ModelAndView(ARTICLES_VIEW, ARTICLE_ATTRIBUTE, article);
     }
 
     @RequestMapping(value = "/articles/{id}/add-favorite")
     public String addFavoriteArticle(@PathVariable("id") Long id, HttpServletRequest request) {
-        articleService.addArticleToFavorites(getPrincipal(), id);
+        articleService.addArticleToFavorites(id);
 
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/");
@@ -76,27 +70,20 @@ public class ArticleController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView(ADD_ARTICLE_VIEW, HUBS_ATTRIBUTE, hubService.getAll());
         }
-        Long id = articleService.createAndSave(articleForm, getPrincipal());
+        Long id = articleService.createAndSave(articleForm);
         return new ModelAndView("redirect:/articles/" + id);
     }
 
     @RequestMapping(value = "/articles/{id}/vote/plus")
     public String votePlusForArticle(@PathVariable Long id) {
-        articleService.voteForArticle(id, getPrincipal(), true);
+        articleService.voteForArticle(id, true);
         return "redirect:/articles/" + id;
     }
 
     @RequestMapping(value = "/articles/{id}/vote/minus")
     public String voteMinusForArticle(@PathVariable Long id) {
-        articleService.voteForArticle(id, getPrincipal(), false);
+        articleService.voteForArticle(id, false);
         return "redirect:/articles/" + id;
-    }
-
-    private String getPrincipal() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (principal instanceof UserDetails
-                ? ((UserDetails)principal).getUsername()
-                : principal.toString());
     }
 
 }
