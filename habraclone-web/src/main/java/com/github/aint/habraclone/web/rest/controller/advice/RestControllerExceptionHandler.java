@@ -1,5 +1,6 @@
 package com.github.aint.habraclone.web.rest.controller.advice;
 
+import com.github.aint.habraclone.web.ResourceNotFoundException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
-@ControllerAdvice//(basePackages = "*.rest.controller")
-public class RestExceptionController {
+@ControllerAdvice("com.github.aint.habraclone.web.rest.controller")
+public class RestControllerExceptionHandler {
 
-    @ExceptionHandler(NoHandlerFoundException.class)
+    @ExceptionHandler({ NoHandlerFoundException.class, ResourceNotFoundException.class })
     public ResponseEntity<String> handleError404() {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
