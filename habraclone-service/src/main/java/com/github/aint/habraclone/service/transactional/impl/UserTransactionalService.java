@@ -54,6 +54,7 @@ public class UserTransactionalService extends AbstractEntityTransactionalService
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User=%s not found", username)));
     }
 
+//    TODO inject MailService 'cause now this method is untestable
     @Override
     public void register(UserForm userForm) {
         User user = dtoToUser(userForm);
